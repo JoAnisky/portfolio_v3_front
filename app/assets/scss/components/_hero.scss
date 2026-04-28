@@ -1,0 +1,65 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000100; // couleur de fallback
+}
+
+// Toutes les couches
+.hero__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Image standard — couvre toute la couche
+.hero__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  // Pour aurora_stars et moon qui ont un fond noir
+  &--screen {
+    mix-blend-mode: screen;
+  }
+
+  // Éléments ancrés en bas (montagnes, arbres, lac)
+  &--bottom {
+    top: auto;
+    bottom: 0;
+    height: auto; // hauteur naturelle de l'image
+    object-fit: initial;
+  }
+  &--center {
+    top: 60%;
+    bottom: 0;
+    height: auto; // hauteur naturelle de l'image
+    object-fit: initial;
+  }
+  // Lune positionnée à droite
+  &--moon {
+    top: 20%;
+    right: 5%;
+    left: auto;
+    width: 307px;
+    height: auto;
+    object-fit: initial;
+    mix-blend-mode: screen;
+  }
+}
+
+// Contenu texte
+.hero__content {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

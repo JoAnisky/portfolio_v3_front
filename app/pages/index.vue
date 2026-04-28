@@ -1,5 +1,6 @@
+<script setup lang="ts">
+import HeroSection from "~/components/sections/HeroSection.vue";
+</script>
 <template>
-  <div class="pt-24">
-    <p class="text-center text-muted">Home - WIP</p>
-  </div>
+  <HeroSection/>
 </template>
