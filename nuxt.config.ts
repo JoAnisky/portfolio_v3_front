@@ -30,6 +30,12 @@ export default defineNuxtConfig({
         '.local',
       ],
     },
+    optimizeDeps: {
+      include: [
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+      ],
+    },
   },
   app: {
     head: {
