@@ -1,5 +1,7 @@
-html {
+html, body {
   background-color: var(--color-bg);
+}
+html {
   color: var(--color-text);
   font-family: var(--font-body), serif;
   scroll-behavior: smooth;

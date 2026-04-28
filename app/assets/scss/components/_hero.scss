@@ -34,6 +34,9 @@
     bottom: 0;
     height: auto; // hauteur naturelle de l'image
     object-fit: initial;
+    &--trees{
+      top:25%;
+    }
   }
   &--center {
     top: 60%;
@@ -43,13 +46,16 @@
   }
   // Lune positionnée à droite
   &--moon {
-    top: 28%;
-    right: 8%;
+    top: 35%;
+    right: 15%;
     left: auto;
-    width: 307px;
+    width: 140px;
     height: auto;
     object-fit: initial;
     mix-blend-mode: screen;
+    // Halo CSS
+    filter: drop-shadow(0 0 40px rgba(200, 220, 255, 0.4))
+    drop-shadow(0 0 80px rgba(150, 190, 255, 0.2));
   }
   &--exclusion{
     mix-blend-mode: exclusion;
