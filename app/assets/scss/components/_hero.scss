@@ -43,13 +43,17 @@
   }
   // Lune positionnée à droite
   &--moon {
-    top: 20%;
-    right: 5%;
+    top: 28%;
+    right: 8%;
     left: auto;
     width: 307px;
     height: auto;
     object-fit: initial;
     mix-blend-mode: screen;
+  }
+  &--exclusion{
+    mix-blend-mode: exclusion;
+    bottom: 1.5%;
   }
 }
 
