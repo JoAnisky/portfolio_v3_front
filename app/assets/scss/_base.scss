@@ -1,0 +1,10 @@
+html {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body), serif;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-title), serif;
+}

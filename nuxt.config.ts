@@ -56,7 +56,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/scss/main.scss'],
 
   typescript: {
     strict: true,

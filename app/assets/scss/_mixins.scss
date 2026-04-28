@@ -1,0 +1,11 @@
+@mixin gradient-aurora($direction: 135deg) {
+  background: linear-gradient($direction, #0DCDEF, #1AD792);
+}
+
+@mixin gradient-border-aurora($radius: 1rem, $direction: 90deg, $bg: rgba(5, 12, 25, 50)) {
+  background:
+          linear-gradient($bg, $bg) padding-box,
+          linear-gradient($direction, #0DCDEF, #1AD792) border-box;
+  border: 1px solid transparent;
+  border-radius: $radius;
+}

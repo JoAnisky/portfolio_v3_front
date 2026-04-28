@@ -1,0 +1,27 @@
+@import '../mixins';
+
+.navbar {
+  @include gradient-border-aurora(1rem, 135deg);
+  backdrop-filter: blur(12px);
+}
+
+.nav-link {
+  display: block;
+  padding: 0.375rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--color-text);
+  }
+
+  &--active {
+    color: var(--color-aurora-blue);
+    border: 1px solid var(--color-aurora-blue);
+    background: rgba(13, 205, 239, 0.05);
+  }
+}

@@ -1,0 +1,33 @@
+// ─── Couleurs ─────────────────────────────────────────
+:root {
+  // Backgrounds
+  --color-bg:              #010511;
+  --color-bg-secondary:    #222255;
+  --color-card-stroke:     #222222;
+  --color-stroke:          #414141;
+
+  // Aurora / accents
+  --color-aurora-green:    #1AD792;
+  --color-aurora-blue:     #0DCDEF;
+  --color-blue-2:          #68DDD0;
+  --color-timeline:        #6BE1D4;
+  --color-project-type:    #6993EC;
+
+  // États
+  --color-available:       #00C950;
+  --color-heart:           #F28D8D;
+
+  // Textes
+  --color-text:            #C0C0C0;
+  --color-text-muted:      #989898;
+  --color-text-light:      #CECECE;
+
+  // Typo
+  --font-title:          'Outfit', system-ui, sans-serif;
+  --font-body:           'DM Sans', system-ui, sans-serif;
+
+  // Gradients aurora (utilisables en CSS var)
+  --gradient-aurora:          linear-gradient(135deg, #0DCDEF, #1AD792);
+  --gradient-aurora-horizontal: linear-gradient(90deg,  #0DCDEF, #1AD792);
+  --gradient-aurora-vertical:   linear-gradient(180deg, #0DCDEF, #1AD792);
+}
