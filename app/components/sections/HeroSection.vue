@@ -27,7 +27,7 @@ onMounted(() => {
     <div class="hero__layer" data-depth="0.12">
       <img src="/parallax/mountains-1-trees.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
     </div>
-    <div class="hero__layer" data-depth="0.16">
+    <div class="hero__layer" data-depth="0.14">
       <img src="/parallax/lake.webp" alt="" aria-hidden="true" class="hero__img hero__img--lake">
     </div>
     <div class="hero__layer" data-depth="0.25">
@@ -56,7 +56,10 @@ onMounted(() => {
 
     <!-- Contenu texte (au dessus de tout) -->
     <div class="hero__content">
-      <slot />
+      <p class="hero__intro">Bonjour, je suis</p>
+      <h1 class="hero__title">Jonathan Loré</h1>
+      <span class="hero__badge">Développeur web Fullstack</span>
+      <p class="hero__tagline">De la vision à la production, je construis des expériences qui ont du sens.</p>
     </div>
 
   </section>

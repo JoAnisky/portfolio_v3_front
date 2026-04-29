@@ -2,10 +2,21 @@
   background: linear-gradient($direction, #0DCDEF, #1AD792);
 }
 
-@mixin gradient-border-aurora($radius: 1rem, $direction: 90deg, $bg: rgba(5, 12, 25, 50)) {
-  background:
-          linear-gradient($bg, $bg) padding-box,
-          linear-gradient($direction, #0DCDEF, #1AD792) border-box;
-  border: 1px solid transparent;
-  border-radius: $radius;
+@mixin gradient-border-aurora($radius: 9999px, $direction: 90deg, $border-width: 1px) {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: $radius;
+    padding: $border-width;
+    background: linear-gradient($direction, #0DCDEF, #1AD792);
+    -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 }
