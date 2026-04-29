@@ -54,10 +54,10 @@ onMounted(() => {
       <img src="/parallax/trees-3.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom--trees">
     </div>
 
-<!--    &lt;!&ndash; Contenu texte (au dessus de tout) &ndash;&gt;-->
-<!--    <div class="hero__content">-->
-<!--      <slot />-->
-<!--    </div>-->
+    <!-- Contenu texte (au dessus de tout) -->
+    <div class="hero__content">
+      <slot />
+    </div>
 
   </section>
 </template>

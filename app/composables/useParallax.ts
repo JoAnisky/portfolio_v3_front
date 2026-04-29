@@ -1,8 +1,8 @@
 export function useParallax() {
   const { y } = useWindowScroll()
+  const { width } = useWindowSize()
 
   function applyParallax(container: Ref<HTMLElement | null>) {
-    // Prépare le GPU sur chaque couche au montage
     onMounted(() => {
       if (!container.value) return
       const layers = container.value.querySelectorAll<HTMLElement>('[data-depth]')
@@ -14,15 +14,22 @@ export function useParallax() {
     watchEffect(() => {
       if (!container.value) return
 
-      const scrollY = y.value
+      // Pas de parallax sous 1024px
+      if (width.value < 1024) {
+        const layers = container.value.querySelectorAll<HTMLElement>('[data-depth]')
+        layers.forEach((layer) => {
+          layer.style.transform = 'none'
+        })
+        return
+      }
+
+      const maxScroll = window.innerHeight * 0.6
+      const scrollClamped = Math.min(y.value, maxScroll)
       const layers = container.value.querySelectorAll<HTMLElement>('[data-depth]')
 
       layers.forEach((layer) => {
         const depth = parseFloat(layer.dataset.depth ?? '0')
-        const maxScroll = window.innerHeight * 0.60 // limite à 65% du viewport
-        const scrollClamped = Math.min(scrollY, maxScroll)
         const translateY = -scrollClamped * depth
-
         layer.style.transform = `translate3d(0, ${translateY}px, 0)`
       })
     })
