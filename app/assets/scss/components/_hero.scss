@@ -3,7 +3,7 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background-color: #000100; // couleur de fallback
+  background-color: #010511; // couleur de fallback
 }
 
 // Toutes les couches
@@ -35,7 +35,7 @@
     height: auto; // hauteur naturelle de l'image
     object-fit: initial;
     &--trees{
-      top:25%;
+      top: 10%;
     }
   }
   &--center {
@@ -44,9 +44,12 @@
     height: auto; // hauteur naturelle de l'image
     object-fit: initial;
   }
+  &--lake {
+    top:-1%;
+  }
   // Lune positionnée à droite
   &--moon {
-    top: 35%;
+    top: 30%;
     right: 15%;
     left: auto;
     width: 140px;
@@ -59,7 +62,7 @@
   }
   &--exclusion{
     mix-blend-mode: exclusion;
-    bottom: 1.5%;
+    bottom: -3%;
   }
 }
 

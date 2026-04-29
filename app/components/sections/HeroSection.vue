@@ -13,39 +13,44 @@ onMounted(() => {
     <div class="hero__bg" />
 
     <!-- Couches parallax -->
-    <div class="hero__layer" data-depth="0.03">
+    <div class="hero__layer" data-depth="0.02">
       <img src="/parallax/aurora_stars.webp" alt="" aria-hidden="true" class="hero__img">
     </div>
 
-    <div class="hero__layer" data-depth="0.04">
+    <div class="hero__layer" data-depth="0.06">
       <img src="/parallax/moon.webp" alt="" aria-hidden="true" class="hero__img hero__img--moon">
     </div>
 
-    <div class="hero__layer" data-depth="0.13">
+    <div class="hero__layer" data-depth="0.10">
       <img src="/parallax/mountains-1.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
     </div>
-
-    <div class="hero__layer" data-depth="0.17">
-      <img src="/parallax/lake.webp" alt="" aria-hidden="true" class="hero__img hero__img--center">
+    <div class="hero__layer" data-depth="0.12">
+      <img src="/parallax/mountains-1-trees.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
     </div>
-    <div class="hero__layer" data-depth="0.28">
+    <div class="hero__layer" data-depth="0.16">
+      <img src="/parallax/lake.webp" alt="" aria-hidden="true" class="hero__img hero__img--lake">
+    </div>
+    <div class="hero__layer" data-depth="0.25">
       <img src="/parallax/trees-1.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
     </div>
-        <div class="hero__layer" data-depth="0.32">
-          <img src="/parallax/trees-2.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
-        </div>
-    <div class="hero__layer" data-depth="0.35">
+    <div class="hero__layer" data-depth="0.32">
+      <img src="/parallax/cliff.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
+    </div>
+    <div class="hero__layer" data-depth="0.36">
       <img src="/parallax/mountains-2.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
     </div>
-    <div class="hero__layer" data-depth="0.38">
+    <div class="hero__layer" data-depth="0.44">
+      <img src="/parallax/trees-2.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
+    </div>
+    <div class="hero__layer" data-depth="0.49">
       <img src="/parallax/mountains-3.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
     </div>
     <!-- Brume seule (dégradés radiaux, mix-blend-mode) -->
-    <div class="hero__layer" data-depth="0.40">
+    <div class="hero__layer" data-depth="0.52">
       <img src="/parallax/trees-3-brume.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom hero__img--exclusion">
     </div>
     <!-- Arbres seuls -->
-    <div class="hero__layer" data-depth="0.40">
+    <div class="hero__layer" data-depth="0.52">
       <img src="/parallax/trees-3.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom--trees">
     </div>
 

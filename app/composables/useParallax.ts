@@ -19,7 +19,7 @@ export function useParallax() {
 
       layers.forEach((layer) => {
         const depth = parseFloat(layer.dataset.depth ?? '0')
-        const maxScroll = window.innerHeight * 0.70 // limite à 65% du viewport
+        const maxScroll = window.innerHeight * 0.60 // limite à 65% du viewport
         const scrollClamped = Math.min(scrollY, maxScroll)
         const translateY = -scrollClamped * depth
 
