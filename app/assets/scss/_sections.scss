@@ -1,0 +1,22 @@
+.section-header {
+  @apply text-center mb-16 px-6;
+
+  .section-title {
+    @apply flex items-center justify-center gap-4 font-bold mb-5;
+    font-family: var(--font-title);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: var(--color-text-light);
+
+    &::before, &::after {
+      content: "";
+      @apply block w-10 h-[1px] flex-shrink-0;
+      background: var(--gradient-aurora-horizontal);
+    }
+  }
+
+  .section-quote {
+    @apply text-[0.95rem] italic;
+    font-family: var(--font-body);
+    color: var(--color-text-muted);
+  }
+}
