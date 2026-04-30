@@ -53,13 +53,19 @@
   }
 
   &__availability {
-    @apply flex items-center gap-2 text-sm;
+    @apply flex items-center gap-2 text-sm font-bold;
 
     &-dot {
-      @apply w-2 h-2 rounded-full;
+      @apply w-2 h-2 rounded-full relative flex-shrink-0;
       background: var(--color-available);
       box-shadow: 0 0 6px var(--color-available);
-      animation: availability-pulse 2s ease-in-out infinite;
+
+      &::after {
+        @apply absolute inset-0 rounded-full;
+        content: '';
+        background: var(--color-available);
+        animation: availability-sonar 2s ease-out infinite;
+      }
     }
   }
 
@@ -71,13 +77,13 @@
     @apply inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 hover:-translate-y-0.5;
 
     &--primary {
-      @include gradient-aurora;
-      @apply text-[#010511] font-semibold hover:shadow-[0_4px_20px_rgba(13,205,239,0.35)];
+      background: var(--color-aurora-green);
+      @apply text-[#010511] font-semibold hover:shadow-[0_4px_20px_rgba(26,215,146,0.35)];
     }
 
     &--secondary {
-      @include gradient-border-aurora(0.5rem, 90deg, rgba(1, 5, 17, 0.7));
-      @apply text-[var(--color-aurora-blue)] backdrop-blur-sm hover:shadow-[0_4px_20px_rgba(13,205,239,0.15)];
+      border: 1px solid var(--color-aurora-green);
+      @apply text-[var(--color-aurora-green)] backdrop-blur-sm hover:shadow-[0_4px_20px_rgba(26,215,146,0.15)];
     }
   }
 
@@ -156,7 +162,7 @@
   }
 }
 
-@keyframes availability-pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--color-available); }
-  50%       { opacity: 0.7; box-shadow: 0 0 12px var(--color-available); }
+@keyframes availability-sonar {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(3);   opacity: 0;   }
 }
