@@ -1,11 +1,11 @@
 @use '../mixins' as *;
 
 .about {
-  @apply pt-24 overflow-hidden;
+  @apply pt-24 pb-8 overflow-hidden;
   background: radial-gradient(ellipse 13% 17% at center, #145242, #010511) fixed;
 
   &__main {
-    @apply grid lg:grid-cols-2 gap-12 max-w-[1100px] mx-auto px-8 pb-16 items-center lg:text-left text-center;
+    @apply grid lg:grid-cols-2 gap-12 max-w-[1100px] mx-auto px-8 pb-20 items-center lg:text-left text-center;
   }
 
   &__left {
@@ -127,10 +127,10 @@
   }
 
   &__cards {
-    @apply max-w-[1050px] mx-auto px-8 pb-16;
+    @apply max-w-[1050px] mx-auto px-8 pb-20;
 
     &-title {
-      @apply font-title text-xl font-bold mb-7 text-[var(--color-text-light)];
+      @apply font-title text-xl font-bold mb-10 text-[var(--color-text-light)];
       span {
         @apply bg-clip-text text-transparent;
         background-image: var(--gradient-aurora-horizontal);
@@ -163,7 +163,7 @@
   }
 
   &__counters {
-    @apply grid md:grid-cols-4 grid-cols-2 max-w-[1100px] mx-auto py-12 px-8 gap-y-8;
+    @apply grid md:grid-cols-4 grid-cols-2 max-w-[1100px] mx-auto py-16 px-8 gap-y-8;
   }
 
   &__counter {
