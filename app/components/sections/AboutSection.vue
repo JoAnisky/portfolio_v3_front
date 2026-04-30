@@ -126,12 +126,13 @@ onUnmounted(() => {
         </div>
 
         <!-- Photo de profil -->
+        <!-- Photo de profil -->
         <div class="about__photo">
           <div class="about__photo-ring about__photo-ring--outer"></div>
+          <div class="about__photo-ring about__photo-ring--mid"></div>
           <div class="about__photo-ring"></div>
-          <div class="about__photo-placeholder">
-            <!-- Remplacer par : <img src="/profile.webp" alt="Jonathan Loré" /> -->
-            <span class="about__photo-initials">JL</span>
+          <div class="about__photo-img">
+            <img src="/profile.webp" alt="Jonathan Loré" />
           </div>
         </div>
 
