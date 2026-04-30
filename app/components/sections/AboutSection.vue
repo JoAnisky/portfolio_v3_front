@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import AppDivider from "~/components/ui/AppDivider.vue";
 
 // --- Compteurs animés ---
 interface Counter {
@@ -202,7 +203,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Séparateur gradient -->
-    <div class="about__divider" aria-hidden="true"></div>
+    <AppDivider />
 
     <!-- Compteurs -->
     <div ref="countersRef" class="about__counters">
@@ -213,6 +214,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Séparateur gradient bas -->
-    <div class="about__divider" aria-hidden="true"></div>
+    <AppDivider />
+
   </section>
 </template>
