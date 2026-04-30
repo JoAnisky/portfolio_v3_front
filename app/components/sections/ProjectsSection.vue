@@ -62,7 +62,7 @@ const { projects, isLoading, hasError, getCoverScreenshot, getSortedHighlights, 
               <template v-if="getCoverScreenshot(project)">
                 <img
                     :src="getScreenshotUrl(getCoverScreenshot(project)!.path)"
-                    :alt="getScreenshotUrl(getCoverScreenshot(project)!.alt)"
+                    :alt="getCoverScreenshot(project)!.alt"
                     loading="lazy"
                     decoding="async"
                 />

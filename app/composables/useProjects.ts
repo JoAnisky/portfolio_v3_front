@@ -73,7 +73,7 @@ export function useProjects() {
      */
     function getCoverScreenshot(project: Project): ProjectScreenshot | null {
         if (!project.screenshots?.length) return null
-        console.log('[screenshots raw]', project.screenshots)
+        console.log('[screenshots raw]', project.screenshots);
         const cover = project.screenshots.find((s) => s.isCover)
         if (cover) return cover
 
@@ -94,7 +94,7 @@ export function useProjects() {
             ? config.apiBaseUrl
             : config.public.apiBaseUrl
         // Évite le double slash si path commence déjà par /
-        return `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/'}${path}`
+        return `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/uploads/screenshots/'}${path}`
     }
 
     return {
