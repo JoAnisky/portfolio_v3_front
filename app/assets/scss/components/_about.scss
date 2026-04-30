@@ -2,6 +2,7 @@
 
 .about {
   @apply pt-24 overflow-hidden;
+  background: radial-gradient(ellipse 13% 17% at center, #145242, #010511) fixed;
 
   &__main {
     @apply grid lg:grid-cols-2 gap-12 max-w-[1100px] mx-auto px-8 pb-16 items-center lg:text-left text-center;

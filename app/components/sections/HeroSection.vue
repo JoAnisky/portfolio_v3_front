@@ -13,7 +13,7 @@ onMounted(() => {
     <div class="hero__bg z-0" />
 
     <!-- Couches parallax -->
-    <div class="hero__layer z-[1]" data-depth="0.02">
+    <div class="hero__layer z-[1]" data-depth="0.01">
       <img src="/parallax/aurora_stars.webp" alt="" aria-hidden="true" class="hero__img">
     </div>
 
