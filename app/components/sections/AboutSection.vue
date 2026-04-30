@@ -192,8 +192,10 @@ onUnmounted(() => {
       </h4>
       <div class="about__cards-grid">
         <div v-for="card in cards" :key="card.title" class="about__card">
-          <span class="about__card-icon">{{ card.icon }}</span>
-          <strong class="about__card-title">{{ card.title }}</strong>
+          <div class="about__card-heading">
+            <strong class="about__card-title">{{ card.title }}</strong>
+            <span class="about__card-icon">{{ card.icon }}</span>
+          </div>
           <p class="about__card-desc">{{ card.description }}</p>
         </div>
       </div>

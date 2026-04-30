@@ -22,3 +22,17 @@
     pointer-events: none;
   }
 }
+
+@mixin gradient-border-left-aurora($border-width: 2px) {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    left: 0;
+    width: $border-width;
+    background: linear-gradient(180deg, #0DCDEF, #1AD792);
+    pointer-events: none;
+  }
+}
