@@ -208,7 +208,7 @@ onUnmounted(() => {
     <!-- Compteurs -->
     <div ref="countersRef" class="about__counters">
       <div v-for="counter in counters" :key="counter.label" class="about__counter">
-        <span class="about__counter-value">{{ counter.current }}{{ counter.suffix }}</span>
+        <span class="about__counter-value">{{ counter.current }}<span class="about__counter-value-suffix">{{ counter.suffix }}</span></span>
         <span class="about__counter-label">{{ counter.label }}</span>
       </div>
     </div>
