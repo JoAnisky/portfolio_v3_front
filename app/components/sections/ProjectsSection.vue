@@ -1,7 +1,13 @@
 <script setup lang="ts">
 </script>
 <template>
-  <div class="pt-24">
-    <p class="text-center text-muted">Projets</p>
-  </div>
+  <section id="about" class="about">
+    <!-- En-tête de section -->
+    <div class="section-header">
+      <h2 class="section-title">Projets</h2>
+      <p class="section-quote">
+        “Chaque projet est une idée qui a trouvé sa forme.”
+      </p>
+    </div>
+  </section>
 </template>
