@@ -2,7 +2,7 @@
   @apply text-center mb-16 px-6;
 
   .section-title {
-    @apply flex items-center justify-center gap-4 font-bold mb-5;
+    @apply flex items-center justify-center gap-4 font-medium mb-5;
     font-family: var(--font-title);
     font-size: clamp(1.75rem, 4vw, 2.5rem);
     color: var(--color-text-light);

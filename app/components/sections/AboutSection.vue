@@ -163,16 +163,20 @@ onUnmounted(() => {
         </h3>
         <div class="about__bio">
           <p>
-            Développeur fullstack depuis plusieurs années, j'aime construire des choses qui tiennent —
+            Développeur fullstack depuis plusieurs années, j'aime construire des choses qui tiennent -
             des interfaces soignées, des architectures qui évoluent et livrer des projets.
           </p>
           <p>
-            Mon terrain de jeu va de l'UI jusqu'à l'infra : Vue/Nuxt côté front, Symfony ou Laravel
-            côté back, et une vraie culture DevOps pour que tout ça vive sereinement en production.
+            Mon terrain de jeu va de l'UI jusqu'à l'infra :
+            <strong>Vue/Nuxt</strong> côté front,
+            <strong>Symfony</strong> ou <strong>Laravel</strong> côté back,
+            et une vraie culture DevOps avec la mise en place d'outils tels que
+            <span class="about__tech">Jenkins</span> et <span class="about__tech">Kubernetes</span>
+            pour que tout ça vive sereinement en production.
           </p>
           <p>
             Ce qui me plaît, c'est de comprendre à la fois la vision du client et les contraintes
-            techniques — et faire le pont entre les deux.
+            techniques - et faire le pont entre les deux.
           </p>
         </div>
       </div>
