@@ -1,0 +1,151 @@
+@use '../mixins' as *;
+
+.projects {
+  @apply relative overflow-hidden;
+
+  // --- Orbes décoratifs ---
+  &__orb {
+    @apply absolute rounded-full pointer-events-none opacity-35 blur-[80px];
+
+    &--left {
+      @apply w-80 h-80 top-0 -left-[60px];
+      background: radial-gradient(circle, var(--color-aurora-green), transparent 70%);
+    }
+
+    &--right {
+      @apply w-[280px] h-[280px] top-[60px] -right-[60px];
+      background: radial-gradient(circle, var(--color-aurora-blue), transparent 70%);
+    }
+  }
+
+  &__grid {
+    @apply relative z-[1];
+  }
+
+  // --- Card ---
+  &__card {
+    @apply flex flex-col rounded-2xl overflow-hidden bg-[rgba(5,12,25,0.7)] border border-[var(--color-card-stroke)] transition-all duration-300;
+
+    &:hover {
+      @apply -translate-y-1 border-[rgba(13,205,239,0.35)] shadow-[0_16px_40px_rgba(13,205,239,0.08)];
+
+      .projects__screenshot img { @apply scale-[1.04]; }
+      .projects__cta { @apply bg-[rgba(13,205,239,0.08)] border-[rgba(13,205,239,0.5)] text-[var(--color-aurora-blue)]; }
+    }
+  }
+
+  // --- Screenshot ---
+  &__screenshot {
+    @apply relative overflow-hidden bg-[#0a0f1e] h-[200px];
+
+    img {
+      @apply w-full h-full object-cover object-top transition-transform duration-500;
+    }
+
+    &-bar {
+      @apply absolute top-0 inset-x-0 z-[2] flex items-center gap-1.5 px-3 py-2 bg-[rgba(10,15,30,0.85)] backdrop-blur-[4px] border-b border-[var(--color-card-stroke)];
+
+      span {
+        @apply block w-2 h-2 rounded-full bg-[var(--color-stroke)];
+      }
+    }
+
+    &-placeholder {
+      @apply w-full h-full flex items-center justify-center text-xs tracking-widest uppercase text-[var(--color-text-muted)];
+      font-family: var(--font-body);
+      background: linear-gradient(135deg, #0a0f1e, #141c35);
+    }
+  }
+
+  // --- Corps ---
+  &__body {
+    @apply flex flex-col flex-1 p-5 gap-3;
+  }
+
+  &__meta {
+    @apply flex flex-wrap items-center gap-2;
+  }
+
+  &__tag {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-[0.7rem] font-semibold tracking-wide border border-[rgba(13,205,239,0.25)] bg-[rgba(13,205,239,0.12)] text-[var(--color-aurora-blue)];
+    font-family: var(--font-body);
+  }
+
+  &__type {
+    @apply inline-flex items-center gap-1 text-[0.7rem] text-[var(--color-text-muted)];
+    font-family: var(--font-body);
+  }
+
+  &__title {
+    @apply text-[1.1rem] font-bold leading-[1.3] m-0 text-white;
+    font-family: var(--font-title);
+  }
+
+  &__description {
+    @apply text-[0.82rem] leading-relaxed m-0 text-[var(--color-text-muted)] line-clamp-3;
+    font-family: var(--font-body);
+  }
+
+  // --- Highlights ---
+  &__highlights {
+    @apply flex flex-wrap gap-1.5 list-none m-0 p-0;
+  }
+
+  &__highlight {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.68rem] border border-[rgba(26,215,146,0.25)] bg-[rgba(26,215,146,0.07)] text-[var(--color-aurora-green)];
+    font-family: var(--font-body);
+
+    &::before { content: "⚡"; @apply text-[0.65rem]; }
+  }
+
+  // --- Techs ---
+  &__techs {
+    @apply flex flex-wrap gap-2 mt-auto pt-3 border-t border-[var(--color-card-stroke)] list-none pl-0 mb-0;
+  }
+
+  &__tech {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[0.72rem] bg-white/5 border border-[var(--color-card-stroke)] text-[var(--color-text-light)];
+    font-family: var(--font-body);
+
+    img { @apply w-3.5 h-3.5 object-contain; }
+  }
+
+  // --- CTAs ---
+  &__cta {
+    @apply flex items-center justify-center gap-2 w-full p-3 mt-4 rounded-lg border border-[var(--color-stroke)] bg-transparent text-[0.85rem] font-medium text-[var(--color-text)] transition-all duration-200;
+    font-family: var(--font-body);
+  }
+
+  &__github-cta {
+    @apply inline-flex items-center gap-2.5 py-3 px-7 rounded-full border border-[var(--color-aurora-green)] bg-transparent text-[0.9rem] font-medium text-[var(--color-aurora-green)] transition-all duration-200 hover:bg-[rgba(26,215,146,0.08)] hover:shadow-[0_0_20px_rgba(26,215,146,0.15)];
+    font-family: var(--font-body);
+  }
+
+  // --- Skeleton & Error ---
+  &__skeleton {
+    @apply rounded-2xl overflow-hidden bg-[rgba(5,12,25,0.7)] border border-[var(--color-card-stroke)];
+
+    &-img { @apply h-[200px]; @include skeleton-shimmer; }
+    &-body { @apply p-5 flex flex-col gap-3; }
+    &-line {
+      @apply h-3 rounded-full; @include skeleton-shimmer;
+      &--title { @apply h-[18px] w-[70%]; }
+      &--short { @apply w-[45%]; }
+      &--medium { @apply w-[85%]; }
+    }
+  }
+
+  &__error { @apply text-center py-12 text-sm text-[var(--color-text-muted)]; font-family: var(--font-body); }
+}
+
+// Mixin pour éviter la répétition du shimmer
+@mixin skeleton-shimmer {
+  background: linear-gradient(90deg, #0d1224 25%, #141c35 50%, #0d1224 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
