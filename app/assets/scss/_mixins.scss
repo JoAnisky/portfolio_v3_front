@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 @mixin gradient-aurora($direction: 135deg) {
   background: linear-gradient($direction, #0DCDEF, #1AD792);
 }

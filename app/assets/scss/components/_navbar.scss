@@ -1,4 +1,4 @@
-@import '../mixins';
+@use '../mixins' as *;
 
 .navbar {
   @include gradient-border-aurora(1rem, 135deg);
