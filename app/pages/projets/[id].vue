@@ -1,7 +1,14 @@
 <script setup lang="ts">
+const route = useRoute()
+const config = useRuntimeConfig()
+
+const { data: project, status } = await useFetch(
+    `${config.public.apiBaseUrl}/api/projects/${route.params.id}`
+)
 </script>
+
 <template>
-  <div class="pt-24">
-    <p class="text-center text-muted">Project details</p>
+  <div>
+    <pre>{{ project }}</pre>
   </div>
 </template>
