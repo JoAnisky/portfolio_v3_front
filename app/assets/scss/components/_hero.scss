@@ -27,7 +27,7 @@
   // Couche plein écran (ciel)
   &--sky {
     z-index: 1;
-    background-image: url('/parallax/aurora_stars.webp');
+    background-image: url('/assets/images/parallax/aurora_stars.webp');
     background-size: cover;
     background-position: center center;
   }
@@ -35,7 +35,7 @@
   // Lune — petite, positionnée à droite
   &--moon {
     z-index: 2;
-    background-image: url('/parallax/moon.webp');
+    background-image: url('/assets/images/parallax/moon.webp');
     background-size: 140px auto;
     background-position: 85% 35%;
     mix-blend-mode: screen;
@@ -44,42 +44,42 @@
 
   &--mountain-1 {
     z-index: 4;
-    background-image: url('/parallax/mountains-1.webp');
+    background-image: url('/assets/images/parallax/mountains-1.webp');
   }
   &--mountain-1-trees {
     z-index: 5;
-    background-image: url('/parallax/mountains-1-trees.webp');
+    background-image: url('/assets/images/parallax/mountains-1-trees.webp');
   }
   &--lake {
     z-index: 6;
-    background-image: url('/parallax/lake.webp');
+    background-image: url('/assets/images/parallax/lake.webp');
   }
   &--trees-1{
     z-index: 7;
-    background-image: url('/parallax/trees-1.webp');
+    background-image: url('/assets/images/parallax/trees-1.webp');
   }
   &--cliff {
     z-index: 8;
-    background-image: url('/parallax/cliff.webp');
+    background-image: url('/assets/images/parallax/cliff.webp');
   }
   &--mountain-2 {
     z-index: 9;
-    background-image: url('/parallax/mountains-2.webp');
+    background-image: url('/assets/images/parallax/mountains-2.webp');
   }
   &--trees-2 {
     z-index: 10;
-    background-image: url('/parallax/trees-2.webp'); }
+    background-image: url('/assets/images/parallax/trees-2.webp'); }
   &--mountain-3 {
     z-index: 11;
-    background-image: url('/parallax/mountains-3.webp');
+    background-image: url('/assets/images/parallax/mountains-3.webp');
   }
   &--brume {
     z-index: 12;
-    background-image: url('/parallax/trees-3-brume.webp');
+    background-image: url('/assets/images/parallax/trees-3-brume.webp');
   }
   &--trees-3 {
     z-index: 13;
-    background-image: url('/parallax/trees-3.webp');
+    background-image: url('/assets/images/parallax/trees-3.webp');
   }
   &--exclusion {
     mix-blend-mode: exclusion;

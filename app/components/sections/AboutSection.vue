@@ -132,7 +132,7 @@ onUnmounted(() => {
           <div class="about__photo-ring about__photo-ring--mid"></div>
           <div class="about__photo-ring"></div>
           <div class="about__photo-img">
-            <img src="/profile.webp" alt="Jonathan Loré" />
+            <img src="/assets/images/profile.webp" alt="Jonathan Loré" />
           </div>
         </div>
 
