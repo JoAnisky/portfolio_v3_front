@@ -1,4 +1,4 @@
-import type { Project } from '#shared/types/project'
+import type { Project, ProjectWithCover  } from '#shared/types/project'
 import type { ApiPlatformCollection } from '#shared/types/api'
 
 export function useProjects() {
@@ -18,10 +18,10 @@ export function useProjects() {
 
     })
 
-    const projects = computed(() =>
+    const projects = computed<ProjectWithCover[]>(() =>
         (projectsData.value?.member ?? []).map((project) => ({
             ...project,
-            coverScreenshot: getCoverScreenshot(project), // calculé une seule fois par projet
+            coverScreenshot: getCoverScreenshot(project),
         }))
     )
     const isLoading = computed(() => status.value === 'pending')

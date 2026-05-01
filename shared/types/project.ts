@@ -35,3 +35,7 @@ export interface Project {
     technologies: Technology[]
     tags: Tag[]
 }
+
+export interface ProjectWithCover extends Project {
+    coverScreenshot: ProjectScreenshot | null
+}
