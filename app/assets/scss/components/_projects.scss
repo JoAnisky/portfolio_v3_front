@@ -1,23 +1,42 @@
 @use '../mixins' as *;
 
 .projects {
-  @apply pt-4 pb-8 overflow-hidden;
-  background: radial-gradient(ellipse 18% 21% at center, #123a40, #010511) fixed;
+  @apply relative pt-4 pb-8 overflow-hidden;
+  background: radial-gradient(ellipse 18% 21% at center, #123a40, #010511);
 
-  // --- Orbes décoratifs ---
-  &__orb {
-    @apply absolute rounded-full pointer-events-none opacity-35 blur-[80px];
+  // Orbe gauche
+  &::before {
+    content: '';
+    position: absolute;
+    width: 171px;
+    height: 171px;
+    top: 30%;
+    left: 20%;
+    background-image: url('/assets/images/orb-green.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    animation: orb-float 25s ease-in-out infinite;
 
-    &--left {
-      @apply w-80 h-80 top-0 -left-[60px];
-      background: radial-gradient(circle, var(--color-aurora-green), transparent 70%);
-    }
-
-    &--right {
-      @apply w-[280px] h-[280px] top-[60px] -right-[60px];
-      background: radial-gradient(circle, var(--color-aurora-blue), transparent 70%);
-    }
   }
+
+  // Orbe droit
+  &::after {
+    content: '';
+    position: absolute;
+    transform: scaleX(-1.5);
+    width: 171px;
+    height: 171px;
+    top: 45%;
+    right: 20%;
+    background-image: url('/assets/images/orb-green.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    opacity: 0.7;
+    animation: orb-float-reverse 22s ease-in-out infinite;
+  }
+
 
   &__grid {
     @apply relative z-[1];
@@ -42,7 +61,7 @@
       opacity: var(--glow-opacity, 0);
       background: radial-gradient(
                       300px circle at var(--glow-x, 50%) var(--glow-y, 50%),
-                      rgba(26, 215, 146, 0.12),   // ← aurora green
+                      rgba(26, 215, 146, 0.12), // ← aurora green
                       transparent 70%
       );
       transition: opacity 0.3s ease;
@@ -146,7 +165,9 @@
     @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[0.72rem] bg-white/5 border border-[var(--color-techno-stroke)] text-[var(--color-text-light)] bg-[var(--color-techno-fill)];
     font-family: var(--font-code);
 
-    img { @apply w-3.5 h-3.5 object-contain; }
+    img {
+      @apply w-3.5 h-3.5 object-contain;
+    }
   }
 
   // --- CTAs ---
@@ -164,20 +185,62 @@
   &__skeleton {
     @apply rounded-2xl overflow-hidden bg-[rgba(5,12,25,0.7)] border border-[var(--color-card-stroke)];
 
-    &-img { @apply h-[200px]; @include skeleton-shimmer; }
-    &-body { @apply p-5 flex flex-col gap-3; }
+    &-img {
+      @apply h-[200px];
+      @include skeleton-shimmer;
+    }
+
+    &-body {
+      @apply p-5 flex flex-col gap-3;
+    }
+
     &-line {
-      @apply h-3 rounded-full; @include skeleton-shimmer;
-      &--title { @apply h-[18px] w-[70%]; }
-      &--short { @apply w-[45%]; }
-      &--medium { @apply w-[85%]; }
+      @apply h-3 rounded-full;
+      @include skeleton-shimmer;
+
+      &--title {
+        @apply h-[18px] w-[70%];
+      }
+
+      &--short {
+        @apply w-[45%];
+      }
+
+      &--medium {
+        @apply w-[85%];
+      }
     }
   }
 
-  &__error { @apply text-center py-12 text-sm text-[var(--color-text-muted)]; font-family: var(--font-body); }
+  &__error {
+    @apply text-center py-12 text-sm text-[var(--color-text-muted)];
+    font-family: var(--font-body);
+  }
 }
 
 @keyframes skeleton-shimmer {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+@keyframes orb-float {
+  0%   { transform: translateY(0)      translateX(0)     scale(1);    }
+  15%  { transform: translateY(-90px)  translateX(25px)  scale(1.06); }
+  30%  { transform: translateY(-140px) translateX(-15px) scale(1.03); }
+  45%  { transform: translateY(-80px)  translateX(35px)  scale(1.07); }
+  60%  { transform: translateY(-120px) translateX(-25px) scale(1.04); }
+  75%  { transform: translateY(-60px)  translateX(20px)  scale(1.05); }
+  90%  { transform: translateY(-110px) translateX(-30px) scale(1.02); }
+  100% { transform: translateY(0)      translateX(0)     scale(1);    }
+}
+
+@keyframes orb-float-reverse {
+  0%   { transform: scaleX(-1) translateY(0)      translateX(0)     scale(1);    }
+  15%  { transform: scaleX(-1) translateY(-110px) translateX(-30px) scale(1.05); }
+  30%  { transform: scaleX(-1) translateY(-60px)  translateX(20px)  scale(1.07); }
+  45%  { transform: scaleX(-1) translateY(-130px) translateX(-20px) scale(1.03); }
+  60%  { transform: scaleX(-1) translateY(-75px)  translateX(30px)  scale(1.06); }
+  75%  { transform: scaleX(-1) translateY(-120px) translateX(-25px) scale(1.04); }
+  90%  { transform: scaleX(-1) translateY(-50px)  translateX(15px)  scale(1.02); }
+  100% { transform: scaleX(-1) translateY(0)      translateX(0)     scale(1);    }
 }
