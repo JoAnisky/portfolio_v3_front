@@ -97,7 +97,7 @@
   }
 
   &__description {
-    @apply text-[0.82rem] leading-relaxed m-0 text-[var(--color-text-muted)] line-clamp-3;
+    @apply text-[0.82rem] leading-relaxed m-0 text-[var(--color-text-light)] line-clamp-3;
     font-family: var(--font-body);
   }
 
@@ -117,7 +117,7 @@
 
   // --- Techs ---
   &__techs {
-    @apply flex flex-wrap gap-2 mt-auto list-none pl-0 mb-0;
+    @apply flex flex-wrap gap-2 list-none pl-0 mb-0;
   }
 
   &__tech {
@@ -129,7 +129,7 @@
 
   // --- CTAs ---
   &__cta {
-    @apply flex items-center justify-center gap-2 w-full p-3 mt-4 rounded-lg border border-[var(--color-stroke)] bg-transparent text-[0.85rem] font-medium text-[var(--color-text)] transition-all duration-200;
+    @apply flex items-center justify-center gap-2 w-full p-3 mt-auto rounded-lg border border-[var(--color-stroke)] bg-transparent text-[0.85rem] font-medium text-[var(--color-text)] transition-all duration-200;
     font-family: var(--font-body);
   }
 

@@ -48,7 +48,7 @@ const sortedHighlights = computed(() =>
       </div>
 
       <h3 class="projects__title">{{ project.name }}</h3>
-      <p class="projects__description">{{ project.description }}</p>
+      <p class="projects__description" v-html="project.description"/>
 
       <div class="projects__group">
         <ul v-if="sortedHighlights.length" class="projects__highlights" aria-label="Points forts">
