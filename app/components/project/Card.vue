@@ -58,8 +58,7 @@ const sortedHighlights = computed(() =>
 
       <ul v-if="project.technologies?.length" class="projects__techs" aria-label="Technologies utilisées">
         <li v-for="tech in project.technologies" :key="tech.name" class="projects__tech">
-          <img v-if="tech.icon" :src="`assets/icons/${tech.icon}.svg`" :alt="tech.name" />
-          <span>{{ tech.name }}</span>
+          <ProjectTechnoBadge :label="tech.name" :src="`assets/icons/${tech.icon}.svg`" :name="tech.name"/>
         </li>
       </ul>
 
