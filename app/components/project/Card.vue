@@ -50,17 +50,19 @@ const sortedHighlights = computed(() =>
       <h3 class="projects__title">{{ project.name }}</h3>
       <p class="projects__description">{{ project.description }}</p>
 
-      <ul v-if="sortedHighlights.length" class="projects__highlights" aria-label="Points forts">
-        <li v-for="highlight in sortedHighlights" :key="highlight.label" class="projects__highlight">
-          <ProjectHighlightBadge :label="highlight.label" />
-        </li>
-      </ul>
+      <div class="projects__group">
+        <ul v-if="sortedHighlights.length" class="projects__highlights" aria-label="Points forts">
+          <li v-for="highlight in sortedHighlights" :key="highlight.label" class="projects__highlight">
+            <ProjectHighlightBadge :label="highlight.label" />
+          </li>
+        </ul>
 
-      <ul v-if="project.technologies?.length" class="projects__techs" aria-label="Technologies utilisées">
-        <li v-for="tech in project.technologies" :key="tech.name" class="projects__tech">
-          <ProjectTechnoBadge :label="tech.name" :src="`assets/icons/${tech.icon}.svg`" :name="tech.name"/>
-        </li>
-      </ul>
+        <ul v-if="project.technologies?.length" class="projects__techs" aria-label="Technologies utilisées">
+          <li v-for="tech in project.technologies" :key="tech.name" class="projects__tech">
+            <ProjectTechnoBadge :label="tech.name" :src="`assets/icons/${tech.icon}.svg`" :name="tech.name"/>
+          </li>
+        </ul>
+      </div>
 
       <NuxtLink
           :to="`/projets/${project.id}`"

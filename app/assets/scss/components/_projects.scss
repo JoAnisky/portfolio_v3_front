@@ -1,7 +1,8 @@
 @use '../mixins' as *;
 
 .projects {
-  @apply relative overflow-hidden;
+  @apply pt-4 pb-8 overflow-hidden;
+  background: radial-gradient(ellipse 18% 21% at center, #123a40, #010511) fixed;
 
   // --- Orbes décoratifs ---
   &__orb {
@@ -24,26 +25,39 @@
 
   // --- Card ---
   &__card {
-    @apply flex flex-col rounded-2xl overflow-hidden bg-[rgba(5,12,25,0.7)] border border-[var(--color-card-stroke)] transition-all duration-300;
+    @apply flex flex-col rounded-2xl overflow-hidden transition-all duration-300;
+
+    background: rgba(3, 7, 16, 0.75);
+    border: 1px solid var(--color-card-stroke);
+    backdrop-filter: blur(22px);
+    box-shadow: 0 4px 4px 4px rgba(0, 0, 0, 0.25); // y=4, spread=4
 
     &:hover {
-      @apply -translate-y-1 border-[rgba(13,205,239,0.35)] shadow-[0_16px_40px_rgba(13,205,239,0.08)];
+      @apply -translate-y-1;
+      border-color: rgba(13, 205, 239, 0.35);
+      box-shadow: 0 16px 40px rgba(13, 205, 239, 0.08);
 
       .projects__screenshot img { @apply scale-[1.04]; }
-      .projects__cta { @apply bg-[rgba(13,205,239,0.08)] border-[rgba(13,205,239,0.5)] text-[var(--color-aurora-blue)]; }
+      .projects__cta {
+        background: rgba(13, 205, 239, 0.08);
+        border-color: rgba(13, 205, 239, 0.5);
+        color: var(--color-aurora-blue);
+      }
     }
   }
 
   // --- Screenshot ---
   &__screenshot {
-    @apply relative overflow-hidden bg-[#0a0f1e] h-[200px];
+    @apply relative overflow-hidden px-3 pt-0 pb-3;
+    background: transparent;
 
     img {
-      @apply w-full h-full object-cover object-top transition-transform duration-500;
+      @apply w-full object-cover object-top transition-transform duration-500 rounded-xl;
+      height: 240px;
     }
 
     &-bar {
-      @apply absolute top-0 inset-x-0 z-[2] flex items-center gap-1.5 px-3 py-2 bg-[rgba(10,15,30,0.85)] backdrop-blur-[4px] border-b border-[var(--color-card-stroke)];
+      @apply flex items-center gap-1.5 px-3 py-2 border-b border-[var(--color-card-stroke)];
 
       span {
         @apply block w-2 h-2 rounded-full bg-[var(--color-stroke)];
@@ -51,7 +65,8 @@
     }
 
     &-placeholder {
-      @apply w-full h-full flex items-center justify-center text-xs tracking-widest uppercase text-[var(--color-text-muted)];
+      @apply w-full flex items-center justify-center text-xs tracking-widest uppercase text-[var(--color-text-muted)] rounded-xl;
+      height: 180px;
       font-family: var(--font-body);
       background: linear-gradient(135deg, #0a0f1e, #141c35);
     }
@@ -86,9 +101,13 @@
     font-family: var(--font-body);
   }
 
+  &__group {
+    @apply flex flex-col gap-2 pt-3 border-t border-[var(--color-card-stroke)];
+  }
+
   // --- Highlights ---
   &__highlights {
-    @apply flex flex-wrap gap-1.5 list-none m-0 p-0;
+    @apply flex flex-wrap gap-1.5 list-none m-0 py-1;
   }
 
   &__highlight {
@@ -98,11 +117,11 @@
 
   // --- Techs ---
   &__techs {
-    @apply flex flex-wrap gap-2 mt-auto pt-3 border-t border-[var(--color-card-stroke)] list-none pl-0 mb-0;
+    @apply flex flex-wrap gap-2 mt-auto list-none pl-0 mb-0;
   }
 
   &__tech {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[0.72rem] bg-white/5 border border-[var(--color-card-stroke)] text-[var(--color-text-light)];
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[0.72rem] bg-white/5 border border-[var(--color-techno-stroke)] text-[var(--color-text-light)] bg-[var(--color-techno-fill)];
     font-family: var(--font-code);
 
     img { @apply w-3.5 h-3.5 object-contain; }
