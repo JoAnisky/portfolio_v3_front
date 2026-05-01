@@ -36,3 +36,9 @@
     pointer-events: none;
   }
 }
+
+@mixin skeleton-shimmer {
+  background: linear-gradient(90deg, #0d1224 25%, #141c35 50%, #0d1224 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+}

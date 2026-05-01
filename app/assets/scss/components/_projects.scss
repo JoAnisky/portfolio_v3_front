@@ -138,13 +138,6 @@
   &__error { @apply text-center py-12 text-sm text-[var(--color-text-muted)]; font-family: var(--font-body); }
 }
 
-// Mixin pour éviter la répétition du shimmer
-@mixin skeleton-shimmer {
-  background: linear-gradient(90deg, #0d1224 25%, #141c35 50%, #0d1224 75%);
-  background-size: 200% 100%;
-  animation: skeleton-shimmer 1.5s infinite;
-}
-
 @keyframes skeleton-shimmer {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
