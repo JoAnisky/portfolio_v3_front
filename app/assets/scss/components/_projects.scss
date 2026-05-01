@@ -93,7 +93,7 @@
 
   &__highlight {
     @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[0.68rem] border border-[rgba(26,215,146,0.25)] bg-[rgba(26,215,146,0.07)] text-[var(--color-aurora-green)];
-    font-family: var(--font-body);
+    font-family: var(--font-code);
   }
 
   // --- Techs ---
@@ -103,7 +103,7 @@
 
   &__tech {
     @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[0.72rem] bg-white/5 border border-[var(--color-card-stroke)] text-[var(--color-text-light)];
-    font-family: var(--font-body);
+    font-family: var(--font-code);
 
     img { @apply w-3.5 h-3.5 object-contain; }
   }
