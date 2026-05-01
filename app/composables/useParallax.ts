@@ -1,37 +1,41 @@
 export function useParallax() {
-  const { y } = useWindowScroll()
   const { width } = useWindowSize()
 
   function applyParallax(container: Ref<HTMLElement | null>) {
-    onMounted(() => {
+    let heroHeight = 0 // calculé une fois au montage
+
+    const handleScroll = () => {
       if (!container.value) return
+
+      const scrollY = window.pageYOffset
       const layers = container.value.querySelectorAll<HTMLElement>('[data-depth]')
-      layers.forEach((layer) => {
-        layer.style.willChange = 'transform'
-      })
-    })
 
-    watchEffect(() => {
-      if (!container.value) return
-
-      // Pas de parallax sous 1024px
-      if (width.value < 1024) {
-        const layers = container.value.querySelectorAll<HTMLElement>('[data-depth]')
+      if (scrollY >= heroHeight) {
         layers.forEach((layer) => {
-          layer.style.transform = 'none'
+          layer.style.visibility = 'hidden'
         })
         return
       }
 
-      const maxScroll = window.innerHeight * 0.6
-      const scrollClamped = Math.min(y.value, maxScroll)
-      const layers = container.value.querySelectorAll<HTMLElement>('[data-depth]')
-
       layers.forEach((layer) => {
+        layer.style.visibility = 'visible'
         const depth = parseFloat(layer.dataset.depth ?? '0')
-        const translateY = -scrollClamped * depth
-        layer.style.transform = `translate3d(0, ${translateY}px, 0)`
+        const yPos = -(scrollY * depth)
+        layer.style.transform = `translate3d(0px, ${yPos}px, 0px)`
       })
+    }
+
+    onMounted(() => {
+      if (width.value < 1024) return
+
+      // Calculé une seule fois — insensible aux redimensionnements de la console
+      heroHeight = (container.value?.offsetHeight ?? window.innerHeight) * 1.2
+
+      window.addEventListener('scroll', handleScroll, { passive: true })
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', handleScroll)
     })
   }
 

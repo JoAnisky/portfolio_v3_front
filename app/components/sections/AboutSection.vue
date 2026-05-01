@@ -90,7 +90,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section id="about" class="about">
+  <section id="about" class="about relative bg-bg" style="z-index: 20">
     <!-- En-tête de section -->
     <div class="section-header">
       <h2 class="section-title">À propos</h2>

@@ -1,76 +1,93 @@
 @use '../mixins' as *;
 
 .hero {
+  display:block;
   position: relative;
   width: 100%;
   height: 100vh;
-  clip-path: inset(0);
   background-color: #010511; // couleur de fallback
 }
-
-// Toutes les couches
 .hero__layer {
-  position: absolute;
+  position: fixed;
   inset: 0;
   width: 100%;
-  height: 100%;
-}
+  height: 100vh;
 
-// Image standard — couvre toute la couche
-.hero__img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  // Styles background communs
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: auto 1038px;
 
-  // Pour aurora_stars et moon qui ont un fond noir
-  &--screen {
-    mix-blend-mode: screen;
-  }
-
-  // Éléments ancrés en bas (montagnes, arbres, lac)
+  // Couches ancrées en bas (montagnes, arbres)
   &--bottom {
-    top: auto;
-    bottom: 0;
-    height: auto; // hauteur naturelle de l'image
-    object-fit: initial;
-    &--trees{
-      top: 10%;
-    }
+    background-size: 100% auto;       // hauteur naturelle
+    background-position: bottom center;
   }
-  &--center {
-    top: 60%;
-    bottom: 0;
-    height: auto; // hauteur naturelle de l'image
-    object-fit: initial;
+
+  // Couche plein écran (ciel)
+  &--sky {
+    z-index: 1;
+    background-image: url('/parallax/aurora_stars.webp');
+    background-size: cover;
+    background-position: center center;
+  }
+
+  // Lune — petite, positionnée à droite
+  &--moon {
+    z-index: 2;
+    background-image: url('/parallax/moon.webp');
+    background-size: 140px auto;
+    background-position: 85% 35%;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 40px rgba(200, 220, 255, 0.4));
+  }
+
+  &--mountain-1 {
+    z-index: 4;
+    background-image: url('/parallax/mountains-1.webp');
+  }
+  &--mountain-1-trees {
+    z-index: 5;
+    background-image: url('/parallax/mountains-1-trees.webp');
   }
   &--lake {
-    top:-1%;
+    z-index: 6;
+    background-image: url('/parallax/lake.webp');
   }
-  // Lune positionnée à droite
-  &--moon {
-    top: 30%;
-    right: 15%;
-    left: auto;
-    width: 140px;
-    height: auto;
-    object-fit: initial;
-    mix-blend-mode: screen;
-    // Halo CSS
-    filter: drop-shadow(0 0 40px rgba(200, 220, 255, 0.4))
-    drop-shadow(0 0 80px rgba(150, 190, 255, 0.2));
+  &--trees-1{
+    z-index: 7;
+    background-image: url('/parallax/trees-1.webp');
   }
-  &--exclusion{
+  &--cliff {
+    z-index: 8;
+    background-image: url('/parallax/cliff.webp');
+  }
+  &--mountain-2 {
+    z-index: 9;
+    background-image: url('/parallax/mountains-2.webp');
+  }
+  &--trees-2 {
+    z-index: 10;
+    background-image: url('/parallax/trees-2.webp'); }
+  &--mountain-3 {
+    z-index: 11;
+    background-image: url('/parallax/mountains-3.webp');
+  }
+  &--brume {
+    z-index: 12;
+    background-image: url('/parallax/trees-3-brume.webp');
+  }
+  &--trees-3 {
+    z-index: 13;
+    background-image: url('/parallax/trees-3.webp');
+  }
+  &--exclusion {
     mix-blend-mode: exclusion;
-    bottom: -3%;
   }
 }
 
 // Contenu texte
 .hero__content {
-  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,6 +95,7 @@
   text-align: center;
   gap: 1rem;
   padding-bottom: 26vh;
+  z-index: 3;
 }
 
 .hero__intro {

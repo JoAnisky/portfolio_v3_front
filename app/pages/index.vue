@@ -5,6 +5,8 @@ import ProjectsSection from "~/components/sections/ProjectsSection.vue";
 </script>
 <template>
   <HeroSection/>
-  <AboutSection/>
-  <ProjectsSection/>
+  <div class="relative min-h-screen bg-bg" style="z-index: 20">
+    <AboutSection/>
+    <ProjectsSection/>
+  </div>
 </template>

@@ -6,7 +6,9 @@ html {
   font-family: var(--font-body), serif;
   scroll-behavior: smooth;
 }
-
+body{
+  position: relative;
+}
 h1, h2, h3, h4 {
   font-family: var(--font-title), serif;
 }

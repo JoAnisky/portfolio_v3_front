@@ -2,65 +2,45 @@
 const heroRef = ref<HTMLElement | null>(null)
 const { applyParallax } = useParallax()
 
-onMounted(() => {
-  applyParallax(heroRef)
-})
+applyParallax(heroRef)
 </script>
 <template>
   <section class="hero" ref="heroRef">
 
-    <!-- Fond CSS (gradient + halo aurora) -->
-    <div class="hero__bg z-0" />
-
     <!-- Couches parallax -->
-    <div class="hero__layer z-[1]" data-depth="0.01">
-      <img src="/parallax/aurora_stars.webp" alt="" aria-hidden="true" class="hero__img">
-    </div>
+    <div class="hero__layer hero__layer--sky" data-depth="0.01"></div>
 
-    <div class="hero__layer z-[2]" data-depth="0.06">
-      <img src="/parallax/moon.webp" alt="" aria-hidden="true" class="hero__img hero__img--moon">
-    </div>
+    <div class="hero__layer hero__layer--moon " data-depth="0.06"></div>
 
     <!-- Hero title-->
-    <div class="hero__layer hero__content z-[3]">
+    <div class="hero__layer hero__content" data-depth="0.08">
       <p class="hero__intro">Bonjour, je suis</p>
       <h1 class="hero__title">Jonathan Loré</h1>
       <span class="hero__badge">Développeur web Fullstack</span>
       <p class="hero__tagline">De la vision à la production, je construis des expériences qui ont du sens.</p>
     </div>
 
-    <div class="hero__layer z-[4]" data-depth="0.10" >
-      <img src="/parallax/mountains-1.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
-    </div>
-    <div class="hero__layer z-[5]" data-depth="0.12" >
-      <img src="/parallax/mountains-1-trees.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
-    </div>
+    <div class="hero__layer hero__layer--mountain-1 hero__layer--bottom" data-depth="0.10"></div>
 
-    <div class="hero__layer z-[6]" data-depth="0.14" >
-      <img src="/parallax/lake.webp" alt="" aria-hidden="true" class="hero__img hero__img--lake">
-    </div>
-    <div class="hero__layer z-[7]" data-depth="0.25" >
-      <img src="/parallax/trees-1.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
-    </div>
-    <div class="hero__layer z-[8]" data-depth="0.32" >
-      <img src="/parallax/cliff.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
-    </div>
-    <div class="hero__layer z-[9]" data-depth="0.36" >
-      <img src="/parallax/mountains-2.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
-    </div>
-    <div class="hero__layer z-[10]" data-depth="0.44" >
-      <img src="/parallax/trees-2.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
-    </div>
-    <div class="hero__layer z-[11]" data-depth="0.49">
-      <img src="/parallax/mountains-3.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom">
-    </div>
+    <div class="hero__layer hero__layer--mountain-1-trees hero__layer--bottom" data-depth="0.12"></div>
+
+    <div class="hero__layer hero__layer--lake hero__layer--bottom " data-depth="0.14"></div>
+
+    <div class="hero__layer hero__layer--trees-1 hero__layer--bottom " data-depth="0.25"></div>
+
+    <div class="hero__layer hero__layer--cliff hero__layer--bottom " data-depth="0.32"></div>
+
+    <div class="hero__layer hero__layer--mountain-2 hero__layer--bottom " data-depth="0.36"></div>
+
+    <div class="hero__layer hero__layer--trees-2 hero__layer--bottom ]" data-depth="0.44"></div>
+
+    <div class="hero__layer hero__layer--mountain-3 hero__layer--bottom ]" data-depth="0.49"></div>
+
     <!-- Brume seule (dégradés radiaux, mix-blend-mode) -->
-    <div class="hero__layer z-[12]" data-depth="0.52">
-      <img src="/parallax/trees-3-brume.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom hero__img--exclusion">
-    </div>
+    <div class="hero__layer hero__layer--brume hero__layer--bottom hero__layer--exclusion" data-depth="1"></div>
+
     <!-- Arbres seuls -->
-    <div class="hero__layer z-[13]" data-depth="0.52">
-      <img src="/parallax/trees-3.webp" alt="" aria-hidden="true" class="hero__img hero__img--bottom--trees">
-    </div>
+    <div class="hero__layer hero__layer--trees-3 hero__layer--bottom" data-depth="1"></div>
+
   </section>
 </template>
