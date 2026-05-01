@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import type { ProjectWithCover } from '#shared/types/project'
 
+const cardRef = ref<HTMLElement | null>(null)
+const { applyGlow } = useMouseGlow()
+
+onMounted(() => {
+  if (cardRef.value) applyGlow(cardRef.value)
+})
+
 const props = defineProps<{
   project: ProjectWithCover   // un seul projet
 }>()
@@ -12,7 +19,7 @@ const sortedHighlights = computed(() =>
 </script>
 
 <template>
-  <article class="projects__card">
+  <article ref="cardRef" class="projects__card">
     <!-- Screenshot -->
     <div class="projects__screenshot">
       <div class="projects__screenshot-bar" aria-hidden="true">

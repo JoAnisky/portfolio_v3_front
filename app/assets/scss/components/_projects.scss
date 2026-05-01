@@ -27,21 +27,43 @@
   &__card {
     @apply flex flex-col rounded-2xl overflow-hidden transition-all duration-300;
 
+    position: relative; // nécessaire pour le pseudo-élément
     background: rgba(3, 7, 16, 0.75);
     border: 1px solid var(--color-card-stroke);
     backdrop-filter: blur(22px);
-    box-shadow: 0 4px 4px 4px rgba(0, 0, 0, 0.25); // y=4, spread=4
+    box-shadow: 0 4px 4px 4px rgba(0, 0, 0, 0.25);
+
+    // Glow pseudo-élément (hover sur les cards project)
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      opacity: var(--glow-opacity, 0);
+      background: radial-gradient(
+                      300px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+                      rgba(26, 215, 146, 0.12),   // ← aurora green
+                      transparent 70%
+      );
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    // s'assure que le contenu passe au dessus du glow
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
 
     &:hover {
       @apply -translate-y-1;
-      border-color: rgba(13, 205, 239, 0.35);
-      box-shadow: 0 16px 40px rgba(13, 205, 239, 0.08);
+      border-color: rgba(26, 215, 146, 0.35); // ← aurora green
 
-      .projects__screenshot img { @apply scale-[1.04]; }
       .projects__cta {
-        background: rgba(13, 205, 239, 0.08);
-        border-color: rgba(13, 205, 239, 0.5);
-        color: var(--color-aurora-blue);
+        background: rgba(26, 215, 146, 0.08);
+        border-color: rgba(26, 215, 146, 0.5);
+        color: var(--color-aurora-green);
       }
     }
   }
