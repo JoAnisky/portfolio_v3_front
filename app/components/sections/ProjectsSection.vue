@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { useProjects } from '~/composables/useProjects'
-import ProjectCard from "~/components/projects/ProjectCard.vue";
-
 const { projects, isLoading, hasError } = useProjects()
 </script>
 
