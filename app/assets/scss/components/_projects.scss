@@ -2,41 +2,48 @@
 
 .projects {
   @apply relative pt-4 pb-8 overflow-hidden;
-  background: radial-gradient(ellipse 18% 21% at center, #123a40, #010511);
+  background:
+          url('/assets/images/projects_background.webp') no-repeat center fixed,
+          radial-gradient(ellipse 15% 21% at center, #123a40, #010511) fixed;
 
-  // Orbe gauche
-  &::before {
-    content: '';
-    position: absolute;
-    width: 171px;
-    height: 171px;
-    top: 30%;
-    left: 20%;
-    background-image: url('/assets/images/orb-green.webp');
+  &::before, &::after {
+    @apply absolute pointer-events-none select-none z-0;
+    width: clamp(150px, 20vw, 250px);
+    height: clamp(150px, 20vw, 250px);
     background-size: contain;
     background-repeat: no-repeat;
-    pointer-events: none;
+    // On centre verticalement par défaut pour faciliter l'ajustement
+    top: 50%;
+  }
+
+   // orbe gauche
+  &::before {
+    content: '';
+    background-image: url('/assets/images/orb-green.webp');
     animation: orb-float 25s ease-in-out infinite;
 
+    // Positionnement responsive
+    @apply top-[20%] left-[-5%] opacity-40;
+
+    // Sur grand écran, on les rentre un peu plus
+    @screen lg {
+      @apply top-[25%] left-[15%] opacity-100;
+    }
   }
 
   // Orbe droit
   &::after {
     content: '';
-    position: absolute;
-    transform: scaleX(-1.5);
-    width: 171px;
-    height: 171px;
-    top: 45%;
-    right: 20%;
     background-image: url('/assets/images/orb-green.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
-    pointer-events: none;
-    opacity: 0.7;
     animation: orb-float-reverse 22s ease-in-out infinite;
-  }
 
+    // On le décale souvent hors de l'écran sur mobile pour ne pas gêner
+    @apply top-[55%] right-[-10%] opacity-30 scale-x-[-1.2];
+
+    @screen lg {
+      @apply top-[45%] right-[15%] opacity-70 scale-x-[-1.5];
+    }
+  }
 
   &__grid {
     @apply relative z-[1];
