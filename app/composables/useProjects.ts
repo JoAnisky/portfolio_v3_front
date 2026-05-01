@@ -1,56 +1,12 @@
-interface ApiPlatformCollection {
-    '@context': string
-    '@id': string
-    '@type': string
-    totalItems: number
-    member: Project[]
-}
-
-export interface ProjectScreenshot {
-    path: string
-    alt: string
-    isCover: boolean
-    position: number
-}
-
-export interface ProjectHighlight {
-    label: string
-    position: number
-}
-
-export interface ProjectFeature {
-    label: string
-    position: number
-}
-
-export interface Technology {
-    name: string
-    icon: string
-    color: string
-}
-
-export interface Tag {
-    name: string
-}
-
-export interface Project {
-    id: number
-    name: string
-    description: string
-    screenshots: ProjectScreenshot[]
-    highlights: ProjectHighlight[]
-    features: ProjectFeature[]
-    technologies: Technology[]
-    tags: Tag[]
-}
+import type { Project } from '#shared/types/project'
+import type { ApiPlatformCollection } from '#shared/types/api'
 
 export function useProjects() {
     const config = useRuntimeConfig()
 
-    const { data: projectsData, status, error } = useFetch<ApiPlatformCollection>('/api/projects', {
-        baseURL: import.meta.server ? config.apiBaseUrl : config.public.apiBaseUrl,
+    const { data: projectsData, status, error } = useFetch<ApiPlatformCollection<Project>>('/api/projects', {
         // Récupère tous les projets sans pagination
-        query: { limit: 100 },
+        // query: { limit: 100 },
         // Transforme la réponse pour n'exposer que le tableau
         transform: (res) => res,
 
@@ -59,7 +15,6 @@ export function useProjects() {
             console.log('[useProjects] onResponse status:', response.status)
             console.log('[useProjects] onResponse body:', response._data)
         },
-
 
     })
 
