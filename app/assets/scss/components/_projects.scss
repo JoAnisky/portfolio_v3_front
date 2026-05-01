@@ -82,7 +82,7 @@
   }
 
   &__tag {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-[0.7rem] font-semibold tracking-wide border border-[rgba(13,205,239,0.25)] bg-[rgba(13,205,239,0.12)] text-[var(--color-aurora-blue)];
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-[0.7rem] font-medium tracking-wide border;
     font-family: var(--font-body);
   }
 

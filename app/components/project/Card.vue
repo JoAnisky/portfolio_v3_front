@@ -34,7 +34,12 @@ const sortedHighlights = computed(() =>
     <!-- Corps -->
     <div class="projects__body">
       <div class="projects__meta">
-        <span v-for="tag in project.tags" :key="tag.name" class="projects__tag">
+        <span v-for="tag in project.tags" :key="tag.name" class="projects__tag" :style="tag.color ? {
+            color: tag.color,
+            borderColor: tag.color,
+            background: `${tag.color}26` // 26 en hex = 15% opacité
+          } : {}"
+        >
           {{ tag.name }}
         </span>
         <span class="projects__type">
