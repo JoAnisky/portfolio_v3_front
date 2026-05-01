@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useProjects } from '~/composables/useProjects'
 
-const { projects, isLoading, hasError, getCoverScreenshot, getSortedHighlights, getScreenshotUrl } = useProjects()
+const { projects, isLoading, hasError, getSortedHighlights } = useProjects()
 </script>
-
 
 <template>
   <section id="projects" class="projects">
@@ -59,10 +58,10 @@ const { projects, isLoading, hasError, getCoverScreenshot, getSortedHighlights, 
               <div class="projects__screenshot-bar" aria-hidden="true">
                 <span /><span /><span />
               </div>
-              <template v-if="getCoverScreenshot(project)">
+              <template v-if="project.coverScreenshot">
                 <img
-                    :src="getScreenshotUrl(getCoverScreenshot(project)!.path)"
-                    :alt="getCoverScreenshot(project)!.alt"
+                    :src="project.coverScreenshot!.path"
+                    :alt="project.coverScreenshot!.alt"
                     loading="lazy"
                     decoding="async"
                 />

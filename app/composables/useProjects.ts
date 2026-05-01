@@ -18,7 +18,12 @@ export function useProjects() {
 
     })
 
-    const projects = computed<Project[]>(() => projectsData.value?.member ?? [])
+    const projects = computed(() =>
+        (projectsData.value?.member ?? []).map((project) => ({
+            ...project,
+            coverScreenshot: getCoverScreenshot(project), // calculé une seule fois par projet
+        }))
+    )
     const isLoading = computed(() => status.value === 'pending')
     const hasError = computed(() => status.value === 'error')
 
@@ -44,13 +49,6 @@ export function useProjects() {
         return [...(project.highlights ?? [])].sort((a, b) => a.position - b.position)
     }
 
-    function getScreenshotUrl(path: string): string {
-        const base = import.meta.server
-            ? config.apiBaseUrl
-            : config.public.apiBaseUrl
-        // Évite le double slash si path commence déjà par /
-        return `${base.replace(/\/$/, '')}${path.startsWith('/') ? '' : '/uploads/screenshots/'}${path}`
-    }
 
     return {
         projects,
@@ -59,6 +57,5 @@ export function useProjects() {
         error,
         getCoverScreenshot,
         getSortedHighlights,
-        getScreenshotUrl
     }
 }
