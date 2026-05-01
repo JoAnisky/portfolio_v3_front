@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ProjectWithCover } from '#shared/types/project'
+import IconBolt from "~/components/ui/icons/IconBolt.vue";
 
 const props = defineProps<{
   project: ProjectWithCover   // un seul projet
@@ -52,6 +53,7 @@ const sortedHighlights = computed(() =>
 
       <ul v-if="sortedHighlights.length" class="projects__highlights" aria-label="Points forts">
         <li v-for="h in sortedHighlights" :key="h.label" class="projects__highlight">
+          <IconBolt />
           {{ h.label }}
         </li>
       </ul>
