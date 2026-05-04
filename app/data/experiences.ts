@@ -1,4 +1,5 @@
 import type { Technology }  from '#shared/types/project'
+import { getTechs } from "~/data/tech-library";
 
 export interface TimelineItem {
     id: number
@@ -20,18 +21,12 @@ export const experiences: TimelineItem[] = [
         period: '2025 - présent',
         badge: 'Freelance',
         description: [
-            'Développement de solutions web sur-mesure pour des clients directs et agences partenaires',
+            'Développement de solutions web sur-mesure pour des agences partenaires',
             'Architecture et déploiement d\'applications Nuxt 4 + Symfony sur infrastructure K3s',
             'Mise en place de pipelines CI/CD Jenkins et monitoring Prometheus/Grafana',
             'Evolution et maintenance d’un workflow d’automatisation parseur d’emails → n8n → WordPress',
         ],
-        technologies: [
-            { name: 'Nuxt 4',   icon: 'nuxt' },
-            { name: 'Symfony',  icon: 'symfony' },
-            { name: 'Docker',   icon: 'docker' },
-            { name: 'K3s',      icon: 'kubernetes' },
-            { name: 'Jenkins',  icon: 'jenkins' },
-        ],
+        technologies: getTechs(['php', 'mysql', 'symfony', 'laravel', 'javascript', 'typescript', 'vuejs', 'nuxt', 'wordpress', 'docker', 'kubernetes', 'jenkins', 'n8n']),
     },
     {
         id: 2,
@@ -43,14 +38,9 @@ export const experiences: TimelineItem[] = [
             'Développement et maintenance d\'applications web pour des clients variés',
             'Intégration de solutions CMS WordPress avancées (Multisite, plugins custom)',
             'Développement d\'interfaces Vue.js et d\'APIs Laravel/Symfony',
-            'Collaboration en équipe Agile avec revues de code régulières',
+            'Refonte du moteur de recherche d’un site de radiologie avec Meilisearch, Laravel, Vue JS',
         ],
-        technologies: [
-            { name: 'Vue.js',     icon: 'vuejs' },
-            { name: 'Laravel',    icon: 'laravel' },
-            { name: 'WordPress',  icon: 'wordpress' },
-            { name: 'MySQL',      icon: 'mysql' },
-        ],
+        technologies: getTechs(['php', 'javascript', 'symfony', 'laravel', 'vuejs', 'wordpress', 'mysql', 'docker', 'n8n']),
     },
     {
         id: 3,
@@ -59,20 +49,12 @@ export const experiences: TimelineItem[] = [
         period: '2023 - 2024',
         badge: 'Alternance',
         description: [
-            'Conception et développement d\'un back-office de gestion des réservations événementielles',
+            'Développement d\'une application de gestion des rotations pour les activités en équipe',
+            'Rédaction de cahier des charges techniques',
+            'Refonte graphique et fonctionnelle de l\'intranet de l\'entreprise',
             'Création d\'un module Wordpress pour transformer les demandes de contacts du site en devis sur l\'intranet',
-            'Optimisation des performances et de l\'expérience utilisateur',
         ],
-        technologies: [
-            { name: 'PHP',    icon: 'php' },
-            { name: 'JavaScript',    icon: 'javascript' },
-            { name: 'TypeScript',    icon: 'typescript' },
-            { name: 'React',     icon: 'react' },
-            { name: 'MySQL', icon: 'mysql' },
-            { name: 'Docker', icon: 'docker' },
-            { name: 'Figma', icon: 'figma' },
-            { name: 'Notion', icon: 'notion' },
-        ],
+        technologies: getTechs(['php', 'javascript', 'typescript', 'react', 'mysql', 'docker', 'figma', 'notion'])
     },
     {
         id: 4,
@@ -81,31 +63,25 @@ export const experiences: TimelineItem[] = [
         period: '2022',
         badge: 'Stage',
         description: [
-            'Développement de fonctionnalités e-commerce sur une boutique en ligne à fort trafic',
-            'Correction de bugs et optimisation du parcours d\'achat',
-            'Rédaction de documentation technique',
+            'Développement d\'un outil d\'aide à la vente intégré au CRM interne',
+            'Maquettage et prototypage Figma après recueil des besoins métier auprès des équipes de vente',
+            'Démonstration du prototype fonctionnel',
         ],
-        technologies: [
-            { name: 'C#',        icon: 'csharp' },
-            { name: '.NET', icon: 'dotnet' },
-            { name: 'Figma',        icon: 'figma' },
-        ],
+        technologies: getTechs(['csharp', 'dotnet', 'figma'])
     },
     {
         id: 5,
         title: 'Sérigraphe & Infographiste',
         company: 'WDS Sérigraphie & PK Distribution',
-        period: '2006 — 2012',
+        period: '2006 - 2012',
         badge: 'CDI',
         description: [
             'Création graphique et préparation de fichiers techniques pour impression',
-            'Gestion de la chaîne de production sérigraphique',
-            'Développement de l\'œil pour la composition visuelle et la couleur',
+            'Impression en sérigraphie et transferts sur vêtements + supports publicitaires',
+            'Création de supports visuels (PAO) pour le print et le web (affiches, cartes de visites, flyers)',
         ],
-        technologies: [
-            { name: 'Photoshop',   icon: 'photoshop' },
-            { name: 'Illustrator', icon: 'illustrator' },
-        ],
+        technologies: getTechs(['photoshop', 'illustrator'])
+        ,
     },
 ]
 
@@ -118,9 +94,11 @@ export const diplomas: TimelineItem[] = [
         badge: 'Obtenu',
         degree: 'Mastère - Bac+5',
         description: [
-            'Stratégie digitale, innovation et conduite du changement',
-            'Architecture des systèmes d\'information et transformation agile',
-            'Management de projets complexes et pilotage par la data',
+            'Conception et développement du jeu-concours Thé Tip Top de A à Z — cahier des charges, étude de marché, audit concurrentiel, Gantt, devis',
+            'Architecture applicative complète : API REST Symfony/API Platform, Nuxt 4 TypeScript, MariaDB, tests unitaires/fonctionnels/e2e',
+            'Workflow CI/CD Jenkins sur cluster Kubernetes (K3s) sur VPS Ubuntu — Traefik, Docker Hub, backups Restic chiffrés (VPS, Jenkins, BDD, dépôts git)',
+            'Monitoring temps réel Prometheus & Grafana avec alerting Discord',
+            'Design complet : maquettage Figma, logo, visuels (Illustrator, Photoshop), stratégie SEO & social marketing, conformité RGAA/NVDA',
         ],
     },
     {
