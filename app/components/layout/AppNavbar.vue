@@ -3,7 +3,7 @@ const links = [
   { label: 'Accueil',     to: '#hero' },
   { label: 'À propos',    to: '#about' },
   { label: 'Projets',     to: '#projects' },
-  { label: 'Expériences', to: '#experiences' },
+  { label: 'Parcours', to: '#experiences' },
   { label: 'Contact',     to: '#contact' },
 ]
 

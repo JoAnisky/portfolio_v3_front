@@ -19,7 +19,7 @@ function getSide(index: number): 'left' | 'right' {
     <div class="container mx-auto px-6 py-24 lg:py-10">
 
       <div class="section-header">
-        <h2 class="section-title">Expériences & Diplômes</h2>
+        <h2 class="section-title">Parcours</h2>
         <p class="section-quote">« Chaque étape a construit la suivante. »</p>
       </div>
 
