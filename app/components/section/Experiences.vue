@@ -67,7 +67,12 @@ function getSide(index: number): 'left' | 'right' {
 
               <header class="experiences__card-header">
                 <h3 class="experiences__card-title">{{ item.title }}</h3>
-                <span v-if="item.badge" class="experiences__badge">{{ item.badge }}</span>
+                <span v-if="item.badge" class="experiences__badge" :class="{ 'experiences__badge--validated': item.badge === 'Obtenu' }">
+                  <svg v-if="item.badge === 'Obtenu'" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  {{ item.badge }}
+                </span>
               </header>
 
               <p class="experiences__company">{{ item.company }}</p>

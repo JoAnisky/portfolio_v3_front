@@ -105,10 +105,16 @@
   }
 
   &__badge {
-    @apply inline-flex items-center px-2.5 py-1 rounded-full border border-[rgba(13,205,239,0.3)]
-    bg-[rgba(13,205,239,0.06)] text-[0.7rem] font-medium tracking-wide
-    text-[var(--color-aurora-blue)] whitespace-nowrap shrink-0 uppercase;
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full border
+    text-[0.7rem] font-medium tracking-wide whitespace-nowrap shrink-0 uppercase;
     font-family: var(--font-code);
+
+    // Par défaut : aurora blue (En cours, Alternance, Stage, Freelance, CDI…)
+    @apply border-[rgba(13,205,239,0.3)] bg-[rgba(13,205,239,0.06)] text-[var(--color-aurora-blue)];
+
+    &--validated {
+      @apply border-[var(--color-available)] bg-[rgba(0,201,80,0.06)] text-[var(--color-available)];
+    }
   }
 
   &__company {
