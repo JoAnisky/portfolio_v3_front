@@ -100,7 +100,7 @@
   }
 
   &__card-title {
-    @apply flex-1 text-base font-semibold leading-tight text-[var(--color-text-white)] m-0;
+    @apply flex-1 text-base font-bold leading-tight text-[var(--color-text-white)] m-0;
     font-family: var(--font-title);
   }
 
@@ -118,12 +118,12 @@
   }
 
   &__company {
-    @apply text-sm font-medium text-[var(--color-aurora-blue)] mb-1;
+    @apply text-sm font-medium text-[var(--color-aurora-green)] mb-1;
     font-family: var(--font-body);
   }
 
   &__degree {
-    @apply text-[0.75rem] text-[var(--color-aurora-green)] mb-1 tracking-wider uppercase;
+    @apply text-[0.75rem] text-[var(--color-aurora-blue)] mb-1 tracking-wider uppercase;
     font-family: var(--font-code);
   }
 
@@ -139,11 +139,10 @@
   &__description-item {
     @apply flex items-start gap-2 text-[0.81rem] leading-relaxed text-[var(--color-text)];
     font-family: var(--font-body);
+  }
 
-    &::before {
-      content: '▸';
-      @apply text-[0.65rem] text-[var(--color-aurora-green)] mt-1 shrink-0;
-    }
+  &__description-icon {
+    @apply shrink-0 mt-[0.4rem];
   }
 
   // ─── Transition flip 3D entre onglets ────────────────────────────────────

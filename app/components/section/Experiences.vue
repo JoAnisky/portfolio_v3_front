@@ -57,12 +57,7 @@ function getSide(index: number): 'left' | 'right' {
 
       <Transition name="experiences__flip" mode="out-in">
         <div :key="activeTab" class="experiences__timeline">
-          <div
-              v-for="(item, index) in currentItems"
-              :key="item.id"
-              class="experiences__item"
-              :class="`experiences__item--${getSide(index)}`"
-          >
+          <div v-for="(item, index) in currentItems" :key="item.id" class="experiences__item" :class="`experiences__item--${getSide(index)}`">
             <article class="experiences__card">
 
               <header class="experiences__card-header">
@@ -80,28 +75,17 @@ function getSide(index: number): 'left' | 'right' {
               <p class="experiences__period">{{ item.period }}</p>
 
               <ul class="experiences__description">
-                <li
-                    v-for="(line, i) in item.description"
-                    :key="i"
-                    class="experiences__description-item"
-                >{{ line }}</li>
+                <li v-for="(line, i) in item.description" :key="i" class="experiences__description-item">
+                  <svg class="experiences__description-icon" width="6" height="9" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M0.750304 8.75L5.0762 5.28033C5.16304 5.21069 5.23192 5.12801 5.27891 5.03701C5.32591 4.94602 5.3501 4.84849 5.3501 4.75C5.3501 4.65151 5.32591 4.55398 5.27891 4.46299C5.23192 4.37199 5.16304 4.28931 5.0762 4.21967L0.750096 0.75" stroke="#1AD792" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {{ line }}
+                </li>
               </ul>
 
-              <ul
-                  v-if="item.technologies?.length"
-                  class="projects__techs"
-                  aria-label="Technologies utilisées"
-              >
-                <li
-                    v-for="tech in item.technologies"
-                    :key="tech.name"
-                    class="projects__tech"
-                >
-                  <ProjectTechnoBadge
-                      :label="tech.name"
-                      :src="`assets/icons/${tech.icon}.svg`"
-                      :name="tech.name"
-                  />
+              <ul v-if="item.technologies?.length" class="projects__techs" aria-label="Technologies utilisées">
+                <li v-for="tech in item.technologies" :key="tech.name" class="projects__tech">
+                  <ProjectTechnoBadge :label="tech.name" :src="`assets/icons/${tech.icon}.svg`" :name="tech.name"/>
                 </li>
               </ul>
 
