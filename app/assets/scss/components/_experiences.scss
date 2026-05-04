@@ -1,0 +1,148 @@
+@use '../mixins' as *;
+
+.experiences {
+  @apply relative z-20 bg-[var(--color-bg)];
+
+  // ─── Tabs ──────────────────────────────────────────────────
+  &__tabs {
+    @apply flex justify-center gap-2 mb-16;
+  }
+
+  &__tab {
+    @apply px-6 py-2 rounded-full border border-[var(--color-stroke)] bg-transparent
+    text-sm font-medium text-[var(--color-text-muted)] cursor-pointer
+    transition-all duration-200 ease-in-out;
+    font-family: var(--font-body);
+
+    &:hover:not(.experiences__tab--active) {
+      @apply text-[var(--color-text-light)] border-[var(--color-text-muted)];
+    }
+
+    &--active {
+      @apply border-transparent text-[var(--color-bg)] font-semibold;
+      @include gradient-aurora(90deg);
+    }
+  }
+
+  // ─── Timeline ─────────────────────────────────────────────
+  &__timeline {
+    @apply relative max-w-[1100px] mx-auto;
+
+    &::before {
+      content: '';
+      @apply absolute left-1/2 md:left-1/2 top-0 bottom-0 w-px -translate-x-1/2;
+      background: linear-gradient(
+                      to bottom,
+                      transparent,
+                      var(--color-aurora-blue) 8%,
+                      var(--color-aurora-green) 92%,
+                      transparent
+      );
+
+      @media (max-width: 768px) {
+        @apply left-0 translate-x-0;
+      }
+    }
+  }
+
+  // ─── Item ─────────────────────────────────────────────────
+  &__item {
+    @apply relative grid grid-cols-1 md:grid-cols-2 mb-10 last:mb-0;
+
+    &::before {
+      content: '';
+      @apply absolute left-0 md:left-1/2 top-7 w-2.5 h-2.5 rounded-full
+      -translate-x-1/2 z-10 transition-all duration-300;
+      background: var(--color-aurora-blue);
+      box-shadow: 0 0 10px var(--color-aurora-blue), 0 0 20px rgba(13, 205, 239, 0.25);
+
+      @media (max-width: 768px) {
+        @apply translate-x-0;
+      }
+    }
+
+    &:hover::before {
+      background: var(--color-aurora-green);
+      box-shadow: 0 0 10px var(--color-aurora-green), 0 0 20px rgba(26, 215, 146, 0.25);
+    }
+
+    // Positions alternées
+    &--left {
+      @apply pr-0 md:pr-10;
+      .experiences__card { @apply md:col-start-1; }
+    }
+
+    &--right {
+      @apply pl-8 md:pl-10;
+      .experiences__card { @apply md:col-start-2; }
+    }
+
+    @media (max-width: 768px) {
+      @apply pl-8;
+    }
+  }
+
+  // ─── Card ────────────────────────────────────────────────
+  &__card {
+    @apply p-6 backdrop-blur-md transition-all duration-300 ease-in-out;
+    @include gradient-border-aurora(1rem, 135deg);
+
+    &:hover {
+      @apply -translate-y-1 shadow-[0_8px_32px_rgba(13,205,239,0.07)];
+    }
+  }
+
+  &__card-header {
+    @apply flex flex-wrap items-start justify-between gap-3 mb-1.5;
+  }
+
+  &__card-title {
+    @apply flex-1 text-base font-semibold leading-tight text-[var(--color-text-white)] m-0;
+    font-family: var(--font-title);
+  }
+
+  &__badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-full border border-[rgba(13,205,239,0.3)]
+    bg-[rgba(13,205,239,0.06)] text-[0.7rem] font-medium tracking-wide
+    text-[var(--color-aurora-blue)] whitespace-nowrap shrink-0 uppercase;
+    font-family: var(--font-code);
+  }
+
+  &__company {
+    @apply text-sm font-medium text-[var(--color-aurora-blue)] mb-1;
+    font-family: var(--font-body);
+  }
+
+  &__degree {
+    @apply text-[0.75rem] text-[var(--color-aurora-green)] mb-1 tracking-wider uppercase;
+    font-family: var(--font-code);
+  }
+
+  &__period {
+    @apply text-[0.75rem] text-[var(--color-text-muted)] mb-4 tracking-wide uppercase;
+    font-family: var(--font-code);
+  }
+
+  &__description {
+    @apply flex flex-col gap-1.5 list-none p-0 m-0 mb-4;
+  }
+
+  &__description-item {
+    @apply flex items-start gap-2 text-[0.81rem] leading-relaxed text-[var(--color-text)];
+    font-family: var(--font-body);
+
+    &::before {
+      content: '▸';
+      @apply text-[0.65rem] text-[var(--color-aurora-green)] mt-1 shrink-0;
+    }
+  }
+
+  // ─── Vue Transitions ──────────────────────────────────────
+  &__pane {
+    &-enter-active, &-leave-active {
+      @apply transition-all duration-200 ease-in-out;
+    }
+    &-enter-from { @apply opacity-0 translate-y-2; }
+    &-leave-to { @apply opacity-0 -translate-y-2; }
+  }
+}
