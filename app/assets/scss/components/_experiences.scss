@@ -107,14 +107,27 @@
       left: calc(50% + 5px); // bord droit du point
       right: auto;
     }
+    &::after {
+      content: '';
+      @apply absolute h-px w-4 z-0 transition-colors duration-300;
+      top: 2rem; // Simplifié : top-7 (1.75rem) + 4px (milieu du point de 10px)
+      background: var(--color-aurora-blue);
+    }
+
+    // Utilisation de classes Tailwind pour éviter les calc complexes
+    &--left::after {
+      @apply right-[calc(50%+5px)] left-auto;
+    }
+
+    &--right::after {
+      @apply left-[calc(50%+5px)] right-auto;
+    }
 
     @media (max-width: 768px) {
-      &--left::after,
-      &--right::after {
-        left: 5px; // bord droit du point (positionné à left-0)
-        right: auto;
-        @apply w-6;
+      &--left::after, &--right::after {
+        @apply left-[5px] right-auto w-6;
       }
+
     }
   }
 
