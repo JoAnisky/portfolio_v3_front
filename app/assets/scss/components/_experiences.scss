@@ -1,17 +1,20 @@
 @use '../mixins' as *;
 
 .experiences {
-  @apply relative z-20 bg-[var(--color-bg)];
+  background:
+          url('/assets/images/experiences_background.webp') no-repeat center fixed,
+          radial-gradient(ellipse 14% 17% at center, #12402f, #010511) fixed;
 
   // ─── Tabs ──────────────────────────────────────────────────
   &__tabs {
-    @apply flex justify-center gap-2 mb-16;
+    @apply flex justify-center gap-1 mb-16 bg-[#030612] rounded-full p-1 w-fit mx-auto border border-[var(--color-stroke)];
   }
 
   &__tab {
-    @apply px-6 py-2 rounded-full border border-[var(--color-stroke)] bg-transparent
+    @apply px-6 py-2 rounded-full bg-transparent
     text-sm font-medium text-[var(--color-text-muted)] cursor-pointer
-    transition-all duration-200 ease-in-out;
+    transition-all duration-200 ease-in-out
+    flex items-center gap-2;   // ← ajouter ça
     font-family: var(--font-body);
 
     &:hover:not(.experiences__tab--active) {

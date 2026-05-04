@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import { experiences, diplomas, type TimelineItem } from '~/data/experiences'
 
 type Tab = 'experiences' | 'diplomas'
@@ -32,8 +31,15 @@ function getSide(index: number): 'left' | 'right' {
             :class="{ 'experiences__tab--active': activeTab === 'experiences' }"
             @click="activeTab = 'experiences'"
         >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="2" y="7" width="20" height="14" rx="2" />
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+            <line x1="12" y1="12" x2="12" y2="16" />
+            <line x1="10" y1="14" x2="14" y2="14" />
+          </svg>
           Expériences
         </button>
+
         <button
             role="tab"
             :aria-selected="activeTab === 'diplomas'"
@@ -41,6 +47,10 @@ function getSide(index: number): 'left' | 'right' {
             :class="{ 'experiences__tab--active': activeTab === 'diplomas' }"
             @click="activeTab = 'diplomas'"
         >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+            <path d="M6 12v5c3 3 9 3 12 0v-5" />
+          </svg>
           Diplômes
         </button>
       </div>
