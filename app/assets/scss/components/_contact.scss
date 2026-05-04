@@ -1,102 +1,77 @@
 @use '../mixins' as *;
 
 .contact {
-
-  // ── Grid principal ──────────────────────────────────────────────────────────
+  @apply relative pt-4 pb-8 overflow-hidden;
+  background:
+          radial-gradient(ellipse 15% 21% at center, #123a40, #010511) fixed;
   &__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    align-items: start;
+    @apply grid grid-cols-2 gap-6 items-stretch;
 
     @media (max-width: 900px) {
-      grid-template-columns: 1fr;
+      @apply grid-cols-1;
     }
   }
 
   // ── Colonne droite ──────────────────────────────────────────────────────────
   &__right {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    @apply flex flex-col gap-6;
   }
 
   // ── Cards communes ──────────────────────────────────────────────────────────
   &__card {
+    @apply rounded-2xl border border-[var(--color-stroke)] p-8 backdrop-blur-md;
     background: rgba(13, 13, 13, 0.72);
-    border: 1px solid var(--color-stroke);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 2rem;
-    border-radius: 1rem;
+    -webkit-backdrop-filter: blur(12px); // préfixe Safari, pas géré par @apply
+
+    // h-full + flex col : permet à &__form (flex-1) de remplir la hauteur
+    &--form {
+      @apply flex flex-col h-full;
+    }
 
     &--globe {
-      padding: 0;
-      overflow: hidden;
+      @apply p-0 overflow-hidden relative;
       aspect-ratio: 16 / 10;
-      position: relative;
-      // Le canvas Three.js remplira cette card
     }
 
     &--infos {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
+      @apply flex gap-8 items-center;
 
       @media (max-width: 600px) {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1.5rem;
+        @apply flex-col items-start gap-6;
       }
     }
   }
 
   // ── Infos gauche ────────────────────────────────────────────────────────────
   &__infos-left {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    flex: 1;
+    @apply flex flex-col gap-5 flex-1;
   }
 
   &__info-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
+    @apply flex items-start gap-3;
   }
 
   &__info-icon {
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
+    @apply w-8 h-8 flex items-center justify-center rounded-lg shrink-0;
     background: rgba(13, 205, 239, 0.1);
     color: var(--color-aurora-blue);
-    flex-shrink: 0;
 
     svg {
-      width: 1rem;
-      height: 1rem;
+      @apply w-4 h-4;
     }
   }
 
   &__info-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    @apply text-[0.7rem] uppercase font-semibold mb-[0.15rem];
+    letter-spacing: 0.08em; // tracking-widest = 0.1em, trop large
     color: var(--color-aurora-blue);
-    font-weight: 600;
-    margin-bottom: 0.15rem;
   }
 
   &__info-value {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.8);
+    @apply text-sm text-white/80;
 
     &--link {
-      text-decoration: none;
+      @apply no-underline;
       transition: color 0.2s ease;
 
       &:hover {
@@ -107,23 +82,13 @@
 
   // ── Socials pills ───────────────────────────────────────────────────────────
   &__socials {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    flex-shrink: 0;
+    @apply flex flex-col gap-2.5 shrink-0;
   }
 
   &__social-pill {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: 0.5rem 0.875rem 0.5rem 0.5rem;
+    @apply flex items-center gap-2.5 py-2 pr-3.5 pl-2 rounded-lg no-underline text-[0.8rem] text-white/70;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 0.5rem;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.8rem;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 
     &:hover {
@@ -132,96 +97,70 @@
       color: var(--color-aurora-blue);
 
       .contact__social-pill-icon {
-        opacity: 1;
+        @apply opacity-100;
       }
     }
   }
 
   &__social-pill-icon {
-    width: 1.75rem;
-    height: 1.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.375rem;
-    opacity: 0.85;
+    @apply w-7 h-7 flex items-center justify-center rounded-md opacity-85 shrink-0;
     transition: opacity 0.2s ease;
-    flex-shrink: 0;
 
     svg {
       width: 0.9rem;
       height: 0.9rem;
     }
 
-    &--linkedin {
-      background: #0a66c2;
-      color: #fff;
-    }
-
-    &--malt {
-      background: #fc5757;
-      color: #fff;
-    }
-
-    &--github {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-    }
+    &--linkedin { background: #0a66c2; @apply text-white; }
+    &--malt     { background: #fc5757; @apply text-white; }
+    &--github   { background: rgba(255, 255, 255, 0.1); @apply text-white; }
   }
 
   // ── En-tête formulaire ───────────────────────────────────────────────────────
   &__form-header {
-    margin-bottom: 1.75rem;
+    @apply mb-7;
   }
 
   &__form-title {
-    font-size: 1.375rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 0.375rem;
+    @apply text-[1.375rem] font-bold text-white mb-1.5 tracking-wide;
 
-    &--accent {
-      color: var(--color-aurora-blue);
+    span {
+      @apply bg-clip-text text-transparent;
+      background-image: var(--gradient-aurora-horizontal);
     }
   }
 
   &__form-subtitle {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.45);
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    @apply text-[0.8rem] text-white/45;
+    font-family: var(--font-code), monospace;
   }
 
   // ── Formulaire ──────────────────────────────────────────────────────────────
+  // flex-1 : s'étire dans &__card--form (flex flex-col h-full)
   &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    @apply flex flex-col gap-5 flex-1;
   }
 
   &__field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
+    @apply flex flex-col gap-1.5;
+
+    // Le champ message prend tout l'espace restant
+    &--grow {
+      @apply flex-1;
+    }
   }
 
   &__label {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 0.02em;
+    @apply text-[0.8rem] font-medium text-white/60 tracking-[0.02em];
   }
 
   &__input {
-    width: 100%;
+    @apply w-full rounded-lg px-3.5 py-[0.6875rem] text-[0.9rem] text-white/90;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0.5rem;
-    padding: 0.6875rem 0.875rem;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.9rem;
     outline: none;
-    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     font-family: inherit;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 
     &::placeholder {
       color: rgba(255, 255, 255, 0.2);
@@ -234,9 +173,8 @@
     }
 
     &--textarea {
-      resize: vertical;
+      @apply resize-y leading-relaxed;
       min-height: 130px;
-      line-height: 1.6;
     }
 
     &--error {
@@ -251,19 +189,12 @@
 
   // ── Messages d'erreur ────────────────────────────────────────────────────────
   &__error {
-    font-size: 0.75rem;
-    color: #f87171;
+    @apply text-xs text-red-400;
   }
 
   // ── Feedback global ──────────────────────────────────────────────────────────
   &__feedback {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.85rem;
-    font-weight: 500;
+    @apply flex items-center gap-2.5 px-4 py-3 rounded-lg text-[0.85rem] font-medium;
 
     &--success {
       background: rgba(26, 215, 146, 0.1);
@@ -274,17 +205,15 @@
     &--error {
       background: rgba(248, 113, 113, 0.1);
       border: 1px solid rgba(248, 113, 113, 0.3);
-      color: #f87171;
+      @apply text-red-400;
     }
   }
 
   &__feedback-icon {
-    width: 1.125rem;
-    height: 1.125rem;
-    flex-shrink: 0;
+    @apply w-[1.125rem] h-[1.125rem] shrink-0;
   }
 
-  // Transition entrée/sortie du feedback
+  // Transition Vue (impossible en Tailwind)
   &__feedback-anim {
     &-enter-active,
     &-leave-active {
@@ -298,35 +227,24 @@
     }
   }
 
-  // ── Footer du formulaire ─────────────────────────────────────────────────────
+  // ── Footer formulaire ────────────────────────────────────────────────────────
   &__form-footer {
-    display: flex;
-    justify-content: flex-end;
+    @apply flex justify-end;
   }
 
   // ── Bouton submit ────────────────────────────────────────────────────────────
   &__submit {
     @include gradient-aurora(90deg);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6875rem 1.5rem;
-    border: none;
-    border-radius: 0.5rem;
+    @apply inline-flex items-center gap-2 px-6 py-[0.6875rem] border-none rounded-lg text-[0.9rem] font-bold cursor-pointer;
     color: var(--color-bg);
-    font-size: 0.9rem;
-    font-weight: 700;
-    cursor: pointer;
     transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 
     svg {
-      width: 1rem;
-      height: 1rem;
-      flex-shrink: 0;
+      @apply w-4 h-4 shrink-0;
     }
 
     &:hover:not(:disabled) {
-      opacity: 0.9;
+      @apply opacity-90;
       transform: translateY(-1px);
       box-shadow: 0 8px 24px rgba(13, 205, 239, 0.25);
     }
@@ -336,15 +254,13 @@
     }
 
     &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+      @apply opacity-50 cursor-not-allowed;
     }
   }
 
-  // ── Spinner loading ──────────────────────────────────────────────────────────
+  // ── Spinner ──────────────────────────────────────────────────────────────────
   &__spinner {
-    width: 1.125rem;
-    height: 1.125rem;
+    @apply w-[1.125rem] h-[1.125rem];
     animation: contact-spin 0.8s linear infinite;
   }
 
