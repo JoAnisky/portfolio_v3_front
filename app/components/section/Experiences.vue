@@ -45,7 +45,7 @@ function getSide(index: number): 'left' | 'right' {
         </button>
       </div>
 
-      <Transition name="experiences__pane" mode="out-in">
+      <Transition name="experiences__flip" mode="out-in">
         <div :key="activeTab" class="experiences__timeline">
           <div
               v-for="(item, index) in currentItems"
