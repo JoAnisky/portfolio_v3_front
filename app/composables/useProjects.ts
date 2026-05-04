@@ -10,11 +10,11 @@ export function useProjects() {
         // Transforme la réponse pour n'exposer que le tableau
         transform: (res) => res,
 
-        // log réponse reçue
-        onResponse({ response }) {
-            console.log('[useProjects] onResponse status:', response.status)
-            console.log('[useProjects] onResponse body:', response._data)
-        },
+        // // log réponse reçue
+        // onResponse({ response }) {
+        //     console.log('[useProjects] onResponse status:', response.status)
+        //     console.log('[useProjects] onResponse body:', response._data)
+        // },
 
     })
 
@@ -33,7 +33,7 @@ export function useProjects() {
      */
     function getCoverScreenshot(project: Project): ProjectScreenshot | null {
         if (!project.screenshots?.length) return null
-        console.log('[screenshots raw]', project.screenshots);
+        // console.log('[screenshots raw]', project.screenshots);
         const cover = project.screenshots.find((s) => s.isCover)
         if (cover) return cover
 
