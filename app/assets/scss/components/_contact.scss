@@ -3,7 +3,7 @@
 .contact {
   @apply relative pt-4 pb-8 overflow-hidden;
   background:
-          radial-gradient(ellipse 15% 21% at center, #123a40, #010511) fixed;
+          radial-gradient(ellipse 13% 19% at center, #123a40, #010511) fixed;
   &__grid {
     @apply grid grid-cols-2 gap-6 items-stretch;
 
@@ -82,11 +82,11 @@
 
   // ── Socials pills ───────────────────────────────────────────────────────────
   &__socials {
-    @apply flex flex-col gap-2.5 shrink-0;
+    @apply flex flex-col gap-4 shrink-0;
   }
 
   &__social-pill {
-    @apply flex items-center gap-2.5 py-2 pr-3.5 pl-2 rounded-lg no-underline text-[0.8rem] text-white/70;
+    @apply flex items-center gap-2.5 py-2 pr-[1.875rem] pl-2 rounded-lg no-underline text-[0.8rem] text-white/70;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
@@ -103,17 +103,12 @@
   }
 
   &__social-pill-icon {
-    @apply w-7 h-7 flex items-center justify-center rounded-md opacity-85 shrink-0;
+    @apply w-6 h-6  flex items-center justify-center rounded-md opacity-85 shrink-0;
     transition: opacity 0.2s ease;
 
-    svg {
-      width: 0.9rem;
-      height: 0.9rem;
-    }
-
-    &--linkedin { background: #0a66c2; @apply text-white; }
-    &--malt     { background: #fc5757; @apply text-white; }
-    &--github   { background: rgba(255, 255, 255, 0.1); @apply text-white; }
+    //&--linkedin { background: #0a66c2; @apply text-white; }
+    //&--malt     { background: #fc5757; @apply text-white; }
+    //&--github   { background: rgba(255, 255, 255, 0.1); @apply text-white; }
   }
 
   // ── En-tête formulaire ───────────────────────────────────────────────────────
