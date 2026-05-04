@@ -125,13 +125,15 @@ const { form, errors, isLoading, submitStatus, handleSubmit } = useContactForm()
                   :aria-busy="isLoading"
               >
                 <template v-if="!isLoading">
-                  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path d="M3.105 2.289a.75.75 0 00-.826.95l1.903 6.308H9.75a.75.75 0 010 1.5H4.182l-1.903 6.308a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z"/>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" fill="none">
+                    <g>
+                      <path d="M17.3209 19L28.3209 8M17.3209 19L20.8209 26C20.8647 26.0957 20.9352 26.1769 21.0238 26.2338C21.1125 26.2906 21.2156 26.3209 21.3209 26.3209C21.4262 26.3209 21.5293 26.2906 21.6179 26.2338C21.7066 26.1769 21.777 26.0957 21.8209 26L28.3209 8M17.3209 19L10.3209 15.5C10.2251 15.4561 10.144 15.3857 10.0871 15.2971C10.0302 15.2084 10 15.1053 10 15C10 14.8947 10.0302 14.7916 10.0871 14.7029C10.144 14.6143 10.2251 14.5439 10.3209 14.5L28.3209 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
                   </svg>
                   Envoyer
                 </template>
                 <template v-else>
-                  <svg class="contact__spinner" viewBox="0 0 24 24" fill="none" aria-label="Envoi en cours…">
+                  <svg class="contact__spinner" viewBox="0 0 30 30" fill="none" aria-label="Envoi en cours…">
                     <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="31.416" stroke-dashoffset="10"/>
                   </svg>
                 </template>

@@ -230,12 +230,16 @@
   // ── Bouton submit ────────────────────────────────────────────────────────────
   &__submit {
     @include gradient-aurora(90deg);
-    @apply inline-flex items-center gap-2 px-6 py-[0.6875rem] border-none rounded-lg text-[0.9rem] font-bold cursor-pointer;
-    color: var(--color-bg);
+    @apply inline-flex items-center gap-3 px-6 py-[0.6875rem] border-none rounded-lg text-[1.1rem] font-bold cursor-pointer text-white tracking-wider;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
     transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 24px rgba(13, 205, 239, 0.25);
 
     svg {
-      @apply w-4 h-4 shrink-0;
+      @apply w-6 h-6 shrink-0;
+      //rotate: -25deg;
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
+      box-shadow: 0 8px 24px rgba(13, 205, 239, 0.25);
     }
 
     &:hover:not(:disabled) {
