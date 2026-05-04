@@ -18,11 +18,11 @@ export interface ProjectFeature {
 export interface Technology {
     name: string
     icon: string
-    color: string
 }
 
 export interface Tag {
-    name: string
+    name: string,
+    color: string
 }
 
 export interface Project {
