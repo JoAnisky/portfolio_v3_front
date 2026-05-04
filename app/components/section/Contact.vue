@@ -3,7 +3,7 @@ const { form, errors, isLoading, submitStatus, handleSubmit } = useContactForm()
 </script>
 
 <template>
-  <section id="contact" class="contact py-24">
+  <section id="contact" class="contact pb-24 pt-12">
     <div class="container mx-auto px-6">
 
       <div class="section-header mb-16 text-center">

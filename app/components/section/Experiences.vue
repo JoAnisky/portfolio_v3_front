@@ -16,7 +16,7 @@ function getSide(index: number): 'left' | 'right' {
 
 <template>
   <section id="experiences" class="experiences">
-    <div class="container mx-auto px-6 py-24 lg:py-10">
+    <div class="container mx-auto px-6 py-24 lg:pt-10 pb-22">
 
       <div class="section-header">
         <h2 class="section-title">Parcours</h2>
