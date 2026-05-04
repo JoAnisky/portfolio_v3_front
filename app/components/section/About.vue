@@ -95,7 +95,7 @@ onUnmounted(() => {
     <div class="section-header">
       <h2 class="section-title">À propos</h2>
       <p class="section-quote">
-        "L'espace entre une idée et sa réalité, c'est là que je travaille."
+        « L'espace entre une idée et sa réalité, c'est là que je travaille. »
       </p>
     </div>
 

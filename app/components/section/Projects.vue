@@ -18,7 +18,7 @@ const { projects, isLoading, hasError } = useProjects()
           Projets
           <span class="section-title-line" aria-hidden="true" />
         </h2>
-        <p class="section-quote">"Chaque projet est une idée qui a trouvé sa forme."</p>
+        <p class="section-quote">« Chaque projet est une idée qui a trouvé sa forme. »</p>
       </div>
 
       <!-- Grille -->
