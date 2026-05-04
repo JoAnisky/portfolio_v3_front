@@ -83,6 +83,39 @@
     @media (max-width: 768px) {
       @apply pl-8;
     }
+
+    &::after {
+      content: '';
+      @apply absolute h-px w-4;
+      top: calc(1.75rem + 5px); // centre du point : top-7 + moitié de h-2.5
+      background: var(--color-aurora-blue);
+      transition: background 0.3s ease;
+    }
+
+    &:hover::after {
+      background: var(--color-aurora-green);
+    }
+
+    // Card à gauche → trait part vers la gauche depuis le point
+    &--left::after {
+      right: calc(50% + 5px); // bord gauche du point
+      left: auto;
+    }
+
+    // Card à droite → trait part vers la droite depuis le point
+    &--right::after {
+      left: calc(50% + 5px); // bord droit du point
+      right: auto;
+    }
+
+    @media (max-width: 768px) {
+      &--left::after,
+      &--right::after {
+        left: 5px; // bord droit du point (positionné à left-0)
+        right: auto;
+        @apply w-6;
+      }
+    }
   }
 
   // ─── Card ────────────────────────────────────────────────
