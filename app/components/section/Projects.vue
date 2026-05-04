@@ -9,7 +9,7 @@ const { projects, isLoading, hasError } = useProjects()
     <div class="projects__orb projects__orb--left" aria-hidden="true" />
     <div class="projects__orb projects__orb--right" aria-hidden="true" />
 
-    <div class="container mx-auto px-6 py-24 lg:py-32">
+    <div class="container mx-auto px-6 py-24 lg:py-24">
 
       <!-- En-tête -->
       <div class="section-header">
