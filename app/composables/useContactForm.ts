@@ -15,6 +15,19 @@ export function useContactForm() {
     const isLoading = ref(false)
     const submitStatus = ref<SubmitStatus>('idle')
 
+    clearErrorOnInput('name')
+    clearErrorOnInput('email')
+    clearErrorOnInput('subject')
+    clearErrorOnInput('message')
+
+    /**
+     * Reset l'erreur d'un champ du formulaire quand il est à nouveau saisi
+     * @param field - Champ à reset
+     */
+    function clearErrorOnInput(field: keyof ContactFormErrors) {
+        watch(() => form[field], () => { errors[field] = '' })
+    }
+
     // ── Validation ────────────────────────────────────────────────────────────
     function validate(): boolean {
         // Vide les erreurs précédentes
