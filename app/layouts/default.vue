@@ -4,6 +4,6 @@
     <main class="flex-1">
       <slot />
     </main>
-    <NavFooter />
+    <SectionFooter/>
   </div>
 </template>

@@ -1,0 +1,38 @@
+.footer {
+  background: url('/assets/images/footer_background.webp') no-repeat top center;
+  background-size: cover;
+  height: 415px;
+
+  @apply flex w-full flex-col items-center justify-end gap-4 pb-8;
+
+  &__links {
+    @apply flex items-center gap-12; // gap-12 = 3rem
+  }
+
+  &__link {
+    @apply text-[0.8125rem] font-normal tracking-wide no-underline transition-colors duration-200;
+    color: var(--color-text-light);
+
+
+    &:hover {
+      color: var(--color-aurora-blue);
+    }
+  }
+
+  &__copy {
+    @apply flex items-center gap-1.5 text-[0.8125rem] tracking-tight text-white/30;
+  }
+
+  &__copy-symbol {
+    @apply relative top-[0.5px] text-[0.9rem] leading-none;
+  }
+
+  &__heart {
+    @apply inline-block text-[0.875rem] leading-none transition-transform duration-300;
+    color: #e07b7b;
+
+    .footer:hover & {
+      @apply scale-125;
+    }
+  }
+}

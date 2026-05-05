@@ -5,7 +5,7 @@ const { email, prepare, execute } = useSafeEmail('Y29udGFjdEBqb25hdGhhbmxvcmUuZn
 </script>
 
 <template>
-  <section id="contact" class="contact pb-24 pt-12">
+  <section id="contact" class="contact pb-0 pt-12">
     <div class="container mx-auto px-6">
 
       <div class="section-header mb-16 text-center">
