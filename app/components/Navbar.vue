@@ -15,7 +15,7 @@ const activeSection = inject<Ref<string>>('activeSection', ref('hero'))
       <nav class="flex items-center gap-8 px-6 py-3 navbar">
 
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center shrink-0">
+        <NuxtLink to="/public" class="flex items-center shrink-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="34" height="38" viewBox="0 0 34 38" fill="none">
             <path d="M0.500002 27.5695L0.500003 9.56955L17 0.569549L33.5 9.56955L33.5 27.5695L17 36.5695L0.500002 27.5695Z" stroke="#0DCDEF"/>
             <path d="M25.9284 24.2899L27.3237 24.8399L25.9284 25.4476H21.2192L18.9518 23.8865V11.6207L20.696 14.9635C20.696 14.9635 19.9983 22.3966 20.696 23.4724C21.3936 24.5481 25.9284 24.2899 25.9284 24.2899Z" fill="#0DCDEF"/>
