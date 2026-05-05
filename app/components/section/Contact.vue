@@ -150,7 +150,7 @@ const { email, prepare, execute } = useSafeEmail('Y29udGFjdEBqb25hdGhhbmxvcmUuZn
 
           <!-- Card globe (Three.js à implémenter dans ContactGlobe.vue) -->
           <div class="contact__card contact__card--globe">
-            <!-- TODO: <ContactGlobe /> -->
+            <ContactGlobe />
           </div>
 
           <!-- Card infos -->
