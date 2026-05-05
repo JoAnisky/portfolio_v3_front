@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const { form, errors, isLoading, submitStatus, handleSubmit } = useContactForm()
+const { email, prepare, execute } = useSafeEmail('Y29udGFjdEBqb25hdGhhbmxvcmUuZnI=')
+
 </script>
 
 <template>
@@ -174,9 +176,17 @@ const { form, errors, isLoading, submitStatus, handleSubmit } = useContactForm()
                 </span>
                 <div>
                   <p class="contact__info-label">Email</p>
-                  <a href="mailto:contact@jonathanlore.fr" class="contact__info-value contact__info-value--link">
-                    contact@jonathanlore.fr
+                  <a href="mailto:dtc@jonathanlore.fr" class="sr-only" aria-hidden="true" tabindex="-1">
+                    Me contacter par email
                   </a>
+                  <button class="contact__info-value contact__info-value--link contact__reveal-btn"
+                          @mousedown="prepare"
+                          @keydown.enter="prepare"
+                          @keydown.space="prepare"
+                          @click="execute"
+                  >
+                    {{ email }}
+                  </button>
                 </div>
               </div>
             </div>
