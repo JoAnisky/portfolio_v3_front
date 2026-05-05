@@ -59,78 +59,16 @@ function latLonToVec3(lat: number, lon: number, radius: number): THREE.Vector3 {
   )
 }
 
-/**
- * Algorithme ray-casting : point [px, py] dans polygone de rings.
- * Chaque ring est un tableau de [lon, lat].
- */
-function pointInPolygon(px: number, py: number, rings: number[][][]): boolean {
-  let inside = false
-  for (const ring of rings) {
-    const n = ring.length
-    let j = n - 1
-    for (let i = 0; i < n; i++) {
-      const [xi, yi] = ring[i]!
-      const [xj, yj] = ring[j]!
-      if ((yi > py) !== (yj > py) && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) {
-        inside = !inside
-      }
-      j = i
-    }
-  }
-  return inside
-}
-
-/**
- * Teste si [lon, lat] est sur terre en vérifiant tous les polygones du GeoJSON.
- * features : GeoJSON FeatureCollection features (Polygon | MultiPolygon)
- */
-function isOnLand(lon: number, lat: number, features: any[]): boolean {
-  for (const feature of features) {
-    const { type, coordinates } = feature.geometry
-    if (type === 'Polygon') {
-      if (pointInPolygon(lon, lat, coordinates)) return true
-    } else if (type === 'MultiPolygon') {
-      for (const poly of coordinates) {
-        if (pointInPolygon(lon, lat, poly)) return true
-      }
-    }
-  }
-  return false
-}
-
 // ─── Géométries ─────────────────────────────────────────────────────────────
 
-/**
- * Génère des dots sur la surface de la sphère uniquement sur les terres.
- * Stratégie : grille régulière lon/lat → filtrage isOnLand → Vec3.
- */
-function createLandDots(radius: number, features: any[]): THREE.Points {
-  const positions: number[] = []
-
-  // Grille ~1.5° de résolution — bon compromis densité / perf
-  const lonStep = 2.2
-  const latStep = 2.2
-
-  for (let lat = -90; lat <= 90; lat += latStep) {
-    for (let lon = -180; lon <= 180; lon += lonStep) {
-      // Légère variation pour casser le côté grille parfaite
-      const jLon = lon + (Math.random() - 0.5) * lonStep * 0.6
-      const jLat = lat + (Math.random() - 0.5) * latStep * 0.6
-
-      if (!isOnLand(jLon, jLat, features)) continue
-
-      const v = latLonToVec3(jLat, jLon, radius)
-      positions.push(v.x, v.y, v.z)
-    }
-  }
-
+function createLandDots(positions: Float32Array): THREE.Points {
   const geo = new THREE.BufferGeometry()
   geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
   return new THREE.Points(geo, new THREE.PointsMaterial({
     color: CYAN,
     size: 0.022,
     transparent: true,
-    opacity: 0.55,
+    opacity: 0.75,
     sizeAttenuation: true,
   }))
 }
@@ -162,8 +100,7 @@ function createCityMarkers(radius: number): THREE.Group {
 
     const div = document.createElement('div')
     Object.assign(div.style, {
-      background: 'rgba(255, 255, 255, 0.85)',
-      backdropFilter: 'blur(4px)',
+      position: 'relative',
       color: '#0d0d0d',
       fontFamily: 'inherit',
       borderRadius: '3px',
@@ -172,19 +109,29 @@ function createCityMarkers(radius: number): THREE.Group {
       userSelect: 'none',
       overflow: 'hidden',
       lineHeight: '1',
-    })
-
-    // Conteneur flex horizontal
-    Object.assign(div.style, {
       display: 'flex',
       alignItems: 'center',
       gap: '6px',
       padding: '3px 6px',
     })
 
+    // Fond semi-transparent isolé — n'affecte pas l'opacité du texte
+    const bg = document.createElement('div')
+    Object.assign(bg.style, {
+      position: 'absolute',
+      inset: '0',
+      background: 'rgba(255, 255, 255, 0.85)',
+      backdropFilter: 'blur(4px)',
+      borderRadius: '3px',
+      zIndex: '0',
+    })
+    div.appendChild(bg)
+
     const nameEl = document.createElement('span')
     nameEl.textContent = label
     Object.assign(nameEl.style, {
+      position: 'relative',
+      zIndex: '1',
       fontSize: '9px',
       fontWeight: '700',
       letterSpacing: '0.07em',
@@ -193,8 +140,10 @@ function createCityMarkers(radius: number): THREE.Group {
 
     const timeEl = document.createElement('span')
     timeEl.className = 'label-time'
-    timeEl.textContent = " - " + timeFormatters.get(tz)!.format(new Date())
+    timeEl.textContent = ' - ' + timeFormatters.get(tz)!.format(new Date())
     Object.assign(timeEl.style, {
+      position: 'relative',
+      zIndex: '1',
       fontSize: '10px',
       fontWeight: '500',
       fontVariantNumeric: 'tabular-nums',
@@ -252,7 +201,7 @@ function createAtmosphere(radius: number): THREE.Mesh {
 
 // ─── Init ────────────────────────────────────────────────────────────────────
 
-async function init() {
+function init() {
   const canvas  = canvasRef.value!
   const wrapper = wrapperRef.value!
   const W = canvas.clientWidth
@@ -281,33 +230,31 @@ async function init() {
   scene.add(globe)
   const R = 1
 
-  // Fetch GeoJSON naturalearth land (110m — léger ~100kb)
-  const geoRes   = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
-  const topo     = await geoRes.json()
-
-  // Conversion TopoJSON → GeoJSON via topojson-client (UMD via CDN)
-  // On charge topojson dynamiquement pour ne pas ajouter de dep npm
-  await new Promise<void>((resolve) => {
-    if ((window as any).topojson) { resolve(); return }
-    const s = document.createElement('script')
-    s.src = 'https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js'
-    s.onload = () => resolve()
-    document.head.appendChild(s)
-  })
-
-  const tj = (window as any).topojson
-  const landGeo = tj.feature(topo, topo.objects.land)
-  const features = landGeo.type === 'FeatureCollection'
-      ? landGeo.features
-      : [landGeo]
-
-  globe.add(createLandDots(R, features))
+  // Wireframe, markers et arcs ajoutés immédiatement — globe visible de suite
   globe.add(createWireframeSphere(R))
   globe.add(createCityMarkers(R))
   globe.add(createArcs(R))
   scene.add(createAtmosphere(R))
   scene.add(new THREE.AmbientLight(CYAN, 0.15))
 
+  // Land dots calculés dans un Worker — thread principal non bloqué
+  ;(async () => {
+    const worker = new Worker(
+        new URL('~/workers/landDots.worker.ts', import.meta.url),
+        { type: 'module' },
+    )
+
+    // Fetch du TopoJSON ici (le Worker n'a pas accès aux alias Vite pour fetch)
+    const topo = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json').then(r => r.json())
+
+    worker.postMessage({ topo, radius: R, lonStep: 2.2, latStep: 2.2 })
+
+    worker.onmessage = (e: MessageEvent<{ positions: ArrayBuffer }>) => {
+      const positions = new Float32Array(e.data.positions)
+      globe.add(createLandDots(positions))
+      worker.terminate()
+    }
+  })()
   // OrbitControls
   controls = new OrbitControls(camera, canvas)
   controls.enableDamping   = true
