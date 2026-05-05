@@ -18,16 +18,34 @@ const CYAN  = 0x0dcdef
 const GREEN = 0x1ad792
 const WHITE = 0xffffff
 
-interface City { lat: number; lon: number; label: string }
+interface City { lat: number; lon: number; label: string; tz: string }
 
 const CITIES: City[] = [
-  { lat:  48.85, lon:   2.35, label: 'Paris'         },
-  { lat:  51.51, lon:  -0.13, label: 'London'        },
-  { lat:  40.71, lon: -74.01, label: 'New York'      },
-  { lat:  37.77, lon:-122.42, label: 'San Francisco' },
-  { lat:  35.68, lon: 139.69, label: 'Tokyo'         },
-  { lat: -33.87, lon: 151.21, label: 'Sydney'        },
+  { lat:  48.85, lon:   2.35, label: 'Paris',         tz: 'Europe/Paris'            },
+  { lat:  51.51, lon:  -0.13, label: 'London',        tz: 'Europe/London'           },
+  { lat:  40.71, lon: -74.01, label: 'New York',      tz: 'America/New_York'        },
+  { lat:  37.77, lon:-122.42, label: 'San Francisco', tz: 'America/Los_Angeles'     },
+  { lat:  35.68, lon: 139.69, label: 'Tokyo',         tz: 'Asia/Tokyo'              },
+  { lat: -33.87, lon: 151.21, label: 'Sydney',        tz: 'Australia/Sydney'        },
 ]
+
+// Formateur d'heure par timezone — mis en cache pour éviter de recréer à chaque tick
+const timeFormatters = new Map<string, Intl.DateTimeFormat>(
+    CITIES.map(({ tz }) => [
+      tz,
+      new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit', timeZone: tz }),
+    ])
+)
+
+// Référence vers les divs des labels pour la mise à jour de l'heure
+const labelDivs: Array<{ div: HTMLDivElement; cityName: string; tz: string }> = []
+
+function updateClocks() {
+  for (const { div, cityName, tz } of labelDivs) {
+    const time = timeFormatters.get(tz)!.format(new Date())
+    div.querySelector('.label-time')!.textContent = ' - ' + time
+  }
+}
 
 // ─── Geo helpers ────────────────────────────────────────────────────────────
 
@@ -89,7 +107,7 @@ function isOnLand(lon: number, lat: number, features: any[]): boolean {
 function createLandDots(radius: number, features: any[]): THREE.Points {
   const positions: number[] = []
 
-  // Grille ~2.2° de résolution — bon compromis densité / perf
+  // Grille ~1.5° de résolution — bon compromis densité / perf
   const lonStep = 2.2
   const latStep = 2.2
 
@@ -131,7 +149,7 @@ function createCityMarkers(radius: number): THREE.Group {
   const haloGeo   = new THREE.SphereGeometry(0.032, 8, 8)
   const haloMat   = new THREE.MeshBasicMaterial({ color: CYAN, transparent: true, opacity: 0.18 })
 
-  for (const { lat, lon, label } of CITIES) {
+  for (const { lat, lon, label, tz } of CITIES) {
     const pos = latLonToVec3(lat, lon, radius)
 
     const marker = new THREE.Mesh(markerGeo, markerMat)
@@ -143,22 +161,52 @@ function createCityMarkers(radius: number): THREE.Group {
     group.add(halo)
 
     const div = document.createElement('div')
-    div.textContent = label
     Object.assign(div.style, {
-      background: 'white',
+      background: 'rgba(255, 255, 255, 0.85)',
+      backdropFilter: 'blur(4px)',
       color: '#0d0d0d',
-      fontSize: '9px',
       fontFamily: 'inherit',
-      fontWeight: '600',
-      letterSpacing: '0.06em',
-      textTransform: 'uppercase',
-      padding: '2px 6px',
       borderRadius: '3px',
       whiteSpace: 'nowrap',
       pointerEvents: 'none',
       userSelect: 'none',
-      lineHeight: '1.4',
+      overflow: 'hidden',
+      lineHeight: '1',
     })
+
+    // Conteneur flex horizontal
+    Object.assign(div.style, {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px',
+      padding: '3px 6px',
+    })
+
+    const nameEl = document.createElement('span')
+    nameEl.textContent = label
+    Object.assign(nameEl.style, {
+      fontSize: '9px',
+      fontWeight: '700',
+      letterSpacing: '0.07em',
+      textTransform: 'uppercase',
+    })
+
+    const timeEl = document.createElement('span')
+    timeEl.className = 'label-time'
+    timeEl.textContent = " - " + timeFormatters.get(tz)!.format(new Date())
+    Object.assign(timeEl.style, {
+      fontSize: '10px',
+      fontWeight: '500',
+      fontVariantNumeric: 'tabular-nums',
+      letterSpacing: '0.04em',
+      color: '#444',
+    })
+
+    div.appendChild(nameEl)
+    div.appendChild(timeEl)
+
+    labelDivs.push({ div, cityName: label, tz })
+
     const labelObj = new CSS2DObject(div)
     labelObj.position.copy(pos.clone().normalize().multiplyScalar(radius + 0.14))
     group.add(labelObj)
@@ -226,7 +274,7 @@ async function init() {
   // Scene & Camera
   scene  = new THREE.Scene()
   camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 100)
-  camera.position.z = 3.2
+  camera.position.z = 3.4
 
   // Globe
   globe = new THREE.Group()
@@ -283,6 +331,10 @@ async function init() {
   })
   ro.observe(canvas)
 
+  // Mise à jour des horloges toutes les secondes
+  const clockInterval = setInterval(updateClocks, 1000)
+  ;(globe as any).__clockInterval = clockInterval
+
   // Loop
   function animate() {
     animationId = requestAnimationFrame(animate)
@@ -297,9 +349,11 @@ onMounted(() => init())
 
 onUnmounted(() => {
   cancelAnimationFrame(animationId)
+  clearInterval((globe as any)?.__clockInterval)
   controls?.dispose()
   renderer?.dispose()
   labelRenderer?.domElement.remove()
+  labelDivs.length = 0
 })
 </script>
 
