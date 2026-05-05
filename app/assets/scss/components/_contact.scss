@@ -3,7 +3,9 @@
 .contact {
   @apply relative pt-4 pb-8 overflow-hidden;
   background:
+          url('/assets/images/contact_background.webp') no-repeat center fixed,
           radial-gradient(ellipse 13% 19% at center, #123a40, #010511) fixed;
+          mix-blend-mode: lighten;
   &__grid {
     @apply grid grid-cols-2 gap-6 items-stretch;
 
