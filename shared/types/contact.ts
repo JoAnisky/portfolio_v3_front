@@ -10,7 +10,7 @@ export const contactSchema = z.object({
     email: z
         .string()
         .min(1, "L'email est requis.")
-        .email('Adresse email invalide.'),
+        .check(z.email({ error: 'Adresse email invalide.' })),
 
     subject: z
         .string()

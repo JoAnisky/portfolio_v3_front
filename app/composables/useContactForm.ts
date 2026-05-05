@@ -23,9 +23,8 @@ export function useContactForm() {
         })
 
         const result = contactSchema.safeParse(form)
-
         if (!result.success) {
-            result.error.errors.forEach((issue: { path: (string | number | symbol)[]; message: string | undefined }) => {
+            result.error.issues.forEach((issue: { path: (string | number | symbol)[]; message: string | undefined }) => {
                 const field = issue.path[0] as keyof ContactFormErrors
                 // Ne conserve que la première erreur par champ
                 if (!errors[field]) {
