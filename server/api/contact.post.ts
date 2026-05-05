@@ -4,7 +4,10 @@ export default defineEventHandler(async (event) => {
 
     await $fetch(`${config.apiBaseUrl}/api/contact`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/ld+json',
+            'Accept': 'application/ld+json',
+        },
         body,
     })
 
