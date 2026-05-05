@@ -16,7 +16,7 @@ services:
         volumes:
             - "./:/var/www/html"
             - "./traefik/config/traefik.${APP_ENV:-dev}.yml:/etc/traefik/traefik.yml:ro"
-            - "/var/www/html/node_modules"
+            - "front_node_modules:/var/www/html/node_modules"
         networks:
             - web
         labels:
@@ -25,7 +25,8 @@ services:
             - "traefik.http.services.portfoliov3-front.loadbalancer.server.port=3000"
         extra_hosts:
             - "portfoliov3.dev.local:127.0.0.1"
-
+volumes:
+    front_node_modules:
 networks:
     web:
         external: true

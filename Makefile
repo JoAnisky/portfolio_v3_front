@@ -8,7 +8,7 @@ bash:
 
 # Stopper et nettoyer en dev
 down:
-	docker compose --env-file .docker/.env.docker.dev down -v
+	docker compose --env-file .docker/.env.docker.dev down
 
 # Afficher les logs du conteneur en dev
 logs:
