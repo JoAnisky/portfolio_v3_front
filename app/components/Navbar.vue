@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const links = [
-  { label: 'Accueil',     to: '#hero' },
-  { label: 'À propos',    to: '#about' },
-  { label: 'Projets',     to: '#projects' },
-  { label: 'Parcours', to: '#experiences' },
-  { label: 'Contact',     to: '#contact' },
+  { label: 'Accueil',     to: '/#hero' },
+  { label: 'À propos',    to: '/#about' },
+  { label: 'Projets',     to: '/#projects' },
+  { label: 'Parcours', to: '/#experiences' },
+  { label: 'Contact',     to: '/#contact' },
 ]
 
 const activeSection = inject<Ref<string>>('activeSection', ref('hero'))
