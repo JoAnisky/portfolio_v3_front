@@ -1,4 +1,5 @@
 export interface ProjectScreenshot {
+    id: string
     path: string
     alt: string
     isCover: boolean
@@ -18,17 +19,29 @@ export interface ProjectFeature {
 export interface Technology {
     name: string
     icon: string
+    color: string | null
+    category: string
 }
 
 export interface Tag {
-    name: string,
+    name: string
     color: string
 }
 
+export interface ProjectType {
+    key: string
+    label: string
+}
+
 export interface Project {
-    id: number
+    id: string
     name: string
+    date: string
     description: string
+    githubUrl: string | null
+    siteUrl: string | null
+    context: 'perso' | 'pro'
+    type: ProjectType | null
     screenshots: ProjectScreenshot[]
     highlights: ProjectHighlight[]
     features: ProjectFeature[]

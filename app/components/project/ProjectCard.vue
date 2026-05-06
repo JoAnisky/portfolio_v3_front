@@ -49,14 +49,7 @@ const sortedHighlights = computed(() =>
         >
           {{ tag.name }}
         </span>
-        <span class="projects__type">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="2" y1="12" x2="22" y2="12" />
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-          </svg>
-          Site web
-        </span>
+        <ProjectType v-if="project.type" :type="project.type" />
       </div>
 
       <h3 class="projects__title">{{ project.name }}</h3>

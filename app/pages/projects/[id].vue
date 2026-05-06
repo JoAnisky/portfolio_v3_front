@@ -5,6 +5,7 @@ const route = useRoute()
 const id = route.params.id as string
 
 const { data: project, pending, error } = await useFetch<Project>(`/api/projects/${id}`)
+const projectType = computed(() => useProjectType(project.value?.type))
 
 // ── Ordre lightbox : cover en premier, puis autres par position ASC (garanti Symfony)
 const lightboxScreenshots = computed<Screenshot[]>(() => {
@@ -50,7 +51,9 @@ function onKeyDown(e: KeyboardEvent) {
   if (e.key === 'ArrowLeft')   prevSlide()
 }
 
-onMounted(() => window.addEventListener('keydown', onKeyDown))
+onMounted(() =>
+    window.addEventListener('keydown', onKeyDown)
+)
 onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
 // Bloquer le scroll body quand lightbox ouverte
@@ -137,9 +140,13 @@ useSeoMeta({
           >
             {{ tag.name }}
           </span>
+          <ProjectType v-if="project.type" :type="project.type" />
         </div>
-        <h1 class="project-detail__title">{{ project.name }}</h1>
-        <p class="project-detail__date">{{ formattedDate }}</p>
+        <div class="project-detail__title-date">
+          <h1 class="project-detail__title">{{ project.name }}</h1>
+          <p class="project-detail__date">{{ formattedDate }}</p>
+        </div>
+
       </header>
 
       <!-- 2-col layout -->
