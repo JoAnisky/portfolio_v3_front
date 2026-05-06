@@ -4,7 +4,7 @@ import type { ApiPlatformCollection } from '#shared/types/api'
 export function useProjects() {
     const config = useRuntimeConfig()
 
-    const { data: projectsData, status, error } = useFetch<ApiPlatformCollection<Project>>('/api/projects', {
+    const { data: projectsData, status, error } = useFetch<ApiPlatformCollection<Project>>('/api/projects/projects', {
         // Récupère tous les projets sans pagination
         // query: { limit: 100 },
         // Transforme la réponse pour n'exposer que le tableau
