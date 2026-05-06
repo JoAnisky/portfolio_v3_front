@@ -3,7 +3,7 @@
   background: rgba(1, 5, 17, 0.92);
 
   &__close {
-    @apply absolute top-5 right-[5%] md:right-[20%] w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-10;    border-color: var(--color-stroke);
+    @apply absolute top-20 right-[5%] md:right-[20%] w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-10;    border-color: var(--color-stroke);
     background: rgba(255, 255, 255, 0.05);
     color: var(--color-text);
 
