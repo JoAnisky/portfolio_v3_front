@@ -6,6 +6,6 @@ defineProps<{
 </script>
 
 <template>
-    <IconsHighlightBolt  />
+    <IconHighlightBolt  />
     {{ label }}
 </template>

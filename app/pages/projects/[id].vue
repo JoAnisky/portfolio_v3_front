@@ -208,7 +208,7 @@ useSeoMeta({
                   :key="feature.label"
                   class="project-detail__feature"
               >
-                <IconsFeature />
+                <IconFeature />
                 {{ feature.label }}
               </li>
             </ul>
