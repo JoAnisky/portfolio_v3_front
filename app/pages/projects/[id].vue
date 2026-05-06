@@ -5,6 +5,7 @@ const route = useRoute()
 const id = route.params.id as string
 
 const { data: project, pending, error } = await useFetch<Project>(`/api/projects/${id}`)
+const { groupedTechnologies } = useTechnologyGroups(project)
 
 // ── Ordre lightbox : cover en premier, puis autres par position ASC (garanti Symfony)
 const lightboxScreenshots = computed<ProjectScreenshot[]>(() => {
@@ -64,35 +65,6 @@ const formattedDate = computed(() => {
   return new Intl.DateTimeFormat('fr-FR', { year: 'numeric', month: 'long' }).format(
       new Date(project.value.date)
   )
-})
-
-// ── Technologies groupées par catégorie
-const CATEGORY_LABELS: Record<string, string> = {
-  frontend: 'Languages',
-  backend:  'Frameworks / Librairies, CMS',
-  devops:   'DevOps',
-  database: 'Base de données',
-  other:    'Outils et logiciels',
-}
-const CATEGORY_ORDER = ['frontend', 'backend', 'devops', 'database', 'other']
-
-const groupedTechnologies = computed(() => {
-  if (!project.value?.technologies.length) return []
-
-  const map = new Map<string, typeof project.value.technologies>()
-  for (const tech of project.value.technologies) {
-    const cat = tech.category ?? 'other'
-    if (!map.has(cat)) map.set(cat, [])
-    map.get(cat)!.push(tech)
-  }
-
-  return CATEGORY_ORDER
-      .filter(cat => map.has(cat))
-      .map(cat => ({
-        category: cat,
-        label: CATEGORY_LABELS[cat] ?? cat,
-        technologies: map.get(cat)!,
-      }))
 })
 
 // ── SEO
@@ -296,7 +268,7 @@ useSeoMeta({
                 >
                   <img
                       v-if="tech.icon"
-                      :src="`/icons/${tech.icon}.svg`"
+                      :src="`/assets/icons/${tech.icon}.svg`"
                       :alt="tech.name"
                       class="project-detail__tech-icon"
                   />

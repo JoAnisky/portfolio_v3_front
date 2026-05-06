@@ -16,11 +16,15 @@ export interface ProjectFeature {
     position: number
 }
 
+export interface TechnologyCategory {
+    key: 'Languages' | 'Frameworks' | 'DevOps' | 'Tools'
+    label: string
+}
+
 export interface Technology {
     name: string
     icon: string
-    color: string | null
-    category: string
+    category: TechnologyCategory  // ← objet { key, label } au lieu de string
 }
 
 export interface Tag {
