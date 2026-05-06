@@ -1,7 +1,7 @@
 // ============================================================
 // Page détail projet — /projets/[id]
 // ============================================================
-@use '../mixins' as *;
+@use '../../mixins' as *;
 
 .project-detail {
   @apply container mx-auto pt-40 pb-24 min-h-screen;
@@ -256,76 +256,6 @@
   }
 }
 
-// ══════════════════════════════════════════════════════════════
-// Lightbox
-// ══════════════════════════════════════════════════════════════
-
-.lightbox {
-  @apply fixed inset-0 z-[1000] backdrop-blur-md flex items-center justify-center gap-6 p-6;
-  background: rgba(1, 5, 17, 0.92);
-
-  &__close {
-    @apply absolute top-5 right-5 w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-10;
-    border-color: var(--color-stroke);
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--color-text);
-
-    svg { @apply w-4 h-4; }
-
-    &:hover {
-      @apply text-white;
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--color-aurora-blue);
-    }
-  }
-
-  &__nav {
-    @apply shrink-0 w-11 h-11 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-10 disabled:opacity-20 disabled:cursor-default;
-    border-color: var(--color-stroke);
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--color-text);
-
-    svg { @apply w-[18px] h-[18px]; }
-
-    &:hover:not(:disabled) {
-      @apply text-white;
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--color-aurora-blue);
-    }
-
-    &--prev { @apply order-[-1]; }
-    &--next { @apply order-[1]; }
-  }
-
-  &__stage {
-    @apply flex flex-col items-center gap-4 max-w-[calc(100vw-12rem)] max-h-[calc(100vh-4rem)];
-  }
-
-  &__img {
-    @apply max-w-full max-h-[calc(100vh-8rem)] object-contain rounded-xl border block;
-    border-color: var(--color-card-stroke);
-    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
-  }
-
-  &__counter {
-    @apply text-[0.8125rem] tracking-widest;
-    font-family: var(--font-body);
-    color: var(--color-text-muted);
-  }
-}
-
 .project-type {
   @apply flex whitespace-nowrap gap-2 items-center text-xs;
 }
-
-.lightbox-fade-enter-active, .lightbox-fade-leave-active { @apply transition-opacity duration-[250ms]; }
-.lightbox-fade-enter-from, .lightbox-fade-leave-to { @apply opacity-0; }
-
-.lb-slide-next-enter-active, .lb-slide-next-leave-active,
-.lb-slide-prev-enter-active, .lb-slide-prev-leave-active { @apply transition-all duration-150; }
-
-.lb-slide-next-enter-from { @apply opacity-0 translate-x-8; }
-.lb-slide-next-leave-to   { @apply opacity-0 -translate-x-8; }
-
-.lb-slide-prev-enter-from { @apply opacity-0 -translate-x-8; }
-.lb-slide-prev-leave-to   { @apply opacity-0 translate-x-8; }

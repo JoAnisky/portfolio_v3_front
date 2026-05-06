@@ -5,8 +5,9 @@
 @use 'components/navbar';
 @use 'components/hero';
 @use 'components/about';
-@use 'components/projects';
-@use 'components/project_details';
+@use 'components/project/projects';
+@use 'components/project/details';
+@use 'components/project/lightbox';
 @use 'components/experiences';
 @use 'components/contact';
 @use 'components/contact-globe';
