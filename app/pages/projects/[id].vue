@@ -202,29 +202,20 @@ useSeoMeta({
             <div
                 v-for="group in groupedTechnologies"
                 :key="group.category"
-                class="project-detail__tech-group"
+                class="project__techs"
             >
               <p class="project-detail__tech-category">{{ group.label }}</p>
-              <div class="project-detail__tech-pills">
-                <span
-                    v-for="tech in group.technologies"
-                    :key="tech.name"
-                    class="project-detail__tech-pill"
-                    :style="{
-                    color: tech.color,
-                    borderColor: tech.color ? tech.color + '40' : undefined,
-                    background: tech.color ? tech.color + '26' : undefined,
-                  }"
-                >
-                  <img
-                      v-if="tech.icon"
+
+              <ul class="project__techs" :aria-label="`Technologies ${group.label}`">
+                <li v-for="tech in group.technologies" :key="tech.name" class="project__tech">
+                  <ProjectTechnoBadge
+                      :label="tech.name"
                       :src="`/assets/icons/${tech.icon}.svg`"
-                      :alt="tech.name"
-                      class="project-detail__tech-icon"
+                      :name="tech.name"
+                      :color="tech.color"
                   />
-                  {{ tech.name }}
-                </span>
-              </div>
+                </li>
+              </ul>
             </div>
           </div>
         </aside>

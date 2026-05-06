@@ -83,8 +83,8 @@ function getSide(index: number): 'left' | 'right' {
                 </li>
               </ul>
 
-              <ul v-if="item.technologies?.length" class="projects__techs" aria-label="Technologies utilisées">
-                <li v-for="tech in item.technologies" :key="tech.name" class="projects__tech">
+              <ul v-if="item.technologies?.length" class="project__techs" aria-label="Technologies utilisées">
+                <li v-for="tech in item.technologies" :key="tech.name" class="project__tech">
                   <ProjectTechnoBadge :label="tech.name" :src="`assets/icons/${tech.icon}.svg`" :name="tech.name"/>
                 </li>
               </ul>

@@ -153,20 +153,6 @@
     @apply flex flex-col gap-2 pt-3 border-t border-[var(--color-card-stroke)];
   }
 
-  // --- Techs ---
-  &__techs {
-    @apply flex flex-wrap gap-2 list-none pl-0 mb-0;
-  }
-
-  &__tech {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[0.72rem] bg-white/5 border border-[var(--color-techno-stroke)] text-[var(--color-text-light)] bg-[var(--color-techno-fill)];
-    font-family: var(--font-code);
-
-    img {
-      @apply w-3.5 h-3.5 object-contain;
-    }
-  }
-
   // --- CTAs ---
   &__cta {
     @apply flex items-center justify-center gap-2 w-full p-3 mt-auto rounded-lg border border-[var(--color-stroke)] bg-transparent text-[0.85rem] font-medium text-[var(--color-text)] transition-all duration-200;

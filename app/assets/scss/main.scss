@@ -7,11 +7,14 @@
 @use 'components/about';
 @use 'components/projects';
 @use 'components/project_details';
-@use 'components/highlight';
 @use 'components/experiences';
 @use 'components/contact';
 @use 'components/contact-globe';
 @use 'components/footer';
+
+// UI comp (badges)
+@use 'components/badges/highlight';
+@use 'components/badges/techno';
 
 @tailwind base;
 @tailwind components;
