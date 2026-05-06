@@ -153,16 +153,6 @@
     @apply flex flex-col gap-2 pt-3 border-t border-[var(--color-card-stroke)];
   }
 
-  // --- Highlights ---
-  &__highlights {
-    @apply flex flex-wrap gap-1.5 list-none m-0 py-1;
-  }
-
-  &__highlight {
-    @apply inline-flex items-center gap-1 px-[0.7em] py-[0.3rem] rounded-2xl text-[0.68rem] border border-[rgba(26,215,146,0.25)] bg-[rgba(26,215,146,0.04)] text-[var(--color-aurora-green)];
-    font-family: var(--font-code);
-  }
-
   // --- Techs ---
   &__techs {
     @apply flex flex-wrap gap-2 list-none pl-0 mb-0;

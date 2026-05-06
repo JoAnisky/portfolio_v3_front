@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import type { Project, Screenshot } from '~/shared/types/project'
+import type { Project, ProjectScreenshot } from '~/shared/types/project'
 
 const route = useRoute()
 const id = route.params.id as string
 
 const { data: project, pending, error } = await useFetch<Project>(`/api/projects/${id}`)
-const projectType = computed(() => useProjectType(project.value?.type))
 
 // ── Ordre lightbox : cover en premier, puis autres par position ASC (garanti Symfony)
-const lightboxScreenshots = computed<Screenshot[]>(() => {
+const lightboxScreenshots = computed<ProjectScreenshot[]>(() => {
   if (!project.value?.screenshots.length) return []
   const cover = project.value.screenshots.find(s => s.isCover)
   const others = project.value.screenshots.filter(s => !s.isCover)
@@ -46,14 +45,12 @@ function prevSlide() {
 // Clavier : Échap + flèches directionnelles
 function onKeyDown(e: KeyboardEvent) {
   if (!lightboxOpen.value) return
-  if (e.key === 'Escape')      closeLightbox()
-  if (e.key === 'ArrowRight')  nextSlide()
-  if (e.key === 'ArrowLeft')   prevSlide()
+  if (e.key === 'Escape')     closeLightbox()
+  if (e.key === 'ArrowRight') nextSlide()
+  if (e.key === 'ArrowLeft')  prevSlide()
 }
 
-onMounted(() =>
-    window.addEventListener('keydown', onKeyDown)
-)
+onMounted(() => window.addEventListener('keydown', onKeyDown))
 onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
 // Bloquer le scroll body quand lightbox ouverte
@@ -69,7 +66,7 @@ const formattedDate = computed(() => {
   )
 })
 
-// ── Technologies groupées
+// ── Technologies groupées par catégorie
 const CATEGORY_LABELS: Record<string, string> = {
   frontend: 'Languages',
   backend:  'Frameworks / Librairies, CMS',
@@ -80,13 +77,15 @@ const CATEGORY_LABELS: Record<string, string> = {
 const CATEGORY_ORDER = ['frontend', 'backend', 'devops', 'database', 'other']
 
 const groupedTechnologies = computed(() => {
-  if (!project.value?.technologies) return []
+  if (!project.value?.technologies.length) return []
+
   const map = new Map<string, typeof project.value.technologies>()
   for (const tech of project.value.technologies) {
     const cat = tech.category ?? 'other'
     if (!map.has(cat)) map.set(cat, [])
     map.get(cat)!.push(tech)
   }
+
   return CATEGORY_ORDER
       .filter(cat => map.has(cat))
       .map(cat => ({
@@ -144,9 +143,8 @@ useSeoMeta({
         </div>
         <div class="project-detail__title-date">
           <h1 class="project-detail__title">{{ project.name }}</h1>
-          <p class="project-detail__date">{{ formattedDate }}</p>
+          <p class="project-detail__date">Date du projet : {{ formattedDate }}</p>
         </div>
-
       </header>
 
       <!-- 2-col layout -->
@@ -205,9 +203,13 @@ useSeoMeta({
           <div v-if="project.features?.length" class="project-detail__card">
             <h2 class="project-detail__section-title">Fonctionnalités clé</h2>
             <ul class="project-detail__features">
-              <li v-for="(feature, i) in project.features" :key="i" class="project-detail__feature">
-                <IconsFeature/>
-                {{ feature }}
+              <li
+                  v-for="feature in project.features"
+                  :key="feature.label"
+                  class="project-detail__feature"
+              >
+                <IconsFeature />
+                {{ feature.label }}
               </li>
             </ul>
           </div>
@@ -220,9 +222,12 @@ useSeoMeta({
           <div v-if="project.highlights?.length" class="project-detail__card">
             <h2 class="project-detail__card-title">Points forts</h2>
             <ul class="project-detail__highlights">
-              <li v-for="(highlight, i) in project.highlights" :key="i" class="project-detail__highlight">
-                <IconsHighlightBolt />
-                {{ highlight }}
+              <li
+                  v-for="highlight in project.highlights"
+                  :key="highlight.label"
+                  class="project-detail__highlight"
+              >
+                <ProjectHighlightBadge :label="highlight.label" />
               </li>
             </ul>
           </div>

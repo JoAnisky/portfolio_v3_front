@@ -55,8 +55,8 @@ const sortedHighlights = computed(() =>
       <h3 class="projects__title">{{ project.name }}</h3>
       <div class="projects__description" v-html="project.description"></div>
       <div class="projects__group">
-        <ul v-if="sortedHighlights.length" class="projects__highlights" aria-label="Points forts">
-          <li v-for="highlight in sortedHighlights" :key="highlight.label" class="projects__highlight">
+        <ul v-if="sortedHighlights.length" class="project-detail__highlights" aria-label="Points forts">
+          <li v-for="highlight in sortedHighlights" :key="highlight.label" class="project-detail__highlight">
             <ProjectHighlightBadge :label="highlight.label" />
           </li>
         </ul>
