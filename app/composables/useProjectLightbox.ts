@@ -4,8 +4,8 @@ export function useProjectLightbox(project: MaybeRef<Project | null | undefined>
     const lightboxScreenshots = computed<ProjectScreenshot[]>(() => {
         const p = toValue(project)
         if (!p?.screenshots.length) return []
-        const cover = p.screenshots.find(s => s.isCover)
-        const others = p.screenshots.filter(s => !s.isCover)
+        const cover = p.screenshots.find((s: { isCover: any }) => s.isCover)
+        const others = p.screenshots.filter((s: { isCover: any }) => !s.isCover)
         return cover ? [cover, ...others] : [...others]
     })
 
