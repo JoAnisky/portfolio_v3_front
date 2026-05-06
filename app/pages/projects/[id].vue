@@ -1,63 +1,13 @@
 <script setup lang="ts">
-import type { Project, ProjectScreenshot } from '~/shared/types/project'
+import type { Project } from '~/shared/types/project'
 
 const route = useRoute()
 const id = route.params.id as string
 
 const { data: project, pending, error } = await useFetch<Project>(`/api/projects/${id}`)
 const { groupedTechnologies } = useTechnologyGroups(project)
-
-// ── Ordre lightbox : cover en premier, puis autres par position ASC (garanti Symfony)
-const lightboxScreenshots = computed<ProjectScreenshot[]>(() => {
-  if (!project.value?.screenshots.length) return []
-  const cover = project.value.screenshots.find(s => s.isCover)
-  const others = project.value.screenshots.filter(s => !s.isCover)
-  return cover ? [cover, ...others] : [...others]
-})
-
-// ── Lightbox state
-const lightboxOpen = ref(false)
-const activeIndex = ref(0)
-const slideDirection = ref<'next' | 'prev'>('next')
-
-function openLightbox(index: number) {
-  activeIndex.value = index
-  lightboxOpen.value = true
-}
-
-function closeLightbox() {
-  lightboxOpen.value = false
-}
-
-function nextSlide() {
-  if (activeIndex.value < lightboxScreenshots.value.length - 1) {
-    slideDirection.value = 'next'
-    activeIndex.value++
-  }
-}
-
-function prevSlide() {
-  if (activeIndex.value > 0) {
-    slideDirection.value = 'prev'
-    activeIndex.value--
-  }
-}
-
-// Clavier : Échap + flèches directionnelles
-function onKeyDown(e: KeyboardEvent) {
-  if (!lightboxOpen.value) return
-  if (e.key === 'Escape')     closeLightbox()
-  if (e.key === 'ArrowRight') nextSlide()
-  if (e.key === 'ArrowLeft')  prevSlide()
-}
-
-onMounted(() => window.addEventListener('keydown', onKeyDown))
-onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
-
-// Bloquer le scroll body quand lightbox ouverte
-watch(lightboxOpen, (open) => {
-  document.body.style.overflow = open ? 'hidden' : ''
-})
+const {lightboxScreenshots, lightboxOpen, activeIndex, slideDirection,
+  openLightbox, closeLightbox, nextSlide, prevSlide } = useProjectLightbox(project)
 
 // ── Date
 const formattedDate = computed(() => {
@@ -69,7 +19,7 @@ const formattedDate = computed(() => {
 
 // ── SEO
 useSeoMeta({
-  title: () => project.value ? `${project.value.name} — Jonathan Loré` : 'Projet — Jonathan Loré',
+  title: () => project.value ? `Projet ${project.value.name}` : 'Projet — Jonathan Loré',
   description: () => project.value?.description?.replace(/<[^>]+>/g, '').slice(0, 160) ?? '',
 })
 </script>
