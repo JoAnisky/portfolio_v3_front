@@ -76,7 +76,7 @@ const sortedHighlights = computed(() =>
       </div>
 
       <NuxtLink
-          :to="`/projets/${project.id}`"
+          :to="`/projects/${project.id}`"
           class="projects__cta"
           :aria-label="`Voir les détails du projet ${project.name}`"
       >
