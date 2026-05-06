@@ -199,11 +199,7 @@ useSeoMeta({
           <!-- Technologies -->
           <div v-if="groupedTechnologies.length" class="project-detail__card">
             <h2 class="project-detail__card-title">Technologies</h2>
-            <div
-                v-for="group in groupedTechnologies"
-                :key="group.category"
-                class="project__techs"
-            >
+            <div v-for="group in groupedTechnologies" :key="group.category" class="project__techs">
               <p class="project-detail__tech-category">{{ group.label }}</p>
 
               <ul class="project__techs" :aria-label="`Technologies ${group.label}`">
