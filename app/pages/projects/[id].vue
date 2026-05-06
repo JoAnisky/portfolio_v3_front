@@ -6,21 +6,59 @@ const id = route.params.id as string
 
 const { data: project, pending, error } = await useFetch<Project>(`/api/projects/${id}`)
 
-// Screenshot actif (cover par défaut, puis thumbnails cliquables)
-const coverScreenshot = computed(() =>
-    project.value?.screenshots.find(s => s.isCover) ?? project.value?.screenshots[0]
-)
-const otherScreenshots = computed(() =>
-    project.value?.screenshots.filter(s => s.id !== coverScreenshot.value?.id) ?? []
-)
-const activeScreenshot = ref<Screenshot>(coverScreenshot.value!)
+// ── Ordre lightbox : cover en premier, puis autres par position ASC (garanti Symfony)
+const lightboxScreenshots = computed<Screenshot[]>(() => {
+  if (!project.value?.screenshots.length) return []
+  const cover = project.value.screenshots.find(s => s.isCover)
+  const others = project.value.screenshots.filter(s => !s.isCover)
+  return cover ? [cover, ...others] : [...others]
+})
 
-// Sync quand les données arrivent (SSR)
-watch(coverScreenshot, (val) => {
-  if (val) activeScreenshot.value = val
-}, { immediate: true })
+// ── Lightbox state
+const lightboxOpen = ref(false)
+const activeIndex = ref(0)
+const slideDirection = ref<'next' | 'prev'>('next')
 
-// Date formatée
+function openLightbox(index: number) {
+  activeIndex.value = index
+  lightboxOpen.value = true
+}
+
+function closeLightbox() {
+  lightboxOpen.value = false
+}
+
+function nextSlide() {
+  if (activeIndex.value < lightboxScreenshots.value.length - 1) {
+    slideDirection.value = 'next'
+    activeIndex.value++
+  }
+}
+
+function prevSlide() {
+  if (activeIndex.value > 0) {
+    slideDirection.value = 'prev'
+    activeIndex.value--
+  }
+}
+
+// Clavier : Échap + flèches directionnelles
+function onKeyDown(e: KeyboardEvent) {
+  if (!lightboxOpen.value) return
+  if (e.key === 'Escape')      closeLightbox()
+  if (e.key === 'ArrowRight')  nextSlide()
+  if (e.key === 'ArrowLeft')   prevSlide()
+}
+
+onMounted(() => window.addEventListener('keydown', onKeyDown))
+onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
+
+// Bloquer le scroll body quand lightbox ouverte
+watch(lightboxOpen, (open) => {
+  document.body.style.overflow = open ? 'hidden' : ''
+})
+
+// ── Date
 const formattedDate = computed(() => {
   if (!project.value?.date) return ''
   return new Intl.DateTimeFormat('fr-FR', { year: 'numeric', month: 'long' }).format(
@@ -28,26 +66,24 @@ const formattedDate = computed(() => {
   )
 })
 
-// Technologies groupées par catégorie
+// ── Technologies groupées
 const CATEGORY_LABELS: Record<string, string> = {
-  frontend:  'Frontend',
-  backend:   'Backend',
-  devops:    'DevOps',
-  database:  'Base de données',
-  other:     'Outils',
+  frontend: 'Languages',
+  backend:  'Frameworks / Librairies, CMS',
+  devops:   'DevOps',
+  database: 'Base de données',
+  other:    'Outils et logiciels',
 }
 const CATEGORY_ORDER = ['frontend', 'backend', 'devops', 'database', 'other']
 
 const groupedTechnologies = computed(() => {
   if (!project.value?.technologies) return []
-
   const map = new Map<string, typeof project.value.technologies>()
   for (const tech of project.value.technologies) {
     const cat = tech.category ?? 'other'
     if (!map.has(cat)) map.set(cat, [])
     map.get(cat)!.push(tech)
   }
-
   return CATEGORY_ORDER
       .filter(cat => map.has(cat))
       .map(cat => ({
@@ -57,14 +93,16 @@ const groupedTechnologies = computed(() => {
       }))
 })
 
-// SEO
+// ── SEO
 useSeoMeta({
   title: () => project.value ? `${project.value.name} — Jonathan Loré` : 'Projet — Jonathan Loré',
   description: () => project.value?.description?.replace(/<[^>]+>/g, '').slice(0, 160) ?? '',
 })
 </script>
+
 <template>
   <div class="project-detail">
+
     <!-- Back link -->
     <div class="container">
       <NuxtLink to="/#projects" class="project-detail__back">
@@ -87,6 +125,7 @@ useSeoMeta({
 
     <!-- Content -->
     <template v-else-if="project">
+
       <!-- Header -->
       <header class="project-detail__header container">
         <div class="project-detail__tags">
@@ -105,46 +144,62 @@ useSeoMeta({
 
       <!-- 2-col layout -->
       <div class="project-detail__body container">
+
         <!-- LEFT COLUMN -->
         <div class="project-detail__main">
-          <!-- Screenshots -->
-          <div class="project-detail__screenshots">
-            <div class="project-detail__cover">
+
+          <!-- Screenshots card -->
+          <div class="project-detail__card project-detail__card--screenshots">
+            <div class="project-detail__card-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21 15 16 10 5 21" />
+              </svg>
+              <span>Screenshots</span>
+            </div>
+
+            <!-- Cover principale cliquable -->
+            <div class="project-detail__cover" @click="openLightbox(0)">
               <img
-                  :src="activeScreenshot.path"
-                  :alt="activeScreenshot.alt"
+                  :src="lightboxScreenshots[0]?.path"
+                  :alt="lightboxScreenshots[0]?.alt"
                   class="project-detail__cover-img"
               />
+              <div class="project-detail__cover-overlay" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                </svg>
+              </div>
             </div>
-            <div v-if="otherScreenshots.length" class="project-detail__thumbnails">
+
+            <!-- Thumbnails 4 par ligne -->
+            <div v-if="lightboxScreenshots.length > 1" class="project-detail__thumbnails">
               <button
-                  v-for="screenshot in otherScreenshots"
+                  v-for="(screenshot, index) in lightboxScreenshots"
                   :key="screenshot.id"
                   class="project-detail__thumbnail"
-                  :class="{ 'project-detail__thumbnail--active': activeScreenshot.id === screenshot.id }"
-                  @click="activeScreenshot = screenshot"
+                  :class="{ 'project-detail__thumbnail--active': lightboxOpen && activeIndex === index }"
+                  :aria-label="`Voir screenshot ${index + 1}`"
+                  @click="openLightbox(index)"
               >
-                <img :src="screenshot.path" :alt="screenshot.alt" />
+                <img :src="screenshot.path" :alt="screenshot.alt" loading="lazy" />
               </button>
             </div>
           </div>
 
           <!-- Description -->
-          <div class="project-detail__section">
+          <div class="project-detail__card">
             <h2 class="project-detail__section-title">À propos du projet</h2>
             <div class="project-detail__description" v-html="project.description" />
           </div>
 
           <!-- Features -->
-          <div v-if="project.features?.length" class="project-detail__section">
-            <h2 class="project-detail__section-title">Fonctionnalités clés</h2>
+          <div v-if="project.features?.length" class="project-detail__card">
+            <h2 class="project-detail__section-title">Fonctionnalités clé</h2>
             <ul class="project-detail__features">
-              <li
-                  v-for="(feature, i) in project.features"
-                  :key="i"
-                  class="project-detail__feature"
-              >
-                <span class="project-detail__feature-dot" />
+              <li v-for="(feature, i) in project.features" :key="i" class="project-detail__feature">
+                <IconsFeature/>
                 {{ feature }}
               </li>
             </ul>
@@ -153,16 +208,13 @@ useSeoMeta({
 
         <!-- RIGHT COLUMN (sidebar) -->
         <aside class="project-detail__sidebar">
+
           <!-- Highlights -->
           <div v-if="project.highlights?.length" class="project-detail__card">
-            <h3 class="project-detail__card-title">Points forts</h3>
+            <h2 class="project-detail__card-title">Points forts</h2>
             <ul class="project-detail__highlights">
-              <li
-                  v-for="(highlight, i) in project.highlights"
-                  :key="i"
-                  class="project-detail__highlight"
-              >
-                <HighlightBolt />
+              <li v-for="(highlight, i) in project.highlights" :key="i" class="project-detail__highlight">
+                <IconsHighlightBolt />
                 {{ highlight }}
               </li>
             </ul>
@@ -170,7 +222,7 @@ useSeoMeta({
 
           <!-- Links -->
           <div v-if="project.githubUrl || project.siteUrl" class="project-detail__card">
-            <h3 class="project-detail__card-title">Liens</h3>
+            <h2 class="project-detail__card-title">Liens</h2>
             <div class="project-detail__links">
               <a
                   v-if="project.githubUrl"
@@ -179,11 +231,15 @@ useSeoMeta({
                   rel="noopener noreferrer"
                   class="project-detail__link"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="21" fill="none">
-                  <path d="m9.444 20.436-.01.002-.063.033-.018.004-.012-.004-.063-.034c-.01-.003-.017-.001-.022.005l-.003.01-.016.41.005.02.009.013.093.07.013.005.01-.004.093-.071.011-.016.004-.016-.016-.41c-.002-.01-.007-.016-.015-.017Zm.237-.109-.012.002-.165.09-.009.009-.003.01.017.413.004.012.007.007.18.089c.01.003.02 0 .025-.008l.004-.013-.03-.59c-.004-.011-.01-.018-.018-.021Zm-.638.002a.017.017 0 0 0-.013-.002.018.018 0 0 0-.01.008l-.006.013-.03.59c0 .011.005.019.015.023l.013-.002.18-.09.008-.007.004-.01.015-.414-.003-.011-.009-.01-.164-.088ZM3.847 4.032c-.223-.612-.214-1.312-.115-1.953a5.91 5.91 0 0 1 1.89 1.027c.25.206.577.272.882.173a7.742 7.742 0 0 1 2.412-.376c.856 0 1.67.134 2.41.375.304.1.631.033.88-.172a5.91 5.91 0 0 1 1.89-1.028c.098.64.106 1.34-.115 1.952-.133.369-.066.793.186 1.095.645.771.99 1.657.99 2.58 0 2.03-1.757 4.02-4.578 4.626-.706.152-.981 1.11-.441 1.657.347.352.56.847.56 1.399v2.88c0 .255.095.5.262.68a.86.86 0 0 0 .63.28.86.86 0 0 0 .63-.28 1 1 0 0 0 .262-.68v-2.88c0-.548-.107-1.068-.298-1.54 2.69-1.005 4.755-3.269 4.755-6.143 0-1.293-.431-2.482-1.147-3.478.187-.787.17-1.58.099-2.19-.063-.545-.152-1.26-.508-1.685-.53-.633-1.409-.26-2.033-.031-.67.243-1.307.58-1.894 1.003a9.477 9.477 0 0 0-2.54-.34c-.887 0-1.742.12-2.542.341A7.804 7.804 0 0 0 4.479.321C3.855.09 2.976-.282 2.446.35 2.082.785 2.006 1.442 1.94 2l-.004.037c-.072.61-.088 1.404.1 2.192C1.322 5.225.891 6.412.891 7.704c0 2.874 2.065 5.138 4.755 6.143-.194.48-.295.997-.298 1.52l-.15.033c-.639.095-1.048.01-1.326-.117-.678-.31-1.027-1.088-1.453-1.683-.266-.37-.653-.832-1.247-1.045a.833.833 0 0 0-.68.052.943.943 0 0 0-.447.556c-.075.241-.058.505.048.733a.915.915 0 0 0 .516.481c.497.179.842 1.097 1.157 1.504.333.43.775.88 1.409 1.17.608.278 1.322.377 2.173.265v.951a1 1 0 0 0 .262.68.86.86 0 0 0 .63.28.86.86 0 0 0 .63-.28 1 1 0 0 0 .262-.68v-2.88c0-.552.213-1.047.56-1.399.541-.549.265-1.505-.441-1.657-2.822-.606-4.577-2.597-4.577-4.627 0-.92.343-1.806.988-2.577.252-.302.318-.726.184-1.095Z" fill="#0DCDEF"/>
+                <svg class="project-detail__link-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
                 </svg>
-                GitHub
-                <span class="project-detail__link-arrow">↗</span>
+                Voir le code source
+                <svg class="project-detail__link-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
               </a>
               <a
                   v-if="project.siteUrl"
@@ -192,20 +248,23 @@ useSeoMeta({
                   rel="noopener noreferrer"
                   class="project-detail__link"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="none">
-                  <path d="M.75 9.063a8.312 8.312 0 1 0 16.625 0 8.312 8.312 0 0 0-16.625 0Z" stroke="#0DCDEF" stroke-width="1.5" stroke-linejoin="round"/>
-                  <path d="M5.5 9.063c0-2.205.375-4.32 1.043-5.878C7.212 1.625 8.118.75 9.063.75c.944 0 1.85.876 2.519 2.435.668 1.559 1.043 3.673 1.043 5.877 0 2.205-.375 4.32-1.043 5.878-.668 1.56-1.575 2.435-2.52 2.435-.944 0-1.85-.876-2.519-2.435C5.875 13.381 5.5 11.267 5.5 9.063Z" stroke="#0DCDEF" stroke-width="1.5" stroke-linejoin="round"/>
-                  <path d="M1.344 11.834H16.78M1.344 6.292H16.78" stroke="#0DCDEF" stroke-width="1.5" stroke-linecap="round"/>
+                <svg class="project-detail__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                  <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
                 </svg>
-                <span class="project-detail__link-dot" />
-                Demo
+                Demo live
+                <svg class="project-detail__link-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
               </a>
             </div>
           </div>
 
           <!-- Technologies -->
           <div v-if="groupedTechnologies.length" class="project-detail__card">
-            <h3 class="project-detail__card-title">Technologies</h3>
+            <h2 class="project-detail__card-title">Technologies</h2>
             <div
                 v-for="group in groupedTechnologies"
                 :key="group.category"
@@ -237,5 +296,64 @@ useSeoMeta({
         </aside>
       </div>
     </template>
+
+    <!-- ── Lightbox ─────────────────────────────────────────── -->
+    <Teleport to="body">
+      <Transition name="lightbox-fade">
+        <div
+            v-if="lightboxOpen"
+            class="lightbox"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Galerie screenshots"
+            @click.self="closeLightbox"
+        >
+          <!-- Fermer -->
+          <button class="lightbox__close" aria-label="Fermer la galerie" @click="closeLightbox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+
+          <!-- Prev -->
+          <button
+              class="lightbox__nav lightbox__nav--prev"
+              aria-label="Image précédente"
+              :disabled="activeIndex === 0"
+              @click="prevSlide"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+
+          <!-- Image avec transition slide -->
+          <div class="lightbox__stage" @click.stop>
+            <Transition :name="slideDirection === 'next' ? 'lb-slide-next' : 'lb-slide-prev'" mode="out-in">
+              <img
+                  :key="activeIndex"
+                  :src="lightboxScreenshots[activeIndex]?.path"
+                  :alt="lightboxScreenshots[activeIndex]?.alt"
+                  class="lightbox__img"
+              />
+            </Transition>
+            <p class="lightbox__counter">{{ activeIndex + 1 }} / {{ lightboxScreenshots.length }}</p>
+          </div>
+
+          <!-- Next -->
+          <button
+              class="lightbox__nav lightbox__nav--next"
+              aria-label="Image suivante"
+              :disabled="activeIndex === lightboxScreenshots.length - 1"
+              @click="nextSlide"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </div>
+      </Transition>
+    </Teleport>
+
   </div>
 </template>
