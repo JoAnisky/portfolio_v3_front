@@ -106,7 +106,6 @@ useSeoMeta({
                   v-for="(screenshot, index) in lightboxScreenshots"
                   :key="screenshot.id"
                   class="project-detail__thumbnail"
-                  :class="{ 'project-detail__thumbnail--active': lightboxOpen && activeIndex === index }"
                   :aria-label="`Voir screenshot ${index + 1}`"
                   @click="openLightbox(index)"
               >
@@ -240,7 +239,6 @@ useSeoMeta({
           <button
               class="lightbox__nav lightbox__nav--prev"
               aria-label="Image précédente"
-              :disabled="activeIndex === 0"
               @click="prevSlide"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -265,7 +263,6 @@ useSeoMeta({
           <button
               class="lightbox__nav lightbox__nav--next"
               aria-label="Image suivante"
-              :disabled="activeIndex === lightboxScreenshots.length - 1"
               @click="nextSlide"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">

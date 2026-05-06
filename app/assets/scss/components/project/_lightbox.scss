@@ -1,14 +1,9 @@
-// ══════════════════════════════════════════════════════════════
-// Lightbox
-// ══════════════════════════════════════════════════════════════
-
 .lightbox {
-  @apply fixed inset-0 z-[1000] backdrop-blur-md flex items-center justify-center gap-6 p-6;
+  @apply fixed inset-0 z-[1000] backdrop-blur-md flex items-center justify-center p-6;
   background: rgba(1, 5, 17, 0.92);
 
   &__close {
-    @apply absolute top-5 right-5 w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-10;
-    border-color: var(--color-stroke);
+    @apply absolute top-5 right-[5%] md:right-[20%] w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-10;    border-color: var(--color-stroke);
     background: rgba(255, 255, 255, 0.05);
     color: var(--color-text);
 
@@ -22,25 +17,26 @@
   }
 
   &__nav {
-    @apply shrink-0 w-11 h-11 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-10 disabled:opacity-20 disabled:cursor-default;
+    @apply absolute top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-10;
     border-color: var(--color-stroke);
     background: rgba(255, 255, 255, 0.05);
     color: var(--color-text);
 
     svg { @apply w-[18px] h-[18px]; }
 
-    &:hover:not(:disabled) {
+    &:hover {
       @apply text-white;
       background: rgba(255, 255, 255, 0.1);
       border-color: var(--color-aurora-blue);
     }
 
-    &--prev { @apply order-[-1]; }
-    &--next { @apply order-[1]; }
+    &--prev { @apply left-[5%] md:left-[20%]; }
+    &--next { @apply right-[5%] md:right-[20%]; }
   }
 
   &__stage {
-    @apply flex flex-col items-center gap-4 max-w-[calc(100vw-12rem)] max-h-[calc(100vh-4rem)];
+    @apply flex flex-col items-center gap-4 max-h-[calc(100vh-4rem)];
+    max-width: calc(100vw - 8rem); // marge pour les flèches positionnées absolute
   }
 
   &__img {

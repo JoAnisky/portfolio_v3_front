@@ -133,12 +133,9 @@
 
     &:hover {
       @apply opacity-75 scale-[1.02];
+      border-color: var(--color-aurora-blue)
     }
 
-    &--active {
-      @apply opacity-100;
-      border-color: var(--color-aurora-blue);
-    }
   }
 
   // ── Description ────────────────────────────────────────────

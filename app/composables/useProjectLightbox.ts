@@ -23,17 +23,13 @@ export function useProjectLightbox(project: MaybeRef<Project | null | undefined>
     }
 
     function nextSlide() {
-        if (activeIndex.value < lightboxScreenshots.value.length - 1) {
-            slideDirection.value = 'next'
-            activeIndex.value++
-        }
+        slideDirection.value = 'next'
+        activeIndex.value = (activeIndex.value + 1) % lightboxScreenshots.value.length
     }
 
     function prevSlide() {
-        if (activeIndex.value > 0) {
-            slideDirection.value = 'prev'
-            activeIndex.value--
-        }
+        slideDirection.value = 'prev'
+        activeIndex.value = (activeIndex.value - 1 + lightboxScreenshots.value.length) % lightboxScreenshots.value.length
     }
 
     function onKeyDown(e: KeyboardEvent) {
