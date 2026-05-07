@@ -1,33 +1,33 @@
 <script setup lang="ts">
-const links = [
-  { label: 'Accueil',   to: '/#hero' },
-  { label: 'À propos',  to: '/#about' },
-  { label: 'Projets',   to: '/#projects' },
-  { label: 'Parcours',  to: '/#experiences' },
-  { label: 'Contact',   to: '/#contact' },
+const activeHash = useActiveSection()
+const route = useRoute()
+const { y: scrollY } = useWindowScroll()
+
+const links: { label: string; to: string }[] = [
+  { label: 'Accueil',  to: '/#hero' },
+  { label: 'À propos', to: '/#about' },
+  { label: 'Projets',  to: '/#projects' },
+  { label: 'Parcours', to: '/#experiences' },
+  { label: 'Contact',  to: '/#contact' },
 ]
 
-const activeSection = inject<Ref<string>>('activeSection', ref('hero'))
-
-function sectionId(to: string): string {
-  return to.replace('/#', '')
-}
-
 // Blur de fond actif dès qu'on quitte le hero
-const { y: scrollY } = useWindowScroll()
 const heroHeight = ref(0)
-
 onMounted(() => {
   const hero = document.getElementById('hero')
   if (hero) heroHeight.value = hero.offsetHeight
 })
+const isScrolled = computed(() => scrollY.value > heroHeight.value * 0.8)
 
-const isScrolled = computed(() => scrollY.value > (heroHeight.value * 0.8))
+// activeHash contient '#hero', '#about', etc.
+const isActive = (to: string): boolean => {
+  const hash = '#' + to.replace('/#', '') // '/#hero' → '#hero'
+  return activeHash.value === hash
+}
 </script>
 
 <template>
   <header class="navbar-wrapper" :class="{ 'navbar-wrapper--scrolled': isScrolled }">
-
     <div class="navbar-outer">
 
       <!-- Logo -->
@@ -46,7 +46,7 @@ const isScrolled = computed(() => scrollY.value > (heroHeight.value * 0.8))
             <a
                 :href="link.to"
                 class="nav-link"
-                :class="{ 'nav-link--active': activeSection === sectionId(link.to) }"
+                :class="{ 'nav-link--active': isActive(link.to) }"
             >
               {{ link.label }}
             </a>
@@ -55,6 +55,5 @@ const isScrolled = computed(() => scrollY.value > (heroHeight.value * 0.8))
       </nav>
 
     </div>
-
   </header>
 </template>
