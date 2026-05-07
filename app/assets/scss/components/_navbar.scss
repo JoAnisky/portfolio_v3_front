@@ -1,19 +1,102 @@
+// ============================================================
+// Navbar
+// ============================================================
 @use '../mixins' as *;
 
-.navbar {
-  @include gradient-border-aurora(1rem, 135deg);
-  backdrop-filter: blur(12px);
+// ── Wrapper ──────────────────────────────────────────────────
+.navbar-wrapper {
+  position: fixed;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+
+  // Bande de blur qui remonte jusqu'en haut du viewport
+  // Visible uniquement après le hero (classe --scrolled)
+  &::before {
+    content: '';
+    position: absolute;
+    // remonte de 1rem pour couvrir le gap au-dessus de la navbar
+    top: -1rem;
+    left: 0;
+    right: 0;
+    // couvre le gap + la hauteur de la pill (~3rem)
+    height: calc(1rem + 3.5rem);
+    background: rgba(1, 5, 17, 0.6);
+    backdrop-filter: blur(16px) saturate(1.3);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  &--scrolled::before {
+    opacity: 1;
+  }
 }
 
+// ── Logo — positionné à droite de la pill ────────────────────
+// le logo est placé relativement à la pill via un wrapper flex centré
+.navbar-outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// ── Pill de navigation ───────────────────────────────────────
+.navbar {
+  display: block;
+  width: fit-content;
+  @include gradient-border-aurora(1rem, 135deg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0.375rem 0.5rem;
+}
+
+// ── Liens ───────────────────────────────────────────────────
 .nav-link {
   display: block;
   padding: 0.375rem 1rem;
   border-radius: 0.5rem;
+  font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   text-decoration: none;
-  transition: color 0.2s ease;
+  border: 1px solid transparent;
+  transition:
+          color 0.2s ease,
+          background 0.2s ease,
+          border-color 0.2s ease;
 
   &:hover {
     color: var(--color-text);
@@ -21,7 +104,7 @@
 
   &--active {
     color: var(--color-aurora-blue);
-    border: 1px solid var(--color-aurora-blue);
+    border-color: var(--color-aurora-blue);
     background: rgba(13, 205, 239, 0.05);
   }
 }
