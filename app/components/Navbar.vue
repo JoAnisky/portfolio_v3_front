@@ -1,6 +1,5 @@
 <script setup lang="ts">
-const activeHash = useActiveSection()
-const route = useRoute()
+const { activeHash, setManualScroll } = useActiveSection()
 const { y: scrollY } = useWindowScroll()
 
 const links: { label: string; to: string }[] = [
@@ -19,10 +18,9 @@ onMounted(() => {
 })
 const isScrolled = computed(() => scrollY.value > heroHeight.value * 0.8)
 
-// activeHash contient '#hero', '#about', etc.
-const isActive = (to: string): boolean => {
-  const hash = '#' + to.replace('/#', '') // '/#hero' → '#hero'
-  return activeHash.value === hash
+const handleLinkClick = (hash: string) => {
+  setManualScroll()
+  activeHash.value = hash // Mise à jour immédiate pour l'UI
 }
 </script>
 
@@ -46,7 +44,8 @@ const isActive = (to: string): boolean => {
             <a
                 :href="link.to"
                 class="nav-link"
-                :class="{ 'nav-link--active': isActive(link.to) }"
+                :class="{ 'nav-link--active': activeHash === '#' + link.to.split('#')[1] }"
+                @click="handleLinkClick('#' + link.to.split('#')[1])"
             >
               {{ link.label }}
             </a>

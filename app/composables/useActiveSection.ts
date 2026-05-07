@@ -1,57 +1,66 @@
-import { useRoute } from 'vue-router';
-
-/**
- * Marque la section ou la page active avec IntersectionObserver
- */
 export const useActiveSection = () => {
     const activeHash = ref('')
     const route = useRoute()
     let observer: IntersectionObserver | null = null
 
-    const initObserver = () => {
+    // Pour éviter que l'observer n'écrase le hash pendant qu'on clique sur un lien
+    const isManualScrolling = ref(false)
 
+    const initObserver = () => {
         if (observer) observer.disconnect()
 
+        // rootMargin : on cible une ligne horizontale à 30% du haut de l'écran
         observer = new IntersectionObserver((entries) => {
+            if (isManualScrolling.value) return
+
             entries.forEach((entry) => {
+                // On active la section qui ENTRE dans la zone de lecture
                 if (entry.isIntersecting) {
                     activeHash.value = '#' + entry.target.id
                 }
             })
         }, {
-            // Déclenche quand la section occupe la zone entre 20% et 60% du viewport
-            rootMargin: '-20% 0px -40% 0px',
-            threshold: 0
+            // Zone de détection : on réduit à une bande fine pour éviter les chevauchements
+            rootMargin: '-15% 0px -60% 0px',
+            threshold: [0]
         })
 
-        document.querySelectorAll('section[id]')
-            .forEach((section) => observer?.observe(section))
+        // On observe toutes les sections avec un ID
+        document.querySelectorAll('section[id]').forEach((section) => {
+            observer?.observe(section)
+        })
     }
 
-    // Fonction de nettoyage et relance
-    const refresh = () => {
-        if (route.path === '/') {
-            setTimeout(() => {
-                initObserver()
-                if (window.location.hash) {
-                    activeHash.value = window.location.hash
-                }
-            }, 300) // Petit délai pour laisser le DOM se stabiliser
+    const applyPath = async (path: string) => {
+        if (path === '/') {
+            // Si on est sur l'index, on initialise l'observer
+            // nextTick est plus fiable que setTimeout
+            await nextTick()
+            initObserver()
+            if (!window.location.hash) activeHash.value = '#hero'
         } else {
-            const routeHashMap: Record<string, string> = {
-                'projects': '#projects',
-            }
-            const segment = route.path.split('/')[1] ?? ''
-            activeHash.value = routeHashMap[segment] ?? ''
+            // Logique pour les pages internes (ex: /projets/1)
+            const segment = path.split('/')[1]
+            if (segment === 'projects') activeHash.value = '#projects'
+            else activeHash.value = ''
         }
     }
 
-    onMounted(() =>  nextTick(() => refresh()))
+    onMounted(() => applyPath(route.path))
 
-    // on surveille le changement de route pour relancer l'observer
-    watch(() => route.fullPath, () => refresh())
+    // On surveille le changement de route (navigation interne)
+    watch(() => route.path, (newPath) => {
+        console.log(`route path: ${newPath}`)
+        applyPath(newPath)
+    })
+
+    // On expose une fonction pour bloquer l'observer pendant un clic
+    const setManualScroll = () => {
+        isManualScrolling.value = true
+        setTimeout(() => isManualScrolling.value = false, 800) // Temps du scroll auto
+    }
 
     onUnmounted(() => observer?.disconnect())
 
-    return activeHash;
+    return { activeHash, setManualScroll }
 }

@@ -5,106 +5,62 @@
 
 // ── Wrapper ──────────────────────────────────────────────────
 .navbar-wrapper {
-  position: fixed;
-  top: 1rem;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  pointer-events: none;
+  @apply fixed top-4 left-0 right-0 z-50 pointer-events-none;
 
   > * {
-    pointer-events: auto;
+    @apply pointer-events-auto;
   }
 
   // Bande de blur qui remonte jusqu'en haut du viewport
-  // Visible uniquement après le hero (classe --scrolled)
   &::before {
     content: '';
-    position: absolute;
-    // remonte de 1rem pour couvrir le gap au-dessus de la navbar
-    top: -1rem;
-    left: 0;
-    right: 0;
-    // couvre le gap + la hauteur de la pill (~3rem)
+    @apply absolute -top-4 left-0 right-0 pointer-events-none opacity-0 transition-opacity duration-[400ms];
+    // Hauteur : gap (1rem) + pill (~3.5rem)
     height: calc(1rem + 3.5rem);
     background: rgba(1, 5, 17, 0.6);
-    backdrop-filter: blur(16px) saturate(1.3);
-    -webkit-backdrop-filter: blur(16px) saturate(1.3);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
+    @apply backdrop-blur-lg saturate-[1.3];
   }
 
   &--scrolled::before {
-    opacity: 1;
+    @apply opacity-100;
   }
 }
 
 // ── Logo — positionné à droite de la pill ────────────────────
-// le logo est placé relativement à la pill via un wrapper flex centré
 .navbar-outer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  width: fit-content;
-  margin: 0 auto;
+  @apply flex items-center justify-center gap-4 w-fit mx-auto;
 }
 
 .navbar-logo {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  opacity: 0.9;
-  transition: opacity 0.2s ease;
+  @apply flex items-center shrink-0 opacity-90 transition-opacity duration-200;
 
   &:hover {
-    opacity: 1;
+    @apply opacity-100;
   }
 }
 
 // ── Pill de navigation ───────────────────────────────────────
 .navbar {
-  display: block;
-  width: fit-content;
+  @apply block w-fit backdrop-blur-xl;
   @include gradient-border-aurora(1rem, 135deg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 .navbar__links {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  justify-content: center;
-  list-style: none;
-  margin: 0;
-  padding: 0.375rem 0.5rem;
+  @apply flex items-center gap-1 justify-center list-none m-0 py-1.5 px-2;
 }
 
 // ── Liens ───────────────────────────────────────────────────
 .nav-link {
-  display: block;
-  padding: 0.375rem 1rem;
-  border-radius: 0.5rem;
+  @apply block py-1.5 px-4 rounded-lg text-sm font-medium no-underline border border-transparent transition-all duration-200;
   font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 500;
   color: var(--color-text-muted);
-  text-decoration: none;
-  border: 1px solid transparent;
-  transition:
-          color 0.2s ease,
-          background 0.2s ease,
-          border-color 0.2s ease;
 
   &:hover {
     color: var(--color-text);
   }
 
   &--active {
+    @apply border-aurora-blue bg-aurora-blue/5;
     color: var(--color-aurora-blue);
-    border-color: var(--color-aurora-blue);
-    background: rgba(13, 205, 239, 0.05);
   }
 }
