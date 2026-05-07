@@ -5,7 +5,7 @@ const { applyParallax } = useParallax()
 applyParallax(heroRef)
 </script>
 <template>
-  <section class="hero" ref="heroRef">
+  <section id="hero" class="hero" ref="heroRef">
 
     <!-- Couches parallax -->
     <div class="hero__layer hero__layer--sky" data-depth="0.01"></div>
