@@ -4,6 +4,10 @@
 @use '../../mixins' as *;
 
 .project-detail {
+
+  background:
+          url('/assets/images/project-details_background.webp') no-repeat center fixed,
+          radial-gradient(ellipse 28% 23% at center, #0e2327, #010511) fixed;
   @apply container mx-auto pt-40 pb-24 min-h-screen;
 
   &__title-date {
