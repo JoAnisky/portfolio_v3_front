@@ -1,0 +1,117 @@
+// ============================================================
+// Pages légales (mentions légales, politique de confidentialité)
+// ============================================================
+
+.legal {
+  @apply min-h-screen pt-32;
+
+  // ── Container ─────────────────────────────────────────────
+  &__container {
+    @apply container mx-auto max-w-[52rem];
+  }
+
+  // ── Header ────────────────────────────────────────────────
+  &__header {
+    @apply mb-14;
+  }
+
+  &__back {
+    @apply inline-flex items-center gap-2 mb-8;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--color-aurora-blue);
+    }
+  }
+
+  &__title {
+    @apply mb-4;
+    font-family: var(--font-title);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--color-text-white);
+    line-height: 1.1;
+  }
+
+  &__subtitle {
+    @apply max-w-lg;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  // ── Sections ──────────────────────────────────────────────
+  &__content {
+    @apply flex flex-col;
+  }
+
+  &__section {
+    @apply py-8;
+    border-top: 1px solid var(--color-stroke);
+
+    &:last-child {
+      border-bottom: 1px solid var(--color-stroke);
+    }
+
+    p {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--color-text);
+      line-height: 1.75;
+    }
+  }
+
+  &__section-title {
+    @apply mb-5;
+    font-family: var(--font-title);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-white);
+    letter-spacing: 0.01em;
+  }
+
+  // ── Definition list ───────────────────────────────────────
+  &__dl {
+    @apply flex flex-col gap-2;
+  }
+
+  &__dl-row {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: 0.5rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    line-height: 1.5;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      gap: 0.125rem;
+    }
+
+    dt {
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    dd {
+      color: var(--color-text);
+      margin: 0;
+    }
+  }
+
+  // ── Liens ─────────────────────────────────────────────────
+  &__link {
+    color: var(--color-aurora-blue);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+}
