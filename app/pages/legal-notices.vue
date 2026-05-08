@@ -76,7 +76,7 @@ useSeoMeta({
 
         <section class="legal__section">
           <h2 class="legal__section-title">Données personnelles</h2>
-          <p>Ce site utilise Matomo, un outil d'analyse d'audience auto-hébergé, configuré en mode exempté de consentement conformément aux recommandations de la CNIL. Aucun cookie de traçage n'est déposé. Pour en savoir plus, consultez la <NuxtLink to="/politique-de-confidentialite" class="legal__link">politique de confidentialité</NuxtLink>.</p>
+          <p>Ce site utilise Matomo, un outil d'analyse d'audience auto-hébergé, configuré en mode exempté de consentement conformément aux recommandations de la CNIL. Aucun cookie de traçage n'est déposé. Pour en savoir plus, consultez la <NuxtLink to="/privacy-policy" class="legal__link">politique de confidentialité</NuxtLink>.</p>
         </section>
 
         <section class="legal__section">
