@@ -1,0 +1,18 @@
+// ── Back link ──────────────────────────────────────────────
+.backlink {
+  @apply inline-flex items-center gap-2 no-underline mb-10 text-sm transition-colors duration-200;
+  color: var(--color-project-type);
+  font-family: var(--font-body);
+
+  &:hover {
+    color: var(--color-aurora-blue);
+  }
+
+  &__arrow {
+    @apply transition-transform duration-200;
+  }
+
+  &:hover &__arrow {
+    @apply -translate-x-1;
+  }
+}

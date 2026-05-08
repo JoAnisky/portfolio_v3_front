@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Project } from '~/shared/types/project'
+import UIBacklink from "~/components/ui/UIBacklink.vue";
 
 const route = useRoute()
 const id = route.params.id as string
@@ -29,10 +30,11 @@ useSeoMeta({
 
     <!-- Back link -->
     <div class="container">
-      <NuxtLink to="/#projects" class="project-detail__back">
-        <span class="project-detail__back-arrow">←</span>
-        Revenir aux projets
-      </NuxtLink>
+<!--      <NuxtLink to="/#projects" class="backlink">-->
+<!--        <span class="backlink__arrow">←</span>-->
+<!--        Revenir aux projets-->
+<!--      </NuxtLink>-->
+      <UIBacklink link="/#projects" label="Revenir aux projets"/>
     </div>
 
     <!-- Loading -->

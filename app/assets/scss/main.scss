@@ -14,9 +14,10 @@
 @use 'components/footer';
 @use 'components/legal';
 
-// UI comp (badges)
+// UI comp (badges, backlink)
 @use 'components/badges/highlight';
 @use 'components/badges/techno';
+@use 'components/backlink';
 
 @tailwind base;
 @tailwind components;

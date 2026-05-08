@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import UIBacklink from "~/components/ui/UIBacklink.vue";
+
 useSeoMeta({
   title: 'Mentions légales - Jonathan Loré',
   description: 'Mentions légales du site jonathanlore.fr — Jonathan Loré, développeur web freelance.',
@@ -11,12 +13,7 @@ useSeoMeta({
     <div class="legal__container">
 
       <header class="legal__header">
-        <NuxtLink to="/" class="legal__back">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 12H5M12 5l-7 7 7 7"/>
-          </svg>
-          Retour
-        </NuxtLink>
+        <UIBacklink link="/" label="Retour"/>
         <h1 class="legal__title">Mentions légales</h1>
         <p class="legal__subtitle">Conformément aux dispositions de la loi n°2004-575 du 21 juin 2004 pour la confiance en l'économie numérique.</p>
       </header>
