@@ -2,22 +2,22 @@
   @apply fixed inset-0 z-[1000] backdrop-blur-md flex items-center justify-center p-6;
   background: rgba(1, 5, 17, 0.92);
 
+  // La croix : fixe en haut à droite, mais avec un positionnement plus "safe"
   &__close {
-    @apply absolute top-20 right-[5%] md:right-[20%] w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-10;    border-color: var(--color-stroke);
+    @apply absolute top-6 right-6 w-12 h-12 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-50;
+    border-color: var(--color-stroke);
     background: rgba(255, 255, 255, 0.05);
     color: var(--color-text);
 
-    svg { @apply w-4 h-4; }
-
     &:hover {
-      @apply text-white;
+      @apply text-white scale-110;
       background: rgba(255, 255, 255, 0.1);
       border-color: var(--color-aurora-blue);
     }
   }
 
   &__nav {
-    @apply absolute top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border flex items-center justify-center cursor-pointer transition-all duration-200 z-10;
+    @apply hidden md:flex shrink-0 w-14 h-14 rounded-full border items-center justify-center cursor-pointer transition-all duration-200 z-10;
     border-color: var(--color-stroke);
     background: rgba(255, 255, 255, 0.05);
     color: var(--color-text);
@@ -25,30 +25,34 @@
     svg { @apply w-[18px] h-[18px]; }
 
     &:hover {
-      @apply text-white;
+      @apply text-white scale-110;
       background: rgba(255, 255, 255, 0.1);
       border-color: var(--color-aurora-blue);
     }
 
-    &--prev { @apply left-[5%] md:left-[20%]; }
-    &--next { @apply right-[5%] md:right-[20%]; }
+    @media (max-width: 768px) {
+      @apply absolute w-10 h-10 bg-black/40 border-none;
+      &--prev { @apply left-2; }
+      &--next { @apply right-2; }
+    }
   }
 
+  // Le stage : il contient l'image ET le compteur
   &__stage {
-    @apply flex flex-col items-center gap-4 max-h-[calc(100vh-4rem)];
-    max-width: calc(100vw - 8rem); // marge pour les flèches positionnées absolute
+    @apply flex flex-col items-center gap-4 w-full max-w-5xl px-4;
   }
 
   &__img {
-    @apply max-w-full max-h-[calc(100vh-8rem)] object-contain rounded-xl border block;
+    // On s'assure que l'image ne dépasse jamais le viewport moins les marges
+    @apply w-auto h-auto max-w-full max-h-[75vh] md:max-h-[85vh] object-contain rounded-xl border block;
     border-color: var(--color-card-stroke);
-    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8);
   }
 
   &__counter {
-    @apply text-[0.8125rem] tracking-widest;
+    @apply text-[0.8125rem] tracking-widest uppercase opacity-60;
     font-family: var(--font-body);
-    color: var(--color-text-muted);
+    color: var(--color-text-white);
   }
 }
 

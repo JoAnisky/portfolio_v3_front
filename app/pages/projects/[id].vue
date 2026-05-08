@@ -30,10 +30,6 @@ useSeoMeta({
 
     <!-- Back link -->
     <div class="container">
-<!--      <NuxtLink to="/#projects" class="backlink">-->
-<!--        <span class="backlink__arrow">←</span>-->
-<!--        Revenir aux projets-->
-<!--      </NuxtLink>-->
       <UIBacklink link="/#projects" label="Revenir aux projets"/>
     </div>
 
@@ -222,33 +218,22 @@ useSeoMeta({
     <!-- ── Lightbox ─────────────────────────────────────────── -->
     <Teleport to="body">
       <Transition name="lightbox-fade">
-        <div
-            v-if="lightboxOpen"
-            class="lightbox"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Galerie screenshots"
-            @click.self="closeLightbox"
-        >
-          <!-- Fermer -->
-          <button class="lightbox__close" aria-label="Fermer la galerie" @click="closeLightbox">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <div v-if="lightboxOpen" class="lightbox" @click.self="closeLightbox">
+
+          <button class="lightbox__close" @click="closeLightbox">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
           </button>
 
-          <!-- Prev -->
-          <button
-              class="lightbox__nav lightbox__nav--prev"
-              aria-label="Image précédente"
-              @click="prevSlide"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Flèche Gauche -->
+          <button class="lightbox__nav lightbox__nav--prev" @click="prevSlide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="15 18 9 12 15 6"/>
             </svg>
           </button>
 
-          <!-- Image avec transition slide -->
+          <!-- Stage Central -->
           <div class="lightbox__stage" @click.stop>
             <Transition :name="slideDirection === 'next' ? 'lb-slide-next' : 'lb-slide-prev'" mode="out-in">
               <img
@@ -261,13 +246,9 @@ useSeoMeta({
             <p class="lightbox__counter">{{ activeIndex + 1 }} / {{ lightboxScreenshots.length }}</p>
           </div>
 
-          <!-- Next -->
-          <button
-              class="lightbox__nav lightbox__nav--next"
-              aria-label="Image suivante"
-              @click="nextSlide"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Flèche Droite -->
+          <button class="lightbox__nav lightbox__nav--next" @click="nextSlide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="9 18 15 12 9 6"/>
             </svg>
           </button>
