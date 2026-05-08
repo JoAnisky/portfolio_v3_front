@@ -114,4 +114,43 @@
       opacity: 0.75;
     }
   }
+
+  // ── Paragraphes espacés ───────────────────────────────────
+  &__p-gap {
+    margin-top: 0.875rem;
+  }
+
+  // ── Liste ─────────────────────────────────────────────────
+  &__list {
+    @apply flex flex-col gap-1;
+    margin: 1rem 0;
+    padding-left: 1.25rem;
+
+    li {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--color-text);
+      line-height: 1.6;
+
+      &::marker {
+        color: var(--color-aurora-blue);
+      }
+    }
+  }
+
+  // ── Opt-out Matomo ────────────────────────────────────────
+  &__optout {
+    margin-top: 1.25rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-stroke);
+    overflow: hidden;
+  }
+
+  &__optout-iframe {
+    display: block;
+    width: 100%;
+    min-height: 80px;
+    border: none;
+    background: transparent;
+  }
 }
