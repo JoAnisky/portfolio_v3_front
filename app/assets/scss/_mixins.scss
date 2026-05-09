@@ -42,3 +42,7 @@
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.5s infinite;
 }
+
+// ─── Media queries ────────────────────────────────────
+@mixin below($bp) { @media (max-width: #{$bp - 1px}) { @content; } }
+@mixin above($bp) { @media (min-width: #{$bp})        { @content; } }

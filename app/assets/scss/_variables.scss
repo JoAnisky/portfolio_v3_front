@@ -36,3 +36,9 @@
   --gradient-aurora-horizontal: linear-gradient(90deg,  #0DCDEF, #1AD792);
   --gradient-aurora-vertical:   linear-gradient(180deg, #0DCDEF, #1AD792);
 }
+
+// ─── Breakpoints ──────────────────────────────────────
+$bp-sm:  640px;
+$bp-md:  768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
