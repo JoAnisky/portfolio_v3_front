@@ -39,6 +39,22 @@ export function useProjectLightbox(project: MaybeRef<Project | null | undefined>
         if (e.key === 'ArrowLeft')  prevSlide()
     }
 
+    // ── Swipe tactile ──────────────────────────────────────
+    let touchStartX = 0
+
+    function onTouchStart(e: TouchEvent) {
+        if (!e.touches[0]) return
+        touchStartX = e.touches[0].clientX
+    }
+
+    function onTouchEnd(e: TouchEvent) {
+        if (!e.changedTouches[0]) return
+        const delta = touchStartX - e.changedTouches[0].clientX
+        if (Math.abs(delta) < 50) return // trop petit, on ignore
+        if (delta > 0) nextSlide()
+        else prevSlide()
+    }
+
     onMounted(() => window.addEventListener('keydown', onKeyDown))
     onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
@@ -55,5 +71,7 @@ export function useProjectLightbox(project: MaybeRef<Project | null | undefined>
         closeLightbox,
         nextSlide,
         prevSlide,
+        onTouchStart,
+        onTouchEnd,
     }
 }

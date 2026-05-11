@@ -1,3 +1,6 @@
+@use '../../mixins' as *;
+@use '../../variables' as *;
+
 .lightbox {
   @apply fixed inset-0 z-[1000] backdrop-blur-md flex items-center justify-center p-6;
   background: rgba(1, 5, 17, 0.92);
@@ -30,10 +33,12 @@
       border-color: var(--color-aurora-blue);
     }
 
-    @media (max-width: 768px) {
-      @apply absolute w-10 h-10 bg-black/40 border-none;
-      &--prev { @apply left-2; }
-      &--next { @apply right-2; }
+    @include below($bp-md) {
+      @apply flex absolute w-10 h-10 border-none;
+      background: rgba(0, 0, 0, 0.4);
+
+      &--prev { left: 0.5rem; }
+      &--next { right: 0.5rem; }
     }
   }
 

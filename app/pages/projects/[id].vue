@@ -8,7 +8,7 @@ const id = route.params.id as string
 const { data: project, pending, error } = await useFetch<Project>(`/api/projects/${id}`)
 const { groupedTechnologies } = useTechnologyGroups(project)
 const {lightboxScreenshots, lightboxOpen, activeIndex, slideDirection,
-  openLightbox, closeLightbox, nextSlide, prevSlide } = useProjectLightbox(project)
+  openLightbox, closeLightbox, nextSlide, prevSlide, onTouchEnd, onTouchStart } = useProjectLightbox(project)
 
 // ── Date
 const formattedDate = computed(() => {
@@ -234,7 +234,7 @@ useSeoMeta({
           </button>
 
           <!-- Stage Central -->
-          <div class="lightbox__stage" @click.stop>
+          <div class="lightbox__stage" @click.stop @touchstart="onTouchStart" @touchend="onTouchEnd">
             <Transition :name="slideDirection === 'next' ? 'lb-slide-next' : 'lb-slide-prev'" mode="out-in">
               <img
                   :key="activeIndex"
