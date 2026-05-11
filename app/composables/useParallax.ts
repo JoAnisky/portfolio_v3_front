@@ -20,17 +20,28 @@ export function useParallax() {
       layers.forEach((layer) => {
         layer.style.visibility = 'visible'
         const depth = parseFloat(layer.dataset.depth ?? '0')
-        const yPos = -(scrollY * depth)
-        layer.style.transform = `translate3d(0px, ${yPos}px, 0px)`
+
+        if (width.value >= 1024) {
+          // Desktop : parallax complet sur tous les layers
+          const yPos = -(scrollY * depth)
+          layer.style.transform = `translate3d(0px, ${yPos}px, 0px)`
+        } else {
+          // Tablette/mobile : parallax léger uniquement sur le contenu texte
+          // Les layers desktop sont cachés en CSS, seul hero__content a data-depth
+          if (layer.classList.contains('hero__content')) {
+            const yPos = scrollY * 0.15
+            layer.style.transform = `translate3d(0px, ${yPos}px, 0px)`
+          }
+          if (layer.classList.contains('hero__bg--sky')) {
+            const yPos = scrollY * 0.1 // très léger — juste assez pour sentir le mouvement
+            layer.style.transform = `translate3d(0px, ${yPos}px, 0px)`
+          }
+        }
       })
     }
 
     onMounted(() => {
-      if (width.value < 1024) return
-
-      // Calculé une seule fois — insensible aux redimensionnements de la console
       heroHeight = (container.value?.offsetHeight ?? window.innerHeight) * 1.2
-
       window.addEventListener('scroll', handleScroll, { passive: true })
     })
 
