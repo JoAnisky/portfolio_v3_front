@@ -3,8 +3,10 @@
     <NavFooter/>
     <p class="footer__copy">
       <span class="footer__copy-symbol">©</span>
-      {{ currentYear }} Jonathan Loré. Tous droits réservés – Fait avec passion
-      <span class="footer__heart" aria-hidden="true">♡</span>
+      {{ currentYear }} Jonathan Loré. Tous droits réservés
+      <span class="footer__copy-break"> – Fait avec passion
+    <span class="footer__heart" aria-hidden="true">♡</span>
+  </span>
     </p>
   </footer>
 </template>
