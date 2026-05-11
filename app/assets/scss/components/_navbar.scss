@@ -1,7 +1,5 @@
-// ============================================================
-// Navbar
-// ============================================================
 @use '../mixins' as *;
+@use '../variables' as *;
 
 // ── Wrapper ──────────────────────────────────────────────────
 .navbar-wrapper {
@@ -11,11 +9,9 @@
     @apply pointer-events-auto;
   }
 
-  // Bande de blur qui remonte jusqu'en haut du viewport
   &::before {
     content: '';
     @apply absolute -top-4 left-0 right-0 pointer-events-none opacity-0 transition-opacity duration-[400ms];
-    // Hauteur : gap (1rem) + pill (~3.5rem)
     height: calc(1rem + 3.5rem);
     background: rgba(1, 5, 17, 0.6);
     @apply backdrop-blur-lg saturate-[1.3];
@@ -26,20 +22,30 @@
   }
 }
 
-// ── Logo — positionné à droite de la pill ────────────────────
+// ── Desktop ───────────────────────────────────────────────────
 .navbar-outer {
   @apply flex items-center justify-center gap-4 w-fit mx-auto;
+
+  &--desktop {
+    @include below($bp-lg) {
+      display: none;
+    }
+  }
 }
 
 .navbar-logo {
   @apply flex items-center shrink-0 opacity-90 transition-opacity duration-200;
+
+  &--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
 
   &:hover {
     @apply opacity-100;
   }
 }
 
-// ── Pill de navigation ───────────────────────────────────────
 .navbar {
   @apply block w-fit backdrop-blur-xl;
   @include gradient-border-aurora(1rem, 135deg);
@@ -49,7 +55,6 @@
   @apply flex items-center gap-1 justify-center list-none m-0 py-1.5 px-2;
 }
 
-// ── Liens ───────────────────────────────────────────────────
 .nav-link {
   @apply block py-1.5 px-4 rounded-lg text-sm font-medium no-underline border border-transparent transition-all duration-200;
   font-family: var(--font-body);
@@ -63,4 +68,102 @@
     @apply border-aurora-blue bg-aurora-blue/5;
     color: var(--color-aurora-blue);
   }
+}
+
+// ── Barre mobile ──────────────────────────────────────────────
+.navbar-mobile {
+  @apply hidden;
+
+  @include below($bp-lg) {
+    @apply flex items-center justify-between;
+    width: calc(100% - 2.5rem);
+    margin: 0 auto;
+    padding: 0.6rem 0.45rem;
+    position: relative;
+    z-index: 60;
+  }
+}
+
+// ── Burger ────────────────────────────────────────────────────
+.navbar-burger {
+  @apply flex items-center justify-center w-10 h-10 bg-transparent border-none cursor-pointer p-1 relative;
+
+  &__svg {
+    overflow: visible;
+  }
+
+  &__bar {
+    transform-origin: 17.5px 17.5px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+  }
+
+  &--open {
+    .navbar-burger__bar--top {
+      transform: translateY(10.417px) rotate(45deg);
+    }
+    .navbar-burger__bar--mid {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .navbar-burger__bar--bot {
+      transform: translateY(-10.417px) rotate(-45deg);
+    }
+  }
+}
+
+// ── Overlay ───────────────────────────────────────────────────
+.navbar-overlay {
+  @apply fixed inset-0 z-40;
+  background: rgba(1, 5, 17, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.navbar-overlay-enter-active,
+.navbar-overlay-leave-active {
+  transition: opacity 0.3s ease;
+}
+.navbar-overlay-enter-from,
+.navbar-overlay-leave-to {
+  opacity: 0;
+}
+
+// ── Drawer ────────────────────────────────────────────────────
+.navbar-drawer {
+  @apply fixed top-0 left-0 bottom-0 z-50 flex flex-col justify-center;
+  width: 100%;
+  max-width: 100%;
+  background: rgba(1, 5, 17, 0.97);
+  backdrop-filter: blur(24px);
+  padding: 2rem 2.5rem;
+
+  &__links {
+    @apply list-none m-0 p-0 flex flex-col gap-2 items-center;
+  }
+
+  &__link {
+    @apply block py-3 px-4 rounded-xl text-2xl font-medium no-underline border border-transparent transition-all duration-200 text-center;
+    min-width: 200px;
+    font-family: var(--font-title);
+    color: var(--color-text-muted);
+
+    &:hover {
+      color: var(--color-text-white);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    &--active {
+      color: var(--color-aurora-blue);
+      border-color: rgba(13, 205, 239, 0.2);
+      background: rgba(13, 205, 239, 0.05);
+    }
+  }
+}
+
+.navbar-drawer-enter-active,
+.navbar-drawer-leave-active {
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.navbar-drawer-enter-from,
+.navbar-drawer-leave-to {
+  transform: translateX(-100%);
 }
