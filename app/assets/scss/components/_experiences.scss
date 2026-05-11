@@ -1,21 +1,41 @@
 @use '../mixins' as *;
+@use '../variables' as *;
 
 .experiences {
-  background:
-          url('/assets/images/experiences_background.webp') no-repeat center fixed,
-          radial-gradient(ellipse 14% 17% at center, #12402f, #010511) fixed;
+  --bg-image: url('/assets/images/experiences_background.webp') no-repeat center fixed;
 
+  background: var(--bg-image), radial-gradient(ellipse 14% 17% at center, #12402f, #010511) fixed;
+
+  @include below($bp-lg) {
+    background: var(--bg-image), radial-gradient(ellipse 40% 18% at center, #12402f, #010511) fixed;
+  }
+
+  @include below($bp-md) {
+    background: var(--bg-image), radial-gradient(ellipse 70% 18% at center, #12402f, #010511) fixed;
+  }
+
+  &__container {
+    @apply mx-auto px-6 py-12 lg:py-24 lg:pt-10 pb-20;
+  }
   // ─── Tabs ──────────────────────────────────────────────────
   &__tabs {
     @apply flex justify-center gap-1 mb-16 bg-[#030612] rounded-full p-1 w-fit mx-auto border border-[var(--color-stroke)];
+
+    @include below($bp-md) {
+      @apply mb-10 w-full;
+    }
   }
 
   &__tab {
     @apply px-6 py-2 rounded-full bg-transparent
     text-sm font-medium text-[var(--color-text-muted)] cursor-pointer
     transition-all duration-200 ease-in-out
-    flex items-center gap-2;   // ← ajouter ça
+    flex items-center gap-2;
     font-family: var(--font-body);
+
+    @include below($bp-md) {
+      @apply flex-1 justify-center px-4;
+    }
 
     &:hover:not(.experiences__tab--active) {
       @apply text-[var(--color-text-light)] border-[var(--color-text-muted)];
@@ -33,7 +53,10 @@
 
     &::before {
       content: '';
-      @apply absolute left-1/2 md:left-1/2 top-0 bottom-0 w-px -translate-x-1/2;
+      @apply absolute top-0 bottom-0 w-px;
+      // Desktop : ligne centrale
+      left: 50%;
+      transform: translateX(-50%);
       background: linear-gradient(
                       to bottom,
                       transparent,
@@ -42,8 +65,10 @@
                       transparent
       );
 
-      @media (max-width: 768px) {
-        @apply left-0 translate-x-0;
+      // Tablette + mobile : ligne à gauche
+      @include below($bp-lg) {
+        left: 0;
+        transform: translateX(0);
       }
     }
   }
@@ -52,15 +77,27 @@
   &__item {
     @apply relative grid grid-cols-1 md:grid-cols-2 mb-10 last:mb-0;
 
+    // Tablette + mobile : tout en colonne, indenté à gauche
+    @include below($bp-lg) {
+      @apply pl-8;
+      grid-template-columns: 1fr;
+    }
+
+    // Point sur la timeline
     &::before {
       content: '';
-      @apply absolute left-0 md:left-1/2 top-7 w-2.5 h-2.5 rounded-full
-      -translate-x-1/2 z-10 transition-all duration-300;
+      @apply absolute top-7 w-2.5 h-2.5 rounded-full z-10 transition-all duration-300;
       background: var(--color-aurora-blue);
       box-shadow: 0 0 10px var(--color-aurora-blue), 0 0 20px rgba(13, 205, 239, 0.25);
 
-      @media (max-width: 768px) {
-        @apply translate-x-0;
+      // Desktop : point centré sur la ligne
+      left: 50%;
+      transform: translateX(-50%);
+
+      // Tablette + mobile : point sur la ligne gauche
+      @include below($bp-lg) {
+        left: 0;
+        transform: translateX(-50%);
       }
     }
 
@@ -69,65 +106,52 @@
       box-shadow: 0 0 10px var(--color-aurora-green), 0 0 20px rgba(26, 215, 146, 0.25);
     }
 
-    // Positions alternées
-    &--left {
-      @apply pr-0 md:pr-10;
-      .experiences__card { @apply md:col-start-1; }
-    }
-
-    &--right {
-      @apply pl-8 md:pl-10;
-      .experiences__card { @apply md:col-start-2; }
-    }
-
-    @media (max-width: 768px) {
-      @apply pl-8;
-    }
-
+    // Trait horizontal reliant le point à la card
     &::after {
       content: '';
-      @apply absolute h-px w-4;
-      top: calc(1.75rem + 5px); // centre du point : top-7 + moitié de h-2.5
+      @apply absolute h-px w-4 z-0 transition-colors duration-300;
+      top: 2rem;
       background: var(--color-aurora-blue);
-      transition: background 0.3s ease;
     }
 
     &:hover::after {
       background: var(--color-aurora-green);
     }
 
-    // Card à gauche → trait part vers la gauche depuis le point
-    &--left::after {
-      right: calc(50% + 5px); // bord gauche du point
-      left: auto;
-    }
+    // Desktop : positions alternées
+    &--left {
+      @apply md:pr-10;
+      .experiences__card { @apply md:col-start-1; }
 
-    // Card à droite → trait part vers la droite depuis le point
-    &--right::after {
-      left: calc(50% + 5px); // bord droit du point
-      right: auto;
-    }
-    &::after {
-      content: '';
-      @apply absolute h-px w-4 z-0 transition-colors duration-300;
-      top: 2rem; // Simplifié : top-7 (1.75rem) + 4px (milieu du point de 10px)
-      background: var(--color-aurora-blue);
-    }
-
-    // Utilisation de classes Tailwind pour éviter les calc complexes
-    &--left::after {
-      @apply right-[calc(50%+5px)] left-auto;
-    }
-
-    &--right::after {
-      @apply left-[calc(50%+5px)] right-auto;
-    }
-
-    @media (max-width: 768px) {
-      &--left::after, &--right::after {
-        @apply left-[5px] right-auto w-6;
+      &::after {
+        @apply right-[calc(50%+5px)] left-auto;
       }
+    }
 
+    &--right {
+      @apply md:pl-10;
+      .experiences__card { @apply md:col-start-2; }
+
+      &::after {
+        @apply left-[calc(50%+5px)] right-auto;
+      }
+    }
+
+    // Tablette + mobile : tout à gauche, trait depuis le point
+    @include below($bp-lg) {
+      &--left, &--right {
+        @apply pr-0 pl-8;
+
+        .experiences__card {
+          grid-column: 1;
+        }
+
+        &::after {
+          left: 5px;
+          right: auto;
+          width: 1.25rem;
+        }
+      }
     }
   }
 
@@ -135,6 +159,10 @@
   &__card {
     @apply p-6 backdrop-blur-md transition-all duration-300 ease-in-out;
     @include gradient-border-aurora(1rem, 135deg);
+
+    @include below($bp-md) {
+      @apply p-4;
+    }
 
     &:hover {
       @apply -translate-y-1 shadow-[0_8px_32px_rgba(13,205,239,0.07)];
@@ -154,8 +182,6 @@
     @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full border
     text-[0.7rem] font-medium tracking-wide whitespace-nowrap shrink-0 uppercase;
     font-family: var(--font-code);
-
-    // Par défaut : aurora blue (En cours, Alternance, Stage, Freelance, CDI…)
     @apply border-[rgba(13,205,239,0.3)] bg-[rgba(13,205,239,0.06)] text-[var(--color-aurora-blue)];
 
     &--validated {
@@ -191,7 +217,7 @@
     @apply shrink-0 mt-[0.4rem];
   }
 
-  // ─── Transition flip 3D entre onglets ────────────────────────────────────
+  // ─── Transition flip 3D ──────────────────────────────────
   &__flip {
     &-enter-active,
     &-leave-active {
