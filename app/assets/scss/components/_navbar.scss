@@ -1,9 +1,12 @@
+// ============================================================
+// Navbar
+// ============================================================
 @use '../mixins' as *;
 @use '../variables' as *;
 
 // ── Wrapper ──────────────────────────────────────────────────
 .navbar-wrapper {
-  @apply fixed top-4 left-0 right-0 z-50 pointer-events-none;
+  @apply fixed top-0 left-0 right-0 z-50 pointer-events-none;
 
   > * {
     @apply pointer-events-auto;
@@ -11,10 +14,11 @@
 
   &::before {
     content: '';
-    @apply absolute -top-4 left-0 right-0 pointer-events-none opacity-0 transition-opacity duration-[400ms];
-    height: calc(1rem + 3.5rem);
-    background: rgba(1, 5, 17, 0.6);
-    @apply backdrop-blur-lg saturate-[1.3];
+    @apply absolute top-0 left-0 right-0 pointer-events-none opacity-0 transition-opacity duration-[400ms] h-16;
+    @apply bg-[#010511]/60 backdrop-blur-lg saturate-[1.3];
+    @include  below($bp-lg){
+      @apply h-[5.2rem];
+    }
   }
 
   &--scrolled::before {
@@ -28,7 +32,7 @@
 
   &--desktop {
     @include below($bp-lg) {
-      display: none;
+      @apply hidden;
     }
   }
 }
@@ -37,8 +41,7 @@
   @apply flex items-center shrink-0 opacity-90 transition-opacity duration-200;
 
   &--hidden {
-    opacity: 0;
-    pointer-events: none;
+    @apply opacity-0 pointer-events-none;
   }
 
   &:hover {
@@ -75,19 +78,12 @@
   @apply hidden;
 
   @include below($bp-lg) {
-    @apply flex items-center justify-between;
-    width: calc(100% - 2.5rem);
-    margin: 0 auto;
-    padding: 0.6rem 0.45rem;
-    position: relative;
-    z-index: 60;
+    @apply flex items-center justify-between w-full px-5 py-3 relative z-[60] h-16 mt-[0.7rem];
 
     .navbar-logo {
-      padding: 0.5rem;
-      border-radius: 0.75rem;
+      @apply p-2 rounded-xl border backdrop-blur-md;
       background: rgba(1, 5, 17, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(12px);
+      border-color: rgba(255, 255, 255, 0.08);
     }
   }
 }
@@ -97,81 +93,76 @@
   @apply flex items-center justify-center w-10 h-10 bg-transparent border-none cursor-pointer p-1 relative;
 
   &__svg {
-    overflow: visible;
+    @apply overflow-visible;
   }
 
   &__bar {
+    @apply transition-all duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)];
     transform-origin: 17.5px 17.5px;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+
+    &--mid {
+      @apply duration-[250ms];
+    }
   }
 
   &--open {
     .navbar-burger__bar--top {
-      transform: translateY(10.417px) rotate(45deg);
+      @apply translate-y-[10.417px] rotate-45;
     }
     .navbar-burger__bar--mid {
-      opacity: 0;
-      transform: scaleX(0);
+      @apply opacity-0 scale-x-0;
     }
     .navbar-burger__bar--bot {
-      transform: translateY(-10.417px) rotate(-45deg);
+      @apply -translate-y-[10.417px] -rotate-45;
     }
   }
 }
 
 // ── Overlay ───────────────────────────────────────────────────
 .navbar-overlay {
-  @apply fixed inset-0 z-40;
+  @apply fixed inset-0 z-40 backdrop-blur-[4px];
   background: rgba(1, 5, 17, 0.8);
-  backdrop-filter: blur(4px);
 }
 
 .navbar-overlay-enter-active,
 .navbar-overlay-leave-active {
-  transition: opacity 0.3s ease;
+  @apply transition-opacity duration-300 ease-in-out;
 }
 .navbar-overlay-enter-from,
 .navbar-overlay-leave-to {
-  opacity: 0;
+  @apply opacity-0;
 }
 
 // ── Drawer ────────────────────────────────────────────────────
 .navbar-drawer {
-  @apply fixed top-0 left-0 bottom-0 z-50 flex flex-col justify-center;
-  width: 100%;
-  max-width: 100%;
+  @apply fixed inset-y-0 left-0 z-50 flex flex-col justify-center w-full px-10 py-8 backdrop-blur-[24px];
   background: rgba(1, 5, 17, 0.97);
-  backdrop-filter: blur(24px);
-  padding: 2rem 2.5rem;
 
   &__links {
     @apply list-none m-0 p-0 flex flex-col gap-2 items-center;
   }
 
   &__link {
-    @apply block py-3 px-4 rounded-xl text-2xl font-medium no-underline border border-transparent transition-all duration-200 text-center;
-    min-width: 200px;
+    @apply block py-3 px-4 rounded-xl text-2xl font-medium no-underline border border-transparent transition-all duration-200 text-center min-w-[200px];
     font-family: var(--font-title);
     color: var(--color-text-muted);
 
     &:hover {
-      color: var(--color-text-white);
-      background: rgba(255, 255, 255, 0.04);
+      @apply text-white/100 bg-white/5;
     }
 
     &--active {
+      @apply border-aurora-blue/20 bg-aurora-blue/5;
       color: var(--color-aurora-blue);
-      border-color: rgba(13, 205, 239, 0.2);
-      background: rgba(13, 205, 239, 0.05);
     }
   }
 }
 
 .navbar-drawer-enter-active,
 .navbar-drawer-leave-active {
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  @apply transition-transform duration-[350ms] ease-[cubic-bezier(0.4,0,0.2,1)];
 }
 .navbar-drawer-enter-from,
 .navbar-drawer-leave-to {
-  transform: translateX(-100%);
+  @apply -translate-x-full;
 }
