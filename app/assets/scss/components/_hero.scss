@@ -15,7 +15,7 @@
   }
 
   @include below($bp-md) {
-    background-image: url('/assets/images/hero-mobile.webp');
+    background-image: url('/assets/images/parallax/hero-mobile.webp');
     background-size: cover;
     background-position: center bottom;
   }

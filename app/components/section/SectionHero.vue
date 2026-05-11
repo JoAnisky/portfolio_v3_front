@@ -24,17 +24,17 @@ applyParallax(heroRef)
 
     <div class="hero__layer hero__layer--mountain-1-trees hero__layer--bottom" data-depth="0.12"></div>
 
-    <div class="hero__layer hero__layer--lake hero__layer--bottom " data-depth="0.14"></div>
+    <div class="hero__layer hero__layer--lake hero__layer--bottom" data-depth="0.14"></div>
 
-    <div class="hero__layer hero__layer--trees-1 hero__layer--bottom " data-depth="0.25"></div>
+    <div class="hero__layer hero__layer--trees-1 hero__layer--bottom" data-depth="0.25"></div>
 
-    <div class="hero__layer hero__layer--cliff hero__layer--bottom " data-depth="0.32"></div>
+    <div class="hero__layer hero__layer--cliff hero__layer--bottom" data-depth="0.32"></div>
 
-    <div class="hero__layer hero__layer--mountain-2 hero__layer--bottom " data-depth="0.36"></div>
+    <div class="hero__layer hero__layer--mountain-2 hero__layer--bottom" data-depth="0.36"></div>
 
-    <div class="hero__layer hero__layer--trees-2 hero__layer--bottom ]" data-depth="0.44"></div>
+    <div class="hero__layer hero__layer--trees-2 hero__layer--bottom" data-depth="0.44"></div>
 
-    <div class="hero__layer hero__layer--mountain-3 hero__layer--bottom ]" data-depth="0.49"></div>
+    <div class="hero__layer hero__layer--mountain-3 hero__layer--bottom" data-depth="0.49"></div>
 
     <!-- Brume seule (dégradés radiaux, mix-blend-mode) -->
     <div class="hero__layer hero__layer--brume hero__layer--bottom hero__layer--exclusion" data-depth="1"></div>
