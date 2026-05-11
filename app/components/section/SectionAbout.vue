@@ -103,6 +103,16 @@ onUnmounted(() => {
     <div class="about__main">
       <!-- Colonne gauche : photo + réseaux -->
       <div class="about__left">
+        <!-- Photo de profil -->
+        <div class="about__photo">
+          <div class="about__photo-ring about__photo-ring--outer"></div>
+          <div class="about__photo-ring about__photo-ring--mid"></div>
+          <div class="about__photo-ring"></div>
+          <div class="about__photo-img">
+            <img src="/assets/images/profile.webp" alt="Jonathan Loré" />
+          </div>
+        </div>
+
         <!-- Icônes réseaux sociaux -->
         <div class="about__socials">
           <a href="https://www.linkedin.com/in/jonathanlore42" target="_blank" rel="noopener noreferrer" class="about__social-link" aria-label="LinkedIn">
@@ -123,17 +133,6 @@ onUnmounted(() => {
               <path opacity="0.7" d="M20.3333 10.3975C19.0722 10.3975 17.8235 10.6458 16.6584 11.1284C15.4934 11.611 14.4348 12.3184 13.5431 13.2101C11.7422 15.0109 10.7305 17.4534 10.7305 20.0002C10.7305 24.2447 13.4865 27.8457 17.2988 29.1229C17.7789 29.1997 17.9326 28.902 17.9326 28.6428V27.0199C15.2726 27.5961 14.706 25.7331 14.706 25.7331C14.2643 24.6192 13.6401 24.3215 13.6401 24.3215C12.7663 23.7261 13.7073 23.7453 13.7073 23.7453C14.6676 23.8126 15.1766 24.7344 15.1766 24.7344C16.012 26.194 17.4236 25.7619 17.971 25.5315C18.0574 24.9073 18.3071 24.4848 18.5759 24.2447C16.4441 24.0046 14.2067 23.1788 14.2067 19.5201C14.2067 18.4542 14.5716 17.5996 15.1958 16.9178C15.0997 16.6777 14.7636 15.679 15.2918 14.3826C15.2918 14.3826 16.0984 14.1233 17.9326 15.3621C18.6912 15.1508 19.517 15.0452 20.3333 15.0452C21.1495 15.0452 21.9753 15.1508 22.734 15.3621C24.5681 14.1233 25.3747 14.3826 25.3747 14.3826C25.9029 15.679 25.5668 16.6777 25.4707 16.9178C26.0949 17.5996 26.4598 18.4542 26.4598 19.5201C26.4598 23.1884 24.2128 23.995 22.0714 24.2351C22.4171 24.5328 22.734 25.1185 22.734 26.0116V28.6428C22.734 28.902 22.8876 29.2093 23.3773 29.1229C27.1896 27.8361 29.936 24.2447 29.936 20.0002C29.936 18.7392 29.6877 17.4905 29.2051 16.3254C28.7225 15.1604 28.0152 14.1018 27.1235 13.2101C26.2318 12.3184 25.1732 11.611 24.0081 11.1284C22.843 10.6458 21.5943 10.3975 20.3333 10.3975Z" fill="currentColor"/>
             </svg>
           </a>
-        </div>
-
-        <!-- Photo de profil -->
-        <!-- Photo de profil -->
-        <div class="about__photo">
-          <div class="about__photo-ring about__photo-ring--outer"></div>
-          <div class="about__photo-ring about__photo-ring--mid"></div>
-          <div class="about__photo-ring"></div>
-          <div class="about__photo-img">
-            <img src="/assets/images/profile.webp" alt="Jonathan Loré" />
-          </div>
         </div>
 
         <!-- Pastille disponibilité -->

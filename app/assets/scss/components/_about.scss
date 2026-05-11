@@ -1,8 +1,18 @@
 @use '../mixins' as *;
+@use '../variables' as *;
 
 .about {
-  @apply pt-24 pb-8 overflow-hidden;
+  @apply lg:pt-24 pt-12 pb-8 overflow-hidden;
+
   background: radial-gradient(ellipse 13% 17% at center, #145242, #010511) fixed;
+
+  @include below($bp-lg) {
+    background: radial-gradient(ellipse 32% 16% at center, #145242, #010511) fixed;
+  }
+
+  @include below($bp-md) {
+    background: radial-gradient(ellipse 70% 18% at center, #145242, #010511) fixed;
+  }
 
   &__main {
     @apply grid lg:grid-cols-2 gap-12 max-w-[1100px] mx-auto px-8 pb-20 items-center lg:text-left text-center;
@@ -10,10 +20,28 @@
 
   &__left {
     @apply flex flex-col items-center gap-6 relative;
+    @include below($bp-md) {
+      gap: 2rem; // gap augmenté en mobile
+    }
+  }
+
+  &__right {
+    // Texte aligné à gauche dès md
+    @apply md:text-left text-center;
   }
 
   &__socials {
-    @apply flex lg:flex-col flex-row gap-3 lg:absolute lg:left-0 lg:top-[35%] lg:-translate-y-1/2 justify-center;
+    @apply flex flex-col gap-3 absolute top-[30%] -translate-y-1/2 justify-center;
+    left: calc(50% - 200px - 52px);
+
+    @include below($bp-md) {
+      position: relative;
+      flex-direction: row;
+      top: auto;
+      left: auto;
+      transform: none;
+      margin-top: 0.75rem; // écart sous la photo, ajuste à l'oeil
+    }
   }
 
   &__social-link {
@@ -28,9 +56,7 @@
   }
 
   &__photo {
-    @apply relative shrink-0;
-    width: 240px;
-    height: 240px;
+    @apply relative shrink-0 w-[240px] h-[240px];
 
     &-ring {
       @apply absolute rounded-full pointer-events-none;
@@ -68,7 +94,9 @@
 
   &__availability {
     @apply flex items-center gap-2 text-sm font-bold mt-8;
-
+    @include below($bp-md) {
+      margin-top: 0; // écrase le mt-8
+    }
     &-dot {
       @apply w-2 h-2 rounded-full relative flex-shrink-0;
       background: var(--color-available);
@@ -85,6 +113,7 @@
 
   &__cta {
     @apply flex gap-3 flex-wrap justify-center;
+
   }
 
   &__btn {
@@ -102,7 +131,7 @@
   }
 
   &__name {
-    @apply font-title text-[1.75rem] font-bold leading-tight mb-7 text-[var(--color-text-light)] text-nowrap;
+    @apply font-title text-[1.75rem] font-bold leading-tight mb-7 text-[var(--color-text-light)];
 
     &-highlight {
       @apply bg-clip-text text-transparent;
@@ -114,7 +143,8 @@
     @apply flex flex-col gap-4;
 
     p {
-      @apply text-[16px] leading-relaxed text-[var(--color-text)] decoration-[rgba(13,205,239,0.4)] underline-offset-[3px] tracking-wide;
+      // Justifié sur mobile/tablette, normal sur desktop
+      @apply text-[16px] leading-relaxed text-[var(--color-text)] decoration-[rgba(13,205,239,0.4)] underline-offset-[3px] tracking-wide lg:text-left text-justify;
     }
     strong {
       color: var(--color-aurora-green);
