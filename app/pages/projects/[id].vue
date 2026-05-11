@@ -29,7 +29,7 @@ useSeoMeta({
   <div class="project-detail">
 
     <!-- Back link -->
-    <div class="container">
+    <div class="project-detail__loading project-detail__container">
       <UIBacklink link="/#projects" label="Revenir aux projets"/>
     </div>
 
@@ -40,7 +40,7 @@ useSeoMeta({
     </div>
 
     <!-- Error -->
-    <div v-else-if="error" class="project-detail__error container">
+    <div v-else-if="error" class="project-detail__error project-detail__container">
       <p>Projet introuvable.</p>
       <NuxtLink to="/#projects">← Retour aux projets</NuxtLink>
     </div>
@@ -49,7 +49,7 @@ useSeoMeta({
     <template v-else-if="project">
 
       <!-- Header -->
-      <header class="project-detail__header container">
+      <header class="project-detail__header project-detail__container">
         <div class="project-detail__tags">
           <span
               v-for="tag in project.tags"
@@ -68,7 +68,7 @@ useSeoMeta({
       </header>
 
       <!-- 2-col layout -->
-      <div class="project-detail__body container">
+      <div class="project-detail__body project-detail__container">
 
         <!-- LEFT COLUMN -->
         <div class="project-detail__main">

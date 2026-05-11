@@ -2,6 +2,7 @@
 // Page détail projet — /projets/[id]
 // ============================================================
 @use '../../mixins' as *;
+@use '../../variables' as *;
 
 .project-detail {
 
@@ -10,13 +11,35 @@
           radial-gradient(ellipse 28% 23% at center, #0e2327, #010511) fixed;
   @apply container mx-auto pt-40 pb-24 min-h-screen;
 
+  @include below($bp-lg) {
+    @apply pt-28 pb-16;
+  }
+
+  @include below($bp-md) {
+    @apply pt-20 pb-12;
+  }
+
+  &__container {
+    @apply mx-auto max-w-[1280px] px-6;
+    @include below($bp-md) {
+      @apply px-4;
+    }
+  }
+
   &__title-date {
     @apply flex items-baseline gap-3;
+
+    @include below($bp-md) {
+      @apply flex-col gap-1 items-start;
+    }
   }
 
   // ── Header ─────────────────────────────────────────────────
   &__header {
     @apply mb-10;
+    @include below($bp-lg) {
+      @apply mb-5;
+    }
   }
 
   &__tags {
