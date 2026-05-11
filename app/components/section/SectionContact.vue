@@ -5,10 +5,10 @@ const { email, prepare, execute } = useSafeEmail('Y29udGFjdEBqb25hdGhhbmxvcmUuZn
 </script>
 
 <template>
-  <section id="contact" class="contact pb-0 pt-12">
-    <div class="container mx-auto px-6">
+  <section id="contact" class="contact">
+    <div class="contact__container container">
 
-      <div class="section-header mb-16 text-center">
+      <div class="section-header">
         <h2 class="section-title">Travaillons ensemble</h2>
         <p class="section-quote">« Le web n'a pas de frontières. Moi non plus. »</p>
       </div>
@@ -192,13 +192,7 @@ const { email, prepare, execute } = useSafeEmail('Y29udGFjdEBqb25hdGhhbmxvcmUuZn
             </div>
 
             <div class="contact__socials">
-              <a
-                  href="https://www.linkedin.com/in/jonathanlore42"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="contact__social-pill"
-                  aria-label="LinkedIn - jonathanlore42"
-              >
+              <a href="https://www.linkedin.com/in/jonathanlore42" target="_blank" rel="noopener noreferrer" class="contact__social-pill" aria-label="LinkedIn - jonathanlore42">
                 <span class="contact__social-pill-icon contact__social-pill-icon--linkedin" aria-hidden="true">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 40" fill="none">
                     <rect x="0.5" y="0.5" width="37.4877" height="39" rx="4.5" stroke="#0DCDEF"/>
@@ -208,13 +202,7 @@ const { email, prepare, execute } = useSafeEmail('Y29udGFjdEBqb25hdGhhbmxvcmUuZn
                 <span>/in/jonathanlore42</span>
               </a>
 
-              <a
-                  href="https://www.malt.fr/profile/jonathanlore"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="contact__social-pill"
-                  aria-label="Malt - jonathanlore"
-              >
+              <a href="https://www.malt.fr/profile/jonathanlore" target="_blank" rel="noopener noreferrer" class="contact__social-pill" aria-label="Malt - jonathanlore">
                 <span class="contact__social-pill-icon contact__social-pill-icon--malt" aria-hidden="true">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
                     <rect x="0.5" y="0.5" width="39" height="39" rx="4.5" stroke="#F28D8D"/>
@@ -224,13 +212,7 @@ const { email, prepare, execute } = useSafeEmail('Y29udGFjdEBqb25hdGhhbmxvcmUuZn
                 <span>/profile/jonathanlore</span>
               </a>
 
-              <a
-                  href="https://github.com/joanisky"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="contact__social-pill"
-                  aria-label="GitHub - joanisky"
-              >
+              <a href="https://github.com/joanisky" target="_blank" rel="noopener noreferrer" class="contact__social-pill" aria-label="GitHub - joanisky">
                 <span class="contact__social-pill-icon contact__social-pill-icon--github" aria-hidden="true">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
                     <rect x="0.5" y="0.5" width="39" height="39" rx="4.5" stroke="white"/>

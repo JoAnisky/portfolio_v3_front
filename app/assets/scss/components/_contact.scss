@@ -1,15 +1,32 @@
 @use '../mixins' as *;
+@use '../variables' as *;
 
 .contact {
-  @apply relative pt-4 pb-8 overflow-hidden;
+  @apply relative overflow-hidden pt-12 pb-0;
+
+  @include below($bp-md) {
+    @apply pb-[1rem];
+  }
   background:
           url('/assets/images/contact_background.webp') no-repeat center fixed,
           radial-gradient(ellipse 13% 19% at center, #123a40, #010511) fixed;
           mix-blend-mode: lighten;
+  &__container {
+    @apply mx-auto px-6;
+  }
+
+  .section-header {
+    @apply mb-16 text-center;
+
+    @include below($bp-md) {
+      @apply mb-10;
+    }
+  }
+
   &__grid {
     @apply grid grid-cols-2 gap-6 items-stretch;
 
-    @media (max-width: 900px) {
+    @include below($bp-lg) {
       @apply grid-cols-1;
     }
   }
@@ -27,7 +44,11 @@
     border: 1px solid var(--color-card-stroke);
     backdrop-filter: blur(22px);
     box-shadow: 0 4px 4px 4px rgba(0, 0, 0, 0.25);
-    // h-full + flex col : permet à &__form (flex-1) de remplir la hauteur
+
+    @include below($bp-md) {
+      @apply p-4;
+    }
+
     &--form {
       @apply flex flex-col h-full;
     }
@@ -40,7 +61,7 @@
     &--infos {
       @apply flex gap-8 items-center;
 
-      @media (max-width: 600px) {
+      @include below($bp-md) {
         @apply flex-col items-start gap-6;
       }
     }
@@ -87,6 +108,10 @@
   // ── Socials pills ───────────────────────────────────────────────────────────
   &__socials {
     @apply flex flex-col gap-4 shrink-0;
+
+    @include below($bp-md) {
+      @apply w-full;
+    }
   }
 
   &__social-pill {
@@ -94,6 +119,10 @@
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+    @include below($bp-md) {
+      @apply w-full;
+    }
 
     &:hover {
       background: rgba(13, 205, 239, 0.08);
@@ -109,10 +138,6 @@
   &__social-pill-icon {
     @apply w-6 h-6  flex items-center justify-center rounded-md opacity-85 shrink-0;
     transition: opacity 0.2s ease;
-
-    //&--linkedin { background: #0a66c2; @apply text-white; }
-    //&--malt     { background: #fc5757; @apply text-white; }
-    //&--github   { background: rgba(255, 255, 255, 0.1); @apply text-white; }
   }
 
   // ── En-tête formulaire ───────────────────────────────────────────────────────
@@ -131,6 +156,9 @@
 
   &__form-subtitle {
     @apply text-[0.8rem] text-white/45;
+    @include below($bp-md) {
+      @apply text-[0.70rem];
+    }
     font-family: var(--font-code), monospace;
   }
 
@@ -173,7 +201,9 @@
 
     &--textarea {
       @apply resize-y leading-relaxed;
-      min-height: 130px;
+      min-height: 180px;
+      height:auto;
+      max-height: 450px;
     }
 
     &--error {
@@ -229,6 +259,10 @@
   // ── Footer formulaire ────────────────────────────────────────────────────────
   &__form-footer {
     @apply flex justify-end;
+
+    @include below($bp-md) {
+      @apply justify-stretch;
+    }
   }
 
   // ── Bouton submit ────────────────────────────────────────────────────────────
@@ -238,6 +272,10 @@
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
     transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
     box-shadow: 0 8px 24px rgba(13, 205, 239, 0.25);
+
+    @include below($bp-md) {
+      @apply w-full justify-center;
+    }
 
     svg {
       @apply w-6 h-6 shrink-0;
