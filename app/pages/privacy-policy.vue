@@ -15,7 +15,8 @@ useSeoMeta({
       <header class="legal__header">
         <UIBacklink link="/" label="Retour"/>
         <h1 class="legal__title">Politique de confidentialité</h1>
-        <p class="legal__subtitle">Dernière mise à jour : mai 2026. Ce site respecte votre vie privée et ne collecte aucune donnée personnelle identifiable.</p>
+        <p class="legal__subtitle">Dernière mise à jour : mai 2026. </p>
+        <p class="legal__notice">Ce site respecte votre vie privée et ne collecte aucune donnée personnelle identifiable.</p>
       </header>
 
       <div class="legal__content">

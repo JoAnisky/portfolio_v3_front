@@ -1,18 +1,25 @@
-// ============================================================
-// Pages légales (mentions légales, politique de confidentialité)
-// ============================================================
+@use '../mixins' as *;
+@use '../variables' as *;
 
 .legal {
   @apply min-h-screen pt-32;
 
+  @include below($bp-md) {
+    @apply pt-20;
+  }
+
   // ── Container ─────────────────────────────────────────────
   &__container {
-    @apply container mx-auto max-w-[52rem];
+    @apply container mx-auto max-w-[52rem] px-6;
   }
 
   // ── Header ────────────────────────────────────────────────
   &__header {
     @apply mb-14;
+
+    @include below($bp-md) {
+      @apply mb-8;
+    }
   }
 
   &__back {
@@ -31,7 +38,7 @@
   &__title {
     @apply mb-4;
     font-family: var(--font-title);
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(1.5rem, 5vw, 3rem);
     font-weight: 700;
     color: var(--color-text-white);
     line-height: 1.1;
@@ -43,6 +50,10 @@
     font-size: 0.9rem;
     color: var(--color-text-muted);
     line-height: 1.6;
+
+    @include below($bp-md) {
+      @apply max-w-full;
+    }
   }
 
   // ── Sections ──────────────────────────────────────────────
@@ -53,6 +64,10 @@
   &__section {
     @apply py-8;
     border-top: 1px solid var(--color-stroke);
+
+    @include below($bp-md) {
+      @apply py-6;
+    }
 
     &:last-child {
       border-bottom: 1px solid var(--color-stroke);
@@ -75,6 +90,18 @@
     letter-spacing: 0.01em;
   }
 
+  &__notice {
+    margin-top: 1.25rem;
+    padding: 0.875rem 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--color-aurora-green);
+    line-height: 1.6;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(26, 215, 146, 0.25);
+    background: rgba(26, 215, 146, 0.05);
+  }
+
   // ── Definition list ───────────────────────────────────────
   &__dl {
     @apply flex flex-col gap-2;
@@ -88,7 +115,7 @@
     font-size: 0.875rem;
     line-height: 1.5;
 
-    @media (max-width: 480px) {
+    @include below($bp-sm) {
       grid-template-columns: 1fr;
       gap: 0.125rem;
     }
@@ -124,16 +151,27 @@
   &__list {
     @apply flex flex-col gap-1;
     margin: 1rem 0;
-    padding-left: 1.25rem;
+    padding-left: 0.8rem; // était 1.25rem, un peu plus pour que le marker soit visible
+
+    list-style: none; // supprime les puces natives
 
     li {
       font-family: var(--font-body);
       font-size: 0.9rem;
       color: var(--color-text);
       line-height: 1.6;
+      padding-left: 1.20rem;
+      position: relative;
 
-      &::marker {
-        color: var(--color-aurora-blue);
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.55em;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--color-aurora-blue);
       }
     }
   }
