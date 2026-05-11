@@ -5,13 +5,9 @@ const { projects, isLoading, hasError } = useProjects()
 
 <template>
   <section id="projects" class="projects">
+    <div class="projects__container container">
 
-    <div class="projects__orb projects__orb--left" aria-hidden="true" />
-    <div class="projects__orb projects__orb--right" aria-hidden="true" />
-
-    <div class="container mx-auto px-6 py-24 lg:py-24">
-
-      <!-- En-tête -->
+    <!-- En-tête -->
       <div class="section-header">
         <h2 class="section-title">
           <span class="section-title-line" aria-hidden="true" />
@@ -22,7 +18,7 @@ const { projects, isLoading, hasError } = useProjects()
       </div>
 
       <!-- Grille -->
-      <div class="projects__grid grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div class="projects__grid">
 
         <!-- Loading -->
         <template v-if="isLoading">
@@ -56,13 +52,8 @@ const { projects, isLoading, hasError } = useProjects()
       </div>
 
       <!-- CTA Github -->
-      <div class="mt-16 flex justify-center">
-        <a
-            href="https://github.com/JoAnisky"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="projects__github-cta"
-        >
+      <div class="projects__cta-wrapper">
+        <a href="https://github.com/JoAnisky" target="_blank" rel="noopener noreferrer" class="projects__github-cta">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
             <polyline points="15 3 21 3 21 9" />

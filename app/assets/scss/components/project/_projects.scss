@@ -1,4 +1,5 @@
 @use '../../mixins' as *;
+@use '../../variables' as *;
 
 .projects {
   @apply relative pt-4 pb-8 overflow-hidden;
@@ -6,38 +7,39 @@
           url('/assets/images/projects_background.webp') no-repeat center fixed,
           radial-gradient(ellipse 15% 21% at center, #123a40, #010511) fixed;
 
+  @include below($bp-lg) {
+    background:
+            radial-gradient(ellipse 40% 18% at center, #123a40, #010511) fixed;
+  }
+
+  @include below($bp-md) {
+    background:
+            radial-gradient(ellipse 57% 13% at center, #123a40, #010511) fixed;
+  }
+
+  // Orbes décoratives animées
   &::before, &::after {
     @apply absolute pointer-events-none select-none z-0;
-
     content: '';
     background-image: url('/assets/images/orb-green.webp');
     width: clamp(150px, 20vw, 250px);
     height: clamp(150px, 20vw, 250px);
     background-size: contain;
     background-repeat: no-repeat;
-    // On centre verticalement par défaut pour faciliter l'ajustement
     top: 50%;
   }
 
-   // orbe gauche
   &::before {
     animation: orb-float 25s ease-in-out infinite;
-
-    // Positionnement responsive
     @apply top-[20%] left-[-5%] opacity-40;
 
-    // Sur grand écran, on les rentre un peu plus
     @screen lg {
       @apply top-[25%] left-[15%] opacity-100;
     }
   }
 
-  // Orbe droit
   &::after {
-
     animation: orb-float-reverse 22s ease-in-out infinite;
-
-    // On le décale souvent hors de l'écran sur mobile pour ne pas gêner
     @apply top-[55%] right-[-10%] opacity-30 scale-x-[-1.2];
 
     @screen lg {
@@ -45,8 +47,13 @@
     }
   }
 
+  &__container {
+    @apply mx-auto px-6 py-12 lg:py-24;
+    // max-width géré par Tailwind container dans le template
+  }
+
   &__grid {
-    @apply relative z-[1];
+    @apply relative z-[1] grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3;
   }
 
   // --- Card ---
@@ -102,6 +109,14 @@
     img {
       @apply w-full object-cover object-top transition-transform duration-500 rounded-xl;
       height: 240px;
+      // Plus haute sur mobile colonne unique — plus d'espace disponible
+      @include below($bp-lg) {
+        height: 280px;
+      }
+
+      @include below($bp-md) {
+        height: 220px;
+      }
     }
 
     &-bar {
@@ -117,12 +132,24 @@
       height: 240px;
       font-family: var(--font-body);
       background: linear-gradient(135deg, #0a0f1e, #141c35);
+
+      @include below($bp-lg) {
+        height: 280px;
+      }
+
+      @include below($bp-md) {
+        height: 220px;
+      }
     }
   }
 
   // --- Corps ---
   &__body {
     @apply flex flex-col flex-1 p-5 gap-3;
+
+    @include below($bp-md) {
+      @apply p-4;
+    }
   }
 
   &__meta {
@@ -142,6 +169,10 @@
   &__title {
     @apply text-[1.1rem] font-bold leading-[1.3] m-0 text-white;
     font-family: var(--font-title);
+
+    @include below($bp-md) {
+      font-size: 1rem;
+    }
   }
 
   &__description {
@@ -162,6 +193,19 @@
   &__github-cta {
     @apply inline-flex items-center gap-2.5 py-3 px-7 rounded-full border border-[var(--color-aurora-green)] bg-transparent text-[0.9rem] font-medium text-[var(--color-aurora-green)] transition-all duration-200 hover:bg-[rgba(26,215,146,0.08)] hover:shadow-[0_0_20px_rgba(26,215,146,0.15)];
     font-family: var(--font-body);
+
+    @include below($bp-md) {
+      @apply w-full justify-center;
+    }
+  }
+
+  // --- CTA wrapper (mt-16 flex justify-center dans le template) ---
+  &__cta-wrapper {
+    @apply mt-16 flex justify-center;
+
+    @include below($bp-md) {
+      @apply mt-10 px-6;
+    }
   }
 
   // --- Skeleton & Error ---
@@ -181,17 +225,9 @@
       @apply h-3 rounded-full;
       @include skeleton-shimmer;
 
-      &--title {
-        @apply h-[18px] w-[70%];
-      }
-
-      &--short {
-        @apply w-[45%];
-      }
-
-      &--medium {
-        @apply w-[85%];
-      }
+      &--title  { @apply h-[18px] w-[70%]; }
+      &--short  { @apply w-[45%]; }
+      &--medium { @apply w-[85%]; }
     }
   }
 
