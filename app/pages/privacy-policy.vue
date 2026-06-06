@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import UIBacklink from "~/components/ui/UIBacklink.vue";
 
+const { matomoUrl } = useRuntimeConfig().public
+const matomoOptOutUrl = `${matomoUrl}/index.php?module=CoreAdminHome&action=optOut&language=fr&backgroundColor=010511&fontColor=989898&fontSize=14px&fontFamily=DM Sans`
+
 useSeoMeta({
   title: 'Politique de confidentialité — Jonathan Loré',
   description: 'Politique de confidentialité du site jonathanlore.fr — collecte de données, analytics Matomo, droits des utilisateurs.',
@@ -58,12 +61,8 @@ useSeoMeta({
           <h2 class="legal__section-title">Opposition au suivi</h2>
           <p>Même si aucun cookie n'est utilisé, vous pouvez à tout moment vous opposer à la collecte de vos données de navigation. Cochez la case ci-dessous pour activer l'exclusion :</p>
           <div class="legal__optout">
-            <!--
-              TODO : remplacer l'URL par votre instance Matomo une fois déployée
-              URL finale : https://matomo.jonathanlore.fr/index.php?module=CoreAdminHome&action=optOut&language=fr
-            -->
             <iframe
-                src="https://matomo.jonathanlore.fr/index.php?module=CoreAdminHome&action=optOut&language=fr&backgroundColor=010511&fontColor=989898&fontSize=14px&fontFamily=DM Sans"
+                :src="matomoOptOutUrl"
                 class="legal__optout-iframe"
                 title="Widget d'opposition au suivi Matomo"
                 loading="lazy"
