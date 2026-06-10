@@ -168,15 +168,16 @@ onUnmounted(() => {
         <div class="about__bio">
           <p>
             Développeur fullstack depuis plusieurs années, j'aime construire des choses qui tiennent -
-            des interfaces soignées, des architectures qui évoluent et livrer des projets.
+            des interfaces soignées, des architectures solides et des projets livrés dans les règles.
           </p>
           <p>
             Mon terrain de jeu va de l'UI jusqu'à l'infra :
             <strong>Vue/Nuxt</strong> côté front,
-            <strong>Symfony</strong> ou <strong>Laravel</strong> côté back,
-            et une vraie culture DevOps avec la mise en place d'outils tels que
-            <span class="about__tech">Jenkins</span> et <span class="about__tech">Kubernetes</span>
-            pour que tout ça vive sereinement en production.
+            <strong>Wordpress</strong> comme CMS,
+            <strong>Symfony</strong> ou <strong>Laravel</strong> côté back.
+            J'ai aussi une vraie culture DevOps, avec la mise en place d'outils tels que
+            <span class="about__tech">Jenkins</span> et <span class="about__tech">Kubernetes</span>,
+            pour que tout ça tourne sereinement en production.
           </p>
           <p>
             Ce qui me plaît, c'est de comprendre à la fois la vision du client et les contraintes

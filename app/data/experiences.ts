@@ -24,7 +24,8 @@ export const experiences: TimelineItem[] = [
             'Développement de solutions web sur-mesure pour des agences partenaires',
             'Architecture et déploiement d\'applications Nuxt 4 + Symfony sur infrastructure K3s',
             'Mise en place de pipelines CI/CD Jenkins et monitoring Prometheus/Grafana',
-            'Evolution et maintenance d’un workflow d’automatisation parseur d’emails → n8n → WordPress',
+            'Evolution et maintenance d’un workflow d’automatisé parseur d’emails → n8n → WordPress',
+            'Développement de thèmes enfants WordPress avec blocs Gutenberg personnalisés et ACF'
         ],
         technologies: getTechs(['php', 'mysql', 'symfony', 'laravel', 'javascript', 'typescript', 'vuejs', 'nuxt', 'wordpress', 'docker', 'kubernetes', 'jenkins', 'n8n']),
     },
