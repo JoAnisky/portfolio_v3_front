@@ -6,7 +6,7 @@
 
 // ── Wrapper ──────────────────────────────────────────────────
 .navbar-wrapper {
-  @apply fixed top-0 left-0 right-0 z-50 pointer-events-none;
+  @apply fixed top-0 left-0 right-0 z-50 pointer-events-none pt-5;
 
   > * {
     @apply pointer-events-auto;
@@ -14,7 +14,7 @@
 
   &::before {
     content: '';
-    @apply absolute top-0 left-0 right-0 pointer-events-none opacity-0 transition-opacity duration-[400ms] h-16;
+    @apply absolute top-0 left-0 right-0 pointer-events-none opacity-0 transition-opacity duration-[400ms] h-[5rem];
     @apply bg-[#010511]/60 backdrop-blur-lg saturate-[1.3];
     @include  below($bp-lg){
       @apply h-[5.2rem];
@@ -78,7 +78,7 @@
   @apply hidden;
 
   @include below($bp-lg) {
-    @apply flex items-center justify-between w-full px-5 py-3 relative z-[60] h-16 mt-[0.7rem];
+    @apply flex items-center justify-between w-full px-5 py-3 relative z-[60] h-16;
 
     .navbar-logo {
       @apply p-2 rounded-xl border backdrop-blur-md;
