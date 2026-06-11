@@ -3,11 +3,20 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt', '@nuxtjs/sitemap'],
+  modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt', '@nuxtjs/robots', '@nuxtjs/sitemap'],
 
   site: {
     url: process.env.NUXT_PUBLIC_SITE_URL,
     name: 'Jonathan Loré — Développeur web Fullstack freelance',
+  },
+
+  robots: {
+    groups: [
+      {
+        userAgent: ['*'],
+        allow: ['/'],
+      },
+    ],
   },
 
   sitemap: {

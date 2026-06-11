@@ -11,6 +11,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/robots": "^6.1.0",
     "@nuxtjs/sitemap": "^8.2.0",
     "nuxt": "^4.4.2",
     "three": "^0.184.0",
