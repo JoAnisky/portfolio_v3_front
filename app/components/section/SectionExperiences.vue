@@ -10,7 +10,8 @@ const currentItems = computed<TimelineItem[]>(() =>
 )
 
 function getSide(index: number): 'left' | 'right' {
-  return index % 2 === 0 ? 'left' : 'right'
+  const flipped = activeTab.value === 'diplomas'
+  return (index % 2 === 0) !== flipped ? 'left' : 'right'
 }
 </script>
 
