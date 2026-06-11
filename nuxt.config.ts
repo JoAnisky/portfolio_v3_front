@@ -86,6 +86,8 @@ export default defineNuxtConfig({
         // Preload hero LCP images — non découvrables par le scanner HTML (CSS background-image)
         { rel: 'preload', as: 'image', href: '/assets/images/parallax/aurora_stars.webp', fetchpriority: 'high', media: '(min-width: 1024px)' },
         { rel: 'preload', as: 'image', href: '/assets/images/parallax/moon.webp', fetchpriority: 'high', media: '(min-width: 1024px)' },
+        { rel: 'preload', as: 'image', href: '/assets/images/parallax/mountains-1.webp', media: '(min-width: 1024px)' },
+        { rel: 'preload', as: 'image', href: '/assets/images/parallax/trees-3.webp', media: '(min-width: 1024px)' },
         { rel: 'preload', as: 'image', href: '/assets/images/parallax/hero-sky-tablet.webp', media: '(max-width: 1023px) and (min-width: 768px)' },
         { rel: 'preload', as: 'image', href: '/assets/images/parallax/hero-sky-mobile.webp', media: '(max-width: 767px)' },
       ],
