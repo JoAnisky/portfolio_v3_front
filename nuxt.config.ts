@@ -17,6 +17,8 @@ export default defineNuxtConfig({
     display: 'swap',
     download: true,
     inject: true,
+    preload: true,
+    subsets: ['latin'],
   },
 
   site: {

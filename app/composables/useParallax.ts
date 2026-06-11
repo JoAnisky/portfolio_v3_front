@@ -10,7 +10,7 @@ export function useParallax() {
       const scrollY = window.pageYOffset
       const layers = container.value.querySelectorAll<HTMLElement>('[data-depth]')
 
-      if (scrollY >= heroHeight) {
+      if (heroHeight > 0 && scrollY >= heroHeight) {
         layers.forEach((layer) => {
           layer.style.visibility = 'hidden'
         })
@@ -18,7 +18,7 @@ export function useParallax() {
       }
 
       layers.forEach((layer) => {
-        layer.style.visibility = 'visible'
+        layer.style.visibility = ''
         const depth = parseFloat(layer.dataset.depth ?? '0')
 
         if (width.value >= 1024) {
@@ -41,8 +41,10 @@ export function useParallax() {
     }
 
     onMounted(() => {
-      heroHeight = (container.value?.offsetHeight ?? window.innerHeight) * 1.2
-      window.addEventListener('scroll', handleScroll, { passive: true })
+      nextTick(() => {
+        heroHeight = (container.value?.offsetHeight ?? window.innerHeight) * 1.2
+        window.addEventListener('scroll', handleScroll, { passive: true })
+      })
     })
 
     onUnmounted(() => {
