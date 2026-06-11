@@ -3,7 +3,21 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt', '@nuxtjs/robots', '@nuxtjs/sitemap'],
+  modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt', '@nuxtjs/robots', '@nuxtjs/sitemap', '@nuxtjs/google-fonts'],
+
+  googleFonts: {
+    families: {
+      Outfit: [400, 600, 700],
+      'DM Sans': [400, 500],
+      'Cascadia Code': {
+        ital: [400],
+        wght: [400, 600],
+      },
+    },
+    display: 'swap',
+    download: true,
+    inject: true,
+  },
 
   site: {
     url: process.env.NUXT_PUBLIC_SITE_URL,
@@ -67,12 +81,6 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' },
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=DM+Sans:wght@400;500&family=Cascadia+Code:ital,wght@0,400;0,600;1,400&display=swap',
-        },
       ],
     },
   },
