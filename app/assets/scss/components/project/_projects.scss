@@ -21,8 +21,8 @@
     @apply absolute pointer-events-none select-none z-0;
     content: '';
     background-image: url('/assets/images/orb-green.webp');
-    width: clamp(150px, 20vw, 250px);
-    height: clamp(150px, 20vw, 250px);
+    width: clamp(150px, 20vw, 100px);
+    height: clamp(150px, 20vw, 100px);
     background-size: contain;
     background-repeat: no-repeat;
     top: 50%;
@@ -33,7 +33,7 @@
     @apply top-[20%] left-[-5%] opacity-40;
 
     @screen lg {
-      @apply top-[25%] left-[15%] opacity-100;
+      @apply top-[27%] left-[20%] opacity-60;
     }
   }
 
@@ -42,7 +42,7 @@
     @apply top-[55%] right-[-10%] opacity-30 scale-x-[-1.2];
 
     @screen lg {
-      @apply top-[45%] right-[15%] opacity-70 scale-x-[-1.5];
+      @apply top-[39%] right-[18%] opacity-60 scale-x-[-1.5];
     }
   }
 
