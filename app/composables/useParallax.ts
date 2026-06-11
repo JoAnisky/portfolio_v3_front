@@ -2,41 +2,41 @@ export function useParallax() {
   const { width } = useWindowSize()
 
   function applyParallax(container: Ref<HTMLElement | null>) {
-    let heroHeight = 0 // calculé une fois au montage
+    let heroHeight = 0
+    let rafId: number | null = null
 
     const handleScroll = () => {
-      if (!container.value) return
+      if (!container.value || rafId !== null) return
 
-      const scrollY = window.pageYOffset
-      const layers = container.value.querySelectorAll<HTMLElement>('[data-depth]')
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        if (!container.value) return
 
-      if (heroHeight > 0 && scrollY >= heroHeight) {
-        layers.forEach((layer) => {
-          layer.style.visibility = 'hidden'
-        })
-        return
-      }
+        const scrollY = window.pageYOffset
+        const layers = container.value.querySelectorAll<HTMLElement>('[data-depth]')
 
-      layers.forEach((layer) => {
-        layer.style.visibility = ''
-        const depth = parseFloat(layer.dataset.depth ?? '0')
-
-        if (width.value >= 1024) {
-          // Desktop : parallax complet sur tous les layers
-          const yPos = -(scrollY * depth)
-          layer.style.transform = `translate3d(0px, ${yPos}px, 0px)`
-        } else {
-          // Tablette/mobile : parallax léger uniquement sur le contenu texte
-          // Les layers desktop sont cachés en CSS, seul hero__content a data-depth
-          if (layer.classList.contains('hero__content')) {
-            const yPos = scrollY * 0.15
-            layer.style.transform = `translate3d(0px, ${yPos}px, 0px)`
-          }
-          if (layer.classList.contains('hero__bg--sky')) {
-            const yPos = scrollY * 0.1 // très léger — juste assez pour sentir le mouvement
-            layer.style.transform = `translate3d(0px, ${yPos}px, 0px)`
-          }
+        if (heroHeight > 0 && scrollY >= heroHeight) {
+          layers.forEach((layer) => {
+            layer.style.visibility = 'hidden'
+          })
+          return
         }
+
+        layers.forEach((layer) => {
+          layer.style.visibility = ''
+          const depth = parseFloat(layer.dataset.depth ?? '0')
+
+          if (width.value >= 1024) {
+            layer.style.transform = `translate3d(0px, ${-(scrollY * depth)}px, 0px)`
+          } else {
+            if (layer.classList.contains('hero__content')) {
+              layer.style.transform = `translate3d(0px, ${scrollY * 0.15}px, 0px)`
+            }
+            if (layer.classList.contains('hero__bg--sky')) {
+              layer.style.transform = `translate3d(0px, ${scrollY * 0.1}px, 0px)`
+            }
+          }
+        })
       })
     }
 
@@ -49,6 +49,7 @@ export function useParallax() {
 
     onUnmounted(() => {
       window.removeEventListener('scroll', handleScroll)
+      if (rafId !== null) cancelAnimationFrame(rafId)
     })
   }
 

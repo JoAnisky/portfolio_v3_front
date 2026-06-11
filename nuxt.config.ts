@@ -83,6 +83,11 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' },
+        // Preload hero LCP images — non découvrables par le scanner HTML (CSS background-image)
+        { rel: 'preload', as: 'image', href: '/assets/images/parallax/aurora_stars.webp', fetchpriority: 'high', media: '(min-width: 1024px)' },
+        { rel: 'preload', as: 'image', href: '/assets/images/parallax/moon.webp', fetchpriority: 'high', media: '(min-width: 1024px)' },
+        { rel: 'preload', as: 'image', href: '/assets/images/parallax/hero-sky-tablet.webp', media: '(max-width: 1023px) and (min-width: 768px)' },
+        { rel: 'preload', as: 'image', href: '/assets/images/parallax/hero-sky-mobile.webp', media: '(max-width: 767px)' },
       ],
     },
   },
