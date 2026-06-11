@@ -3,10 +3,16 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@vueuse/nuxt',
-  ],
+  modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt', '@nuxtjs/sitemap'],
+
+  site: {
+    url: process.env.NUXT_PUBLIC_SITE_URL,
+    name: 'Jonathan Loré — Développeur web Fullstack freelance',
+  },
+
+  sitemap: {
+    sources: ['/api/sitemap-urls'],
+  },
 
   runtimeConfig: {
     apiBaseUrl: '', // sera peuplé par NUXT_API_BASE_URL
