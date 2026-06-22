@@ -15,7 +15,7 @@
   position: fixed;
   inset: 0;
   width: 100%;
-  height: 100vh;
+  height: 101vh;
   background-position: bottom center;
   background-repeat: no-repeat;
   background-size: auto 1038px;
@@ -43,6 +43,10 @@
     background-position: 85% 35%;
     mix-blend-mode: screen;
     filter: drop-shadow(0 0 40px rgba(200, 220, 255, 0.4));
+
+    @media (max-width: #{$bp-xl}) {
+      background-size: 100px auto;
+    }
   }
 
   &--mountain-1       { z-index: 4;  background-image: url('/assets/images/parallax/mountains-1.webp'); }
@@ -104,22 +108,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   gap: 1rem;
-  padding-bottom: 26vh;
+  // padding-top adaptatif : le texte reste toujours dans le ciel, jamais derrière les montagnes
+  padding-top: clamp(8rem, 24vh, 20rem);
   z-index: 3; // desktop : au-dessus des layers du fond, sous les arbres fixes
 
   @include below($bp-lg) {
     position: absolute;
     inset: 0;
+    justify-content: flex-start;
     z-index: 2; // tablette/mobile : sous hero__bg--nature (z-index: 3)
-    padding-bottom: 26vh;
+    padding-top: clamp(6rem, 20vh, 12rem);
   }
 
   @include below($bp-md) {
     gap: 0.75rem;
-    padding-bottom: 28vh;
+    padding-top: clamp(4rem, 15vh, 8rem);
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
