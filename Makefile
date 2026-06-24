@@ -1,14 +1,16 @@
+.PHONY: up down bash logs restart
+
 # Lancer le projet en dev
 up:
 	docker compose --env-file .docker/.env.docker.dev up -d --build
 
-# Entrer dans le conteneur
-bash:
-	docker exec -it portfoliov3-front bash
-
 # Stopper et nettoyer en dev
 down:
 	docker compose --env-file .docker/.env.docker.dev down
+
+# Entrer dans le conteneur
+bash:
+	docker exec -it portfoliov3-front bash
 
 # Afficher les logs du conteneur en dev
 logs:
