@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: front-ingress
+    namespace: portfoliov3-front
+    annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+spec:
+    tls:
+        - hosts:
+              - jonathanlore.fr
+              - www.jonathanlore.fr
+          secretName: jonathanlore-tls
+    rules:
+        - host: jonathanlore.fr
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: nuxt-front
+                            port:
+                                number: 3000
+        - host: www.jonathanlore.fr
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: nuxt-front
+                            port:
+                                number: 3000
