@@ -6,7 +6,11 @@ useSeoMeta({
   ogDescription: 'Jonathan Loré, développeur web Fullstack freelance basé en France. Spécialisé Vue/Nuxt, Symfony, Laravel et DevOps.',
   ogUrl: 'https://jonathanlore.fr',
   ogType: 'website',
-  twitterCard: 'summary',
+  ogImage: 'https://jonathanlore.fr/og-image.png',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  twitterCard: 'summary_large_image',
+  twitterImage: 'https://jonathanlore.fr/og-image.png',
 })
 </script>
 <template>
