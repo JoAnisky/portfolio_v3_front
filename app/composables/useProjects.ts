@@ -5,17 +5,7 @@ export function useProjects() {
     const config = useRuntimeConfig()
 
     const { data: projectsData, status, error } = useFetch<ApiPlatformCollection<Project>>('/api/projects/projects', {
-        // Récupère tous les projets sans pagination
-        // query: { limit: 100 },
-        // Transforme la réponse pour n'exposer que le tableau
-        transform: (res) => res,
-
-        // // log réponse reçue
-        // onResponse({ response }) {
-        //     console.log('[useProjects] onResponse status:', response.status)
-        //     console.log('[useProjects] onResponse body:', response._data)
-        // },
-
+        server: false,
     })
 
     const projects = computed<ProjectWithCover[]>(() =>

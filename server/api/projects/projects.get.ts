@@ -12,13 +12,15 @@ export default defineEventHandler(async () => {
     // pour éviter le mismatch d'hydration SSR/client
     const publicBase = config.public.apiBaseUrl.replace(/\/$/, '')
 
-    data.member = data.member.map((project) => ({
-        ...project,
-        screenshots: project.screenshots.map((screenshot) => ({
-            ...screenshot,
-            path: `${publicBase}/uploads/screenshots/${screenshot.path}`,
-        })),
-    }))
+    if (data?.member) {
+        data.member = data.member.map((project) => ({
+            ...project,
+            screenshots: (project.screenshots ?? []).map((screenshot) => ({
+                ...screenshot,
+                path: `${publicBase}/uploads/screenshots/${screenshot.path}`,
+            })),
+        }))
+    }
 
     return data
 })
