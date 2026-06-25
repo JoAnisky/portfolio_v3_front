@@ -4,12 +4,15 @@ import type { Project } from '#shared/types/project'
 export default defineEventHandler(async () => {
     const config = useRuntimeConfig()
 
-    const data = await $fetch<ApiPlatformCollection<Project>>(`${config.apiBaseUrl}/api/projects`, {
-        query: { limit: 100 },
-    })
+    let data: ApiPlatformCollection<Project>
+    try {
+        data = await $fetch<ApiPlatformCollection<Project>>(`${config.apiBaseUrl}/api/projects`, {
+            query: { limit: 100 },
+        })
+    } catch {
+        throw createError({ statusCode: 502, message: 'Backend unavailable' })
+    }
 
-    // Réécrire les URLs des screenshots avec l'URL publique
-    // pour éviter le mismatch d'hydration SSR/client
     const publicBase = config.public.apiBaseUrl.replace(/\/$/, '')
 
     if (data?.member) {

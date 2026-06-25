@@ -4,9 +4,7 @@ import type { ApiPlatformCollection } from '#shared/types/api'
 export function useProjects() {
     const config = useRuntimeConfig()
 
-    const { data: projectsData, status, error } = useFetch<ApiPlatformCollection<Project>>('/api/projects/projects', {
-        server: false,
-    })
+    const { data: projectsData, status, error } = useFetch<ApiPlatformCollection<Project>>('/api/projects/projects')
 
     const projects = computed<ProjectWithCover[]>(() =>
         (projectsData.value?.member ?? []).map((project) => ({
