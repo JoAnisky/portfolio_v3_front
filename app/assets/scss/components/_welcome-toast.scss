@@ -1,0 +1,144 @@
+@use '../mixins' as *;
+@use '../variables' as *;
+
+.welcome-toast {
+  @include gradient-border-aurora(1rem, 135deg, 1px);
+  position: fixed;
+  top: 5.75rem;
+  left: 5.75rem;
+  z-index: 1000;
+  width: min(22rem, calc(100vw - 3rem));
+  padding: 1.25rem 1.25rem 1rem;
+  background-color: rgba(1, 5, 17, 0.96);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  @include below($bp-lg) {
+    top: calc(50% - min(11rem, 50vw - 1.5rem));
+    left: calc(50% - min(11rem, 50vw - 1.5rem));
+  }
+
+  @include below($bp-sm) {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);
+    width: min(20rem, calc(100vw - 2rem));
+    padding: 1rem 1rem 0.875rem;
+    gap: 0.5rem;
+  }
+
+  // ── Bouton fermer ──────────────────────────────────────────
+  &__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--color-text-light);
+    }
+  }
+
+  // ── Texte ──────────────────────────────────────────────────
+  &__greeting {
+    font-family: var(--font-title);
+    font-size: 1rem;
+    font-weight: 600;
+    padding-right: 1.5rem;
+    background: var(--gradient-aurora);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    @include below($bp-sm) {
+      font-size: 0.9rem;
+    }
+  }
+
+  &__message {
+    font-family: var(--font-body);
+    font-size: 0.825rem;
+    color: var(--color-text);
+    line-height: 1.65;
+
+    @include below($bp-sm) {
+      font-size: 0.775rem;
+      line-height: 1.55;
+    }
+  }
+
+  // ── Barre de progression ───────────────────────────────────
+  &__progress {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    height: 3px;
+    border-radius: 9999px;
+    background: var(--gradient-aurora-horizontal);
+    transform-origin: left center;
+    animation: welcome-toast-shrink var(--duration, 8000ms) linear forwards;
+  }
+
+  // ── CTA ────────────────────────────────────────────────────
+  &__cta {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-aurora-blue);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 9999px;
+    transition: opacity 0.2s ease, gap 0.2s ease;
+    @include gradient-border-aurora(9999px, 90deg, 1px);
+
+    @include below($bp-sm) {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.875rem;
+    }
+
+    &:hover {
+      opacity: 0.8;
+      gap: 0.6rem;
+    }
+  }
+}
+
+// ── Animation barre ───────────────────────────────────────────
+@keyframes welcome-toast-shrink {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+// ── Transition : opacity seul, aucun transform ────────────────
+.welcome-toast-enter-active {
+  transition: opacity 0.3s ease;
+}
+
+.welcome-toast-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.welcome-toast-enter-from,
+.welcome-toast-leave-to {
+  opacity: 0;
+}

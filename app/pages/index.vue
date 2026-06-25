@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import WelcomeToast from "~/components/ui/WelcomeToast.vue";
+
 useSeoMeta({
   title: 'Développeur web Fullstack freelance',
   description: 'Jonathan Loré, développeur web Fullstack freelance basé en France. Spécialisé Vue/Nuxt, Symfony, Laravel et DevOps. Disponible pour vos projets.',
@@ -14,6 +16,7 @@ useSeoMeta({
 })
 </script>
 <template>
+  <WelcomeToast />
   <SectionHero/>
   <div class="relative min-h-screen bg-bg" style="z-index: 20">
     <SectionAbout/>
