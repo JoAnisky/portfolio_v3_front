@@ -192,6 +192,16 @@
   }
 }
 
+// ─── Desktop : mountain-1 passe sous le texte quand la hauteur est restreinte ──
+// Seuil volontairement plus large que les paliers de réduction du texte ci-dessous :
+// à largeur desktop courante (1920px), mountain-1 atteint ~1038px de haut et peut
+// recouvrir le tagline bien avant qu'on tombe sous 800px de hauteur de viewport.
+@media (min-width: #{$bp-lg}) and (max-height: 1100px) {
+  .hero__layer--mountain-1 {
+    z-index: 1;
+  }
+}
+
 // ─── Desktop écran court : réduction du bloc texte via max-height ─────────────
 
 @media (min-width: #{$bp-lg}) and (max-height: 800px) {
