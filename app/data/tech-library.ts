@@ -2,6 +2,7 @@ import type { Technology } from '#shared/types/project'
 
 export const TECH_LIBRARY = {
     clickup:     { name: 'ClickUp',     icon: 'clickup' },
+    claudecode:  { name: 'Claude Code', icon: 'claudecode' },
     csharp:      { name: 'C#',          icon: 'csharp' },
     css:         { name: 'CSS',         icon: 'css' },
     docker:      { name: 'Docker',      icon: 'docker' },
@@ -23,6 +24,7 @@ export const TECH_LIBRARY = {
     photoshop:   { name: 'Photoshop',   icon: 'photoshop' },
     php:         { name: 'PHP',         icon: 'php' },
     phpstorm:    { name: 'PhpStorm',    icon: 'phpstorm' },
+    postgresql:  { name: 'PostgreSQL',  icon: 'postgresql' },
     react:       { name: 'React',       icon: 'react' },
     restic:      { name: 'Restic',      icon: 'restic' },
     scss:        { name: 'SCSS',        icon: 'scss' },
