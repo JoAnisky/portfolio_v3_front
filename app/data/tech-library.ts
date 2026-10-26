@@ -21,6 +21,7 @@ export const TECH_LIBRARY = {
     n8n:         { name: 'n8n',         icon: 'n8n' },
     notion:      { name: 'Notion',      icon: 'notion' },
     nuxt:        { name: 'Nuxt',        icon: 'nuxt' },
+    ollama:      { name: 'Ollama',      icon: 'ollama' },
     photoshop:   { name: 'Photoshop',   icon: 'photoshop' },
     php:         { name: 'PHP',         icon: 'php' },
     phpstorm:    { name: 'PhpStorm',    icon: 'phpstorm' },
